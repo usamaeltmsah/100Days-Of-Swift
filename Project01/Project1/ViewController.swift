@@ -42,6 +42,9 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
         
         cell.textLabel?.text = pictures[indexPath.row]
+        
+        cell.textLabel?.setSizeFont(40.0)
+        
         return cell
     }
     
@@ -59,3 +62,9 @@ class ViewController: UITableViewController {
     }
 }
 
+extension UILabel {
+    func setSizeFont (_ fontSize: Double) {
+        self.font =  UIFont(name: self.font.fontName, size: CGFloat(fontSize))!
+        self.sizeToFit()
+    }
+}
