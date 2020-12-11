@@ -7,6 +7,9 @@
 
 import UIKit
 
+var selectedPictureNumber: Int!
+var totalPictures: Int!
+
 class ViewController: UITableViewController {
     
     var pictures = [String]()
@@ -31,7 +34,7 @@ class ViewController: UITableViewController {
         }
         
         pictures.sort()
-        
+        totalPictures = pictures.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +61,9 @@ class ViewController: UITableViewController {
             
             // 3: now push it onto the navigation controller!
             navigationController?.pushViewController(vc, animated: true)
+            
+            selectedPictureNumber = indexPath.row + 1
+
         }
     }
 }

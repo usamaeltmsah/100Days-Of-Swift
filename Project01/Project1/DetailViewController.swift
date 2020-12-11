@@ -16,8 +16,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = selectedImage
-        
+//        title = selectedImage
+        title = "Picture \(selectedPictureNumber!) of \(totalPictures!)"
         navigationItem.largeTitleDisplayMode = .never
         
         // Do any additional setup after loading the view.
