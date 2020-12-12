@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AQf-d2-Fle">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Project2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkH-Zs-dXB">
+                                <rect key="frame" x="107" y="100" width="200" height="100"/>
+                                <state key="normal" image="us"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCG-xu-yv8">
+                                <rect key="frame" x="107" y="230" width="200" height="100"/>
+                                <state key="normal" image="us"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbk-JZ-zNX">
+                                <rect key="frame" x="107" y="360" width="200" height="100"/>
+                                <state key="normal" image="us"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tCG-xu-yv8" firstAttribute="top" secondItem="gkH-Zs-dXB" secondAttribute="bottom" constant="30" id="HWj-L5-aXX"/>
+                            <constraint firstItem="Gbk-JZ-zNX" firstAttribute="centerX" secondItem="tCG-xu-yv8" secondAttribute="centerX" id="Kd8-nk-cqg"/>
+                            <constraint firstItem="Gbk-JZ-zNX" firstAttribute="top" secondItem="tCG-xu-yv8" secondAttribute="bottom" constant="30" id="YtU-o7-6CF"/>
+                            <constraint firstItem="gkH-Zs-dXB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dN6-7g-TlM"/>
+                            <constraint firstItem="tCG-xu-yv8" firstAttribute="centerX" secondItem="gkH-Zs-dXB" secondAttribute="centerX" id="hrN-pI-ExE"/>
+                            <constraint firstItem="gkH-Zs-dXB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="oPw-hK-a7b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="jkt-Mp-5kD"/>
+                    <connections>
+                        <outlet property="button1" destination="gkH-Zs-dXB" id="HMa-MT-Ve1"/>
+                        <outlet property="button2" destination="tCG-xu-yv8" id="YcG-Z3-yDO"/>
+                        <outlet property="button3" destination="Gbk-JZ-zNX" id="Bic-EY-T0u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="63.616071428571423"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7qb-wl-NAr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AQf-d2-Fle" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gxj-cJ-aCC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ukx-oC-p49"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ju-JQ-w9R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="63.616071428571423"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="us" width="200" height="100"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
