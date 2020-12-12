@@ -97,5 +97,18 @@ class ViewController: UIViewController {
         present(ac, animated: true)
     }
     
+    func finalAlert() {
+        let ac = UIAlertController(title: title, message: "Your final score is \(score)/10", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Restart", style: .default, handler: restartGame))
+        present(ac, animated: true)
+    }
+    
+    func restartGame(action: UIAlertAction) {
+        count = 0
+        score = 0
+        
+        startGame()
+    }
 }
 
