@@ -100,7 +100,7 @@ class ViewController: UIViewController {
     func finalAlert() {
         let ac = UIAlertController(title: title, message: "Your final score is \(score)/10", preferredStyle: .alert)
         
-        ac.addAction(UIAlertAction(title: "Restart", style: .default, handler: restartGame))
+        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: restartGame))
         present(ac, animated: true)
     }
     
