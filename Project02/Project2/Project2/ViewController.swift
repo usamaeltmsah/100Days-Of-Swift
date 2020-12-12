@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var countries = [String]()
     var score = 0
     var correctAnswer = 0
+    var count = 0
     
     var countryLabel: UILabel!
     var scoreLabel: UILabel!
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
-        
+        count += 1
         addViewsToNavBar()
     }
     
@@ -81,8 +82,12 @@ class ViewController: UIViewController {
             title = "Correct"
             score += 1
         } else {
-            title = "Wrong"
-            score -= 1
+            title = "Wrong! That’s the flag of \(countries[sender.tag])"
+        }
+        
+        if count == 10 {
+            finalAlert()
+            resetViewsOfNavBar()
         }
         
         let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
