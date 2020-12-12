@@ -11,11 +11,13 @@ class ViewController: UIViewController {
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
-    
     var countries = [String]()
     var score = 0
     var correctAnswer = 0
     
+    var countryLabel: UILabel!
+    var scoreLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,7 +38,32 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = countries[correctAnswer].uppercased()
+        addViewsToNavBar()
+    }
+    
+    func addViewsToNavBar() {
+        let title = countries[correctAnswer].uppercased()
+        
+        let navBar = navigationController?.navigationBar
+        let labelWidth = (navBar!.bounds.width) - 110
+
+        countryLabel = UILabel(frame: CGRect(x:(navBar!.bounds.width/2) - (labelWidth/2), y:0, width:labelWidth, height:navBar!.bounds.height))
+        scoreLabel = UILabel(frame: CGRect(x:(navBar!.bounds.width) - (labelWidth/2), y:0, width:labelWidth, height:navBar!.bounds.height))
+        countryLabel.font = UIFont.boldSystemFont(ofSize: 23.0)
+        scoreLabel.font = UIFont.systemFont(ofSize: 20.0)
+        countryLabel.text = title
+        scoreLabel.text = "Score: \(score)"
+        navBar!.addSubview(countryLabel)
+        navBar!.addSubview(scoreLabel)
+    }
+    
+    func resetViewsOfNavBar() {
+        if let clabel = countryLabel{
+            clabel.removeFromSuperview()
+        }
+        if let sclabel = scoreLabel{
+            sclabel.removeFromSuperview()
+        }
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -53,7 +80,7 @@ class ViewController: UIViewController {
         let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
         
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-        
+        resetViewsOfNavBar()
         present(ac, animated: true)
     }
     
