@@ -19,6 +19,8 @@ class ViewController: UITableViewController {
         
         title = "Storm Viewer"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share App", style: .plain, target: self, action: #selector(shareTapped))
+        
         navigationController?.navigationBar.prefersLargeTitles = true
 
         // Do any additional setup after loading the view.
@@ -54,17 +56,38 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
-        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-            
-            // 2: success! Set its selectedImage property
-            vc.selectedImage = pictures[indexPath.row]
-            
-            // 3: now push it onto the navigation controller!
-            navigationController?.pushViewController(vc, animated: true)
-            
-            selectedPictureNumber = indexPath.row + 1
-
+        if #available(iOS 13.0, *) {
+            if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+                
+                // 2: success! Set its selectedImage property
+                vc.selectedImage = pictures[indexPath.row]
+                
+                // 3: now push it onto the navigation controller!
+                navigationController?.pushViewController(vc, animated: true)
+                
+                selectedPictureNumber = indexPath.row + 1
+                
+            }
+        } else {
+            // Fallback on earlier versions
+            if let vc2 = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+                
+                // 2: success! Set its selectedImage property
+                vc2.selectedImage = pictures[indexPath.row]
+                
+                // 3: now push it onto the navigation controller!
+                navigationController?.pushViewController(vc2, animated: true)
+                
+                selectedPictureNumber = indexPath.row + 1
+            }
         }
+    }
+    
+    @objc func shareTapped() {
+        let vc = UIActivityViewController(activityItems: ["Check my app!", "https://appstore.usamaeltmsah.storm_viewer.com"], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
