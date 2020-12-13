@@ -19,7 +19,7 @@ class ViewController: UITableViewController {
         
         title = "Storm Viewer"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share App", style: .plain, target: self, action: #selector(shareTapped))
         
         navigationController?.navigationBar.prefersLargeTitles = true
 
