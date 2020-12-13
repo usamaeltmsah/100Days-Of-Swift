@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show Score", style: .plain, target: self, action: #selector(showScore))
         startGame()
     }
     
@@ -54,16 +55,16 @@ class ViewController: UIViewController {
         let title = countries[correctAnswer].uppercased()
         
         let navBar = navigationController?.navigationBar
-        let labelWidth = (navBar!.bounds.width) - 110
+        let labelWidth = (navBar!.bounds.width) - 50
 
         countryLabel = UILabel(frame: CGRect(x:(navBar!.bounds.width/2) - (labelWidth/2), y:0, width:labelWidth, height:navBar!.bounds.height))
-        scoreLabel = UILabel(frame: CGRect(x:(navBar!.bounds.width) - (labelWidth/2), y:0, width:labelWidth, height:navBar!.bounds.height))
+//        scoreLabel = UILabel(frame: CGRect(x:(navBar!.bounds.width) - (labelWidth/2), y:0, width:labelWidth, height:navBar!.bounds.height))
         countryLabel.font = UIFont.boldSystemFont(ofSize: 23.0)
-        scoreLabel.font = UIFont.systemFont(ofSize: 20.0)
+//        scoreLabel.font = UIFont.systemFont(ofSize: 20.0)
         countryLabel.text = title
-        scoreLabel.text = "Score: \(score)"
+//        scoreLabel.text = "Score: \(score)"
         navBar!.addSubview(countryLabel)
-        navBar!.addSubview(scoreLabel)
+//        navBar!.addSubview(scoreLabel)
     }
     
     func resetViewsOfNavBar() {
@@ -109,6 +110,13 @@ class ViewController: UIViewController {
         score = 0
         
         startGame()
+    }
+    
+    @objc func showScore() {
+        let ac = UIAlertController(title: title, message: "Your current score is \(score)/10", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
 }
 
