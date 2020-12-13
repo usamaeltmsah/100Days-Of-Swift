@@ -18,9 +18,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         title = "Storm Viewer"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share App", style: .plain, target: self, action: #selector(shareTapped))
-        
+                
         navigationController?.navigationBar.prefersLargeTitles = true
 
         // Do any additional setup after loading the view.
@@ -67,13 +65,6 @@ class ViewController: UITableViewController {
             selectedPictureNumber = indexPath.row + 1
 
         }
-    }
-    
-    @objc func shareTapped() {
-        let vc = UIActivityViewController(activityItems: ["Check my app!", "https:appstore.usamaeltmsah.storm_viewer.com"], applicationActivities: [])
-        
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
     }
 }
 
