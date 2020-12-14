@@ -45,13 +45,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="country_flag" translatesAutoresizingMaskIntoConstraints="NO" id="IWY-i0-FFE">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="609"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="country_flag" translatesAutoresizingMaskIntoConstraints="NO" id="IWY-i0-FFE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lNp-c5-wNu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IWY-i0-FFE" firstAttribute="leading" secondItem="lNp-c5-wNu" secondAttribute="leading" id="7Lp-TH-yDn"/>
+                            <constraint firstItem="IWY-i0-FFE" firstAttribute="centerY" secondItem="3V0-4n-WCd" secondAttribute="centerY" id="KOY-Ni-2sQ"/>
+                            <constraint firstItem="IWY-i0-FFE" firstAttribute="centerX" secondItem="3V0-4n-WCd" secondAttribute="centerX" id="NER-t4-Ieu"/>
+                            <constraint firstItem="IWY-i0-FFE" firstAttribute="top" secondItem="3V0-4n-WCd" secondAttribute="topMargin" constant="-88" id="XtS-K5-Jub"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Vf5-C2-Czg"/>
                     <connections>

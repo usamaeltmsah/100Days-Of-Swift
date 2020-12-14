@@ -28,7 +28,6 @@ class ViewController: UITableViewController {
         }
         
         flags.sort()
-        print(flags.count)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,9 +37,13 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Country", for: indexPath)
         
-        cell.textLabel?.text = flags[indexPath.row].uppercased()
+        cell.textLabel?.text = removeExten(flags[indexPath.row]).uppercased()
                 
         return cell
+    }
+    
+    func removeExten(_ str: String!) -> String {
+        return String(str.split(separator: ".").first!)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
