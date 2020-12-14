@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  123
+//  Projects 1-3 Consolidation
 //
-//  Created by Usama Fouad on 12/13/20.
+//  Created by Usama Fouad on 12/14/20.
 //
 
 import UIKit
