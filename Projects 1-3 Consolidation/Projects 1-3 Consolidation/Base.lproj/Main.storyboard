@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,6 +35,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxz-Dd-eNw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="745" y="33"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="GFG-bs-2PG">
+            <objects>
+                <viewController id="a1d-DG-Xed" customClass="DetailViewController" customModule="Projects_1_3_Consolidation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3V0-4n-WCd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="country_flag" translatesAutoresizingMaskIntoConstraints="NO" id="IWY-i0-FFE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lNp-c5-wNu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Vf5-C2-Czg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ftz-pt-e2e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2442.0289855072465" y="32.8125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hiC-MS-TqN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bgr-Eh-QjY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fry-yp-q70">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="a1d-DG-Xed" kind="relationship" relationship="rootViewController" id="5hY-mA-lPr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aqL-qR-80o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1531.8840579710145" y="32.8125"/>
         </scene>
     </scenes>
     <resources>
