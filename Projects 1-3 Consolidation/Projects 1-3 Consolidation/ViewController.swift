@@ -28,6 +28,9 @@ class ViewController: UITableViewController {
         print(flags.count)
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return flags.count
+    }
 
 }
 
