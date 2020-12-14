@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    var flags = [String]()
+//    var flags = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,32 +18,27 @@ class ViewController: UITableViewController {
         title = "Flags of the world"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let fm = FileManager.default
-        let path = Bundle.main.resourcePath!
-        let items = try! fm.contentsOfDirectory(atPath: path)
-        for item in items {
-            if item.hasSuffix(".png") {
-                flags.append(item)
-            }
-        }
-        
-        flags.sort()
+//        let fm = FileManager.default
+//        let path = Bundle.main.resourcePath!
+//        let items = try! fm.contentsOfDirectory(atPath: path)
+//        for item in items {
+//            if item.hasSuffix(".png") {
+//                flags.append(item)
+//            }
+//        }
+//
+//        flags.sort()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flags.count
+        return countryDict.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Country", for: indexPath)
-        
-        cell.textLabel?.text = removeExten(flags[indexPath.row]).uppercased()
+        cell.textLabel?.text = countryDict[sortedKeys[indexPath.row]]
                 
         return cell
-    }
-    
-    func removeExten(_ str: String!) -> String {
-        return String(str.split(separator: ".").first!)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -51,8 +46,7 @@ class ViewController: UITableViewController {
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             
             // 2: success! Set its selectedImage property
-            vc.selectedImage = flags[indexPath.row]
-            
+            vc.selectedImage = sortedKeys[indexPath.row].lowercased()
             // 3: now push it onto the navigation controller!
             navigationController?.pushViewController(vc, animated: true)
         }

@@ -16,8 +16,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        title = selectedImage?.uppercased()
-        
+        title = countryDict[selectedImage!.uppercased()]
         navigationItem.largeTitleDisplayMode = .never
         
         // Do any additional setup after loading the view.

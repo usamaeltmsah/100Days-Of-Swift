@@ -268,6 +268,7 @@
 		19DB82E125880AB7000A40F2 /* ag.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DB81E325880AB6000A40F2 /* ag.png */; };
 		19DB82E225880AB7000A40F2 /* tw.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DB81E425880AB7000A40F2 /* tw.png */; };
 		19DB82E525880DFD000A40F2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB82E425880DFD000A40F2 /* DetailViewController.swift */; };
+		19DB82E82588318C000A40F2 /* CountryDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB82E72588318C000A40F2 /* CountryDictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -534,6 +535,7 @@
 		19DB81E325880AB6000A40F2 /* ag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ag.png; sourceTree = "<group>"; };
 		19DB81E425880AB7000A40F2 /* tw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw.png; sourceTree = "<group>"; };
 		19DB82E425880DFD000A40F2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		19DB82E72588318C000A40F2 /* CountryDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -575,6 +577,7 @@
 				19DB80C3258801A2000A40F2 /* Assets.xcassets */,
 				19DB80C5258801A2000A40F2 /* LaunchScreen.storyboard */,
 				19DB80C8258801A2000A40F2 /* Info.plist */,
+				19DB82E72588318C000A40F2 /* CountryDictionary.swift */,
 			);
 			path = "Projects 1-3 Consolidation";
 			sourceTree = "<group>";
@@ -1166,6 +1169,7 @@
 			files = (
 				19DB80BF2588019F000A40F2 /* ViewController.swift in Sources */,
 				19DB80BB2588019F000A40F2 /* AppDelegate.swift in Sources */,
+				19DB82E82588318C000A40F2 /* CountryDictionary.swift in Sources */,
 				19DB80BD2588019F000A40F2 /* SceneDelegate.swift in Sources */,
 				19DB82E525880DFD000A40F2 /* DetailViewController.swift in Sources */,
 			);
