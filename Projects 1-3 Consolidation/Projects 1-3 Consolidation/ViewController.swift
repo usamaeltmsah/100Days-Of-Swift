@@ -15,6 +15,9 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        title = "Flags of the world"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
@@ -38,6 +41,18 @@ class ViewController: UITableViewController {
         cell.textLabel?.text = flags[indexPath.row].uppercased()
                 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
+        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+            
+            // 2: success! Set its selectedImage property
+            vc.selectedImage = flags[indexPath.row]
+            
+            // 3: now push it onto the navigation controller!
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
 }
