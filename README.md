@@ -16,5 +16,5 @@
 <img alt="Project 3 - Demo" src="Project03/project3-demo.gif" width="200" height="400" />
 
 
-## [Projects 1-3 Consolidation](Projects 1-3 Consolidation)
+## [Projects 1-3 Consolidation](Projects-1-3-Consolidation)
 <img alt="Project 1 - Demo" src="Projects 1-3 Consolidation/Projects 1-3 Consolidation-demo.gif" width="200" height="400" />
