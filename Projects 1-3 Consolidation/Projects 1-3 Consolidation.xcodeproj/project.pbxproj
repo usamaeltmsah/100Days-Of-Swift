@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		192182AE2589492D00E18E3D /* style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192182AD2589492D00E18E3D /* style.swift */; };
+		192182B125894B4D00E18E3D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192182B025894B4D00E18E3D /* TableViewCell.swift */; };
 		19DB80BB2588019F000A40F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB80BA2588019F000A40F2 /* AppDelegate.swift */; };
 		19DB80BD2588019F000A40F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB80BC2588019F000A40F2 /* SceneDelegate.swift */; };
 		19DB80BF2588019F000A40F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DB80BE2588019F000A40F2 /* ViewController.swift */; };
@@ -273,6 +275,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		192182AD2589492D00E18E3D /* style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = style.swift; sourceTree = "<group>"; };
+		192182B025894B4D00E18E3D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		19DB80B72588019F000A40F2 /* Projects 1-3 Consolidation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Projects 1-3 Consolidation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19DB80BA2588019F000A40F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19DB80BC2588019F000A40F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -574,6 +578,7 @@
 				19DB80BC2588019F000A40F2 /* SceneDelegate.swift */,
 				19DB80BE2588019F000A40F2 /* ViewController.swift */,
 				19DB82EA25884468000A40F2 /* ImageEditor.swift */,
+				192182AD2589492D00E18E3D /* style.swift */,
 				19DB82E425880DFD000A40F2 /* DetailViewController.swift */,
 				19DB80C02588019F000A40F2 /* Main.storyboard */,
 				19DB80CF2588025A000A40F2 /* Content */,
@@ -581,6 +586,7 @@
 				19DB80C5258801A2000A40F2 /* LaunchScreen.storyboard */,
 				19DB80C8258801A2000A40F2 /* Info.plist */,
 				19DB82E72588318C000A40F2 /* CountryDictionary.swift */,
+				192182B025894B4D00E18E3D /* TableViewCell.swift */,
 			);
 			path = "Projects 1-3 Consolidation";
 			sourceTree = "<group>";
@@ -1171,6 +1177,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				19DB82EB25884469000A40F2 /* ImageEditor.swift in Sources */,
+				192182B125894B4D00E18E3D /* TableViewCell.swift in Sources */,
+				192182AE2589492D00E18E3D /* style.swift in Sources */,
 				19DB80BF2588019F000A40F2 /* ViewController.swift in Sources */,
 				19DB80BB2588019F000A40F2 /* AppDelegate.swift in Sources */,
 				19DB82E82588318C000A40F2 /* CountryDictionary.swift in Sources */,
