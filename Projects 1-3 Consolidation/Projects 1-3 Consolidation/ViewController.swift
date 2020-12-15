@@ -36,8 +36,18 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Country", for: indexPath)
+        
+        cell.imageView?.layer.cornerRadius = (cell.imageView?.bounds.width)! / 4
+        
+        cell.imageView?.addBorders(width: 1.5, color: UIColor.black.cgColor)
+        
         cell.textLabel?.text = countryDict[sortedKeys[indexPath.row]]
-                
+        
+        let image = UIImage(named: sortedKeys[indexPath.row].lowercased())
+        
+        let resized_image = image?.scaleImage(toSize: CGSize(width: 30, height: 15))
+        
+        cell.imageView?.image = resized_image
         return cell
     }
     
