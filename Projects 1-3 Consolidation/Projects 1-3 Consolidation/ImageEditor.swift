@@ -30,7 +30,7 @@ extension UIImage {
 extension UIImageView {
     func addBorders(width: Float, color: CGColor) {
         self.layer.masksToBounds = true
-        self.layer.borderWidth = 1.5
-        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = CGFloat(width)
+        self.layer.borderColor = color
     }
 }
