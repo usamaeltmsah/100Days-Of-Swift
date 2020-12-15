@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
         title = countryDict[selectedImage!.uppercased()]
         navigationItem.largeTitleDisplayMode = .never
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         // Do any additional setup after loading the view.
         
         if let imageToLoad = selectedImage {
@@ -34,6 +35,17 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
+    }
+    
+    @objc func shareTapped() {
+        guard let image = imageView.image?.jpegData(compressionQuality: 0.8) else {
+            print("No image found")
+            return
+        }
+        let vc = UIActivityViewController(activityItems: [title!, image], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     /*
     // MARK: - Navigation
