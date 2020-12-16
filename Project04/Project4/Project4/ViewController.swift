@@ -11,6 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
+    var websites = ["github.com/usamaeltmsah/", "twitter.com/usama_fouad/"]
     
     override func loadView() {
         webView = WKWebView()
@@ -35,15 +36,17 @@ class ViewController: UIViewController, WKNavigationDelegate {
         toolbarItems = [refresh, spacer, progressButton]
         navigationController?.isToolbarHidden = false
         
-        let url = URL(string: "https://github.com/usamaeltmsah/")!
+        let url = URL(string: "https://"+(websites[0]))!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
 
     @objc func openTapped() {
         let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "twitter.com/usama_fouad/", style: .default, handler: openPage))
-        ac.addAction(UIAlertAction(title: "github.com/usamaeltmsah/", style: .default, handler: openPage))
+        for website in websites {
+            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+        }
+        
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         // Used only on iPad, and tells iOS where it should make the action sheet be anchored.
         ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
