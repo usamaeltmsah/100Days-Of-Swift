@@ -20,4 +20,4 @@
 <img alt="Project1-3 - Demo" src="Projects 1-3 Consolidation/Projects 1-3 Consolidation-demo.gif" width="200" height="400" />
 
 ## [Projects 4 Easy Browser](Project04)
-<img alt="Project 4 - Demo" src="Project04/project4-demo.gif" width="200" height="400" />
+<img alt="Project 4 - Demo" src="Project04/Project4-demo.gif" width="200" height="400" />
