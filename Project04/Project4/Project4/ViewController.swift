@@ -11,7 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["github.com/usamaeltmsah/", "twitter.com/usama_fouad/"]
+    var websites = ["github.com/usamaeltmsah/", "mobile.twitter.com/usama_fouad/", "www.google.com/search?q=cats", "m.facebook.com/login"]
     
     override func loadView() {
         webView = WKWebView()
@@ -79,7 +79,17 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
-        decisionHandler(.cancel)
+        
+        let alert = UIAlertController(title: "Blocked page", message: "\((url?.host)!) isn't in your safe urls. Do you want to continue, and keep it as a safe domain?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: {(alert: UIAlertAction!) in decisionHandler(.cancel)}))
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [self](alert: UIAlertAction!) in
+            decisionHandler(.allow)
+            websites.append((url?.host)!)
+            return
+        }))
+        present(alert, animated: true)
     }
 }
 
