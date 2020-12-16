@@ -26,5 +26,15 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
+
+    @objc func openTapped() {
+        let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "twitter.com/usama_fouad/", style: .default, handler: openPage))
+        ac.addAction(UIAlertAction(title: "github.com/usamaeltmsah/", style: .default, handler: openPage))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        // Used only on iPad, and tells iOS where it should make the action sheet be anchored.
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(ac, animated: true)
+    }
 }
 
