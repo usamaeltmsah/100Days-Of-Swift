@@ -36,5 +36,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(ac, animated: true)
     }
+    
+    func openPage(action: UIAlertAction) {
+        let url = URL(string: "https://" + action.title!)!
+        webView.load(URLRequest(url: url))
+    }
 }
 
