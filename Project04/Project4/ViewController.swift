@@ -23,7 +23,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
-        let toolBarItems = [UIBarButtonItem(barButtonSystemItem: .rewind, target: webView, action: #selector(webView.goBack)), UIBarButtonItem(barButtonSystemItem: .fastForward, target: webView, action: #selector(webView.goForward))
+        let toolBarItems = [UIBarButtonItem(title: "←", style: .plain, target: webView, action: #selector(webView.goBack)), UIBarButtonItem(title: "→", style: .plain, target: webView, action: #selector(webView.goForward))
         ]
         
         navigationItem.leftBarButtonItems = toolBarItems
