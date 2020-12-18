@@ -70,6 +70,14 @@ class ViewController: UITableViewController {
     }
 
     func isPossible(word: String) -> Bool {
+        guard var tempWord = title?.lowercased() else { return false }
+        for letter in word {
+            if let pos = tempWord.firstIndex(of: letter) {
+                tempWord.remove(at: pos)
+            } else {
+                return false
+            }
+        }
         return true
     }
 
