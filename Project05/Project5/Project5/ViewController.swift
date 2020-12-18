@@ -74,7 +74,7 @@ class ViewController: UITableViewController {
     }
 
     func isOriginal(word: String) -> Bool {
-        return true
+        return !userdWords.contains(word)
     }
 
     func isReal(word: String) -> Bool {
