@@ -60,10 +60,7 @@ class ViewController: UITableViewController {
     
     func submit(_ answer: String) {
         let lowerAnswer = answer.lowercased()
-        
-        let errorTitle: String
-        let errorMessage: String
-        
+                
         if isPossible(word: lowerAnswer) {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
@@ -74,21 +71,14 @@ class ViewController: UITableViewController {
                     
                     return
                 } else {
-                    errorTitle = "Word not recognised"
-                    errorMessage = "You can't just make them up, you know!"
+                    showErrorMessage(errorMessage: "You can't just make them up, you know!", errorTitle: "Word not recognised")
                 }
             } else {
-                errorTitle = "Word used already"
-                errorMessage = "Be more original!"
+                showErrorMessage(errorMessage: "Be more original!", errorTitle: "Word used already")
             }
         } else {
-            errorTitle = "Word not possible"
-            errorMessage = "You can't spell that word from \(title!)"
+            showErrorMessage(errorMessage: "You can't spell that word from \(title!)", errorTitle: "Word not possible")
         }
-        
-        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
     }
 
     func isPossible(word: String) -> Bool {
@@ -117,6 +107,12 @@ class ViewController: UITableViewController {
         let range = NSRange(location: 0, length: wordLen)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         return misspelledRange.location == NSNotFound
+    }
+    
+    func showErrorMessage(errorMessage: String, errorTitle: String) {
+        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 }
 
