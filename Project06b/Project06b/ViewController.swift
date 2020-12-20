@@ -33,11 +33,6 @@ class ViewController: UIViewController {
         label5.backgroundColor = .orange
         label5.text = "LABELS"
         
-        view.addSubview(label1)
-        view.addSubview(label2)
-        view.addSubview(label3)
-        view.addSubview(label4)
-        view.addSubview(label5)
         
 //        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
 //
@@ -52,6 +47,7 @@ class ViewController: UIViewController {
         var previous: UILabel?
         
         for label in [label1, label2, label3, label4, label5] {
+            view.addSubview(label)
             label.translatesAutoresizingMaskIntoConstraints = false
             label.sizeToFit()
             label.textAlignment = .center
