@@ -61,6 +61,7 @@ class ViewController: UIViewController {
         var previous: UILabel?
         
         for label in [label1, label2, label3, label4, label5] {
+            label.textAlignment = .center
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 
