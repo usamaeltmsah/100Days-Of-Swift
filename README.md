@@ -26,4 +26,4 @@
 <img alt="Project 5 - Demo" src="Project05/Project5-demo.gif" width="200" height="400" />
 
 ## [Project 6 - Auto Layout](Project06b)
-<img alt="Project 6 - Demo" src="Project06b/Project6-demo.gif" width="200" height="400" />
+<img alt="Project 6 - Demo" src="Project06b/Project6-demo.gif" width="400" height="400" />
