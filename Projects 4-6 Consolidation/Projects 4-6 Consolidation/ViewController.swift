@@ -49,6 +49,10 @@ class ViewController: UITableViewController {
             
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
+        } else {
+            let ac = UIAlertController(title: "Already exists item", message: "Can't add this item cause it's already in the list", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
     
