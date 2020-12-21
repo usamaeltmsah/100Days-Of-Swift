@@ -16,6 +16,18 @@ class ViewController: UITableViewController {
         let shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareShoppingList))
         
         navigationItem.rightBarButtonItems = [addButton, shareButton]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(reloadData))
+    }
+    
+    @objc func reloadData() {
+        let ac = UIAlertController(title: "Dangrous Action", message: "This action will delete all the items, are you sure?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        ac.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
+            self.shoppingList.removeAll(keepingCapacity: true)
+            self.tableView.reloadData()
+        }))
+        present(ac, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
