@@ -34,6 +34,18 @@ class ViewController: UITableViewController {
         return shoppingList.count
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            shoppingList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            // handle delete (by removing the data from your array and updating the tableview)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
         cell.textLabel?.text = shoppingList[indexPath.row]
@@ -69,7 +81,7 @@ class ViewController: UITableViewController {
     }
     
     @objc func shareShoppingList() {
-        let list = shoppingList.joined(separator: "\n")
+        let list = shoppingList.reversed().joined(separator: "\n")
         
         let vc = UIActivityViewController(activityItems: [list], applicationActivities: [])
         
