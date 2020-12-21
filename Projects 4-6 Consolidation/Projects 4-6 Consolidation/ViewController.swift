@@ -26,6 +26,19 @@ class ViewController: UITableViewController {
         
         return cell
     }
+    
+    @objc func promptForAnswer() {
+        let ac = UIAlertController(title: "Enter new item", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Add", style: .default) { [weak self, weak ac] _ in
+            guard let itemName = ac?.textFields?[0].text else { return }
+            self?.submit(itemName)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
 
 }
 
