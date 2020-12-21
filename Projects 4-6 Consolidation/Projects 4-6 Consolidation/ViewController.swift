@@ -33,11 +33,21 @@ class ViewController: UITableViewController {
         
         let submitAction = UIAlertAction(title: "Add", style: .default) { [weak self, weak ac] _ in
             guard let itemName = ac?.textFields?[0].text else { return }
-            self?.submit(itemName)
+            self?.addItem(itemName)
         }
         
         ac.addAction(submitAction)
         present(ac, animated: true)
+    }
+    
+    func addItem(_ itemName: String) {
+        // Add the new item if and only if it didn't added before
+        if !shoppingList.contains(where: {$0.caseInsensitiveCompare(itemName) == .orderedSame}) && !itemName.isEmpty {
+            shoppingList.insert(itemName, at: 0)
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
     }
 
 }
