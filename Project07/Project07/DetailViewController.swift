@@ -20,7 +20,21 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        guard let detailItem = detailItem else { return }
+        
+        let html = """
+        <html>
+        <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"
+        <style> body { font-size=150%; } </style>
+        </head>
+        <body>
+        \(detailItem.body)
+        </body>
+        </html>
+        """
+        
+        webView.loadHTMLString(html, baseURL: nil)
     }
     
 
