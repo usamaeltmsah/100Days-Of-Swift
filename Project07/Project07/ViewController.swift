@@ -14,7 +14,11 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForText))
+        let filterButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForText))
+        
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshPage))
+        
+        navigationItem.leftBarButtonItems = [refreshButton, filterButton]
         
         let urlString: String
         
@@ -62,6 +66,7 @@ class ViewController: UITableViewController {
     @objc func promptForText() {
         let ac = UIAlertController(title: "Filter Petition", message: nil, preferredStyle: .alert)
         ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         
         let submitAction = UIAlertAction(title: "Filter", style: .default) { [weak self, weak ac] _ in
             guard let text = ac?.textFields?[0].text else { return }
@@ -81,11 +86,16 @@ class ViewController: UITableViewController {
         }
         petitions = filteredPetitions
         tableView.reloadData()
+        // Allow the user to search in all the petitions, even if he searched before
         petitions = allPetitions
     }
 
     func searchIn(petitionObject: Petition, text: String) -> Bool {
         return petitionObject.body.lowercased().range(of:text) != nil || petitionObject.title.lowercased().range(of:text) != nil
+    }
+    
+    @objc func refreshPage() {
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
