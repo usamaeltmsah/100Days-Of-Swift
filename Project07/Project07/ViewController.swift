@@ -14,7 +14,7 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForAnswer))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForText))
         
         let urlString: String
         
@@ -59,7 +59,7 @@ class ViewController: UITableViewController {
         allPetitions = petitions
     }
     
-    @objc func promptForAnswer() {
+    @objc func promptForText() {
         let ac = UIAlertController(title: "Filter Petition", message: nil, preferredStyle: .alert)
         ac.addTextField()
         
@@ -73,15 +73,21 @@ class ViewController: UITableViewController {
     }
     
     func filter(_ text: String) {
+        filteredPetitions = []
         for petition in petitions {
-            if petition.body.contains(text) || petition.title.contains(text) {
+            if searchIn(petitionObject: petition, text: text.lowercased()) {
                 filteredPetitions.append(petition)
             }
         }
         petitions = filteredPetitions
         tableView.reloadData()
+        petitions = allPetitions
     }
 
+    func searchIn(petitionObject: Petition, text: String) -> Bool {
+        return petitionObject.body.lowercased().range(of:text) != nil || petitionObject.title.lowercased().range(of:text) != nil
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return petitions.count
     }
