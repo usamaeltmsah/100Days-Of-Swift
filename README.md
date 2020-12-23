@@ -30,3 +30,6 @@
 
 ## [Projects 4-6 Consolidation](Projects%204-6%20Consolidation)
 <img alt="Projects 4-6 Consolidation - Demo" src="Projects%204-6%20Consolidation/Projects 4-6 Consolidation-demo.gif" width="200" height="350" />
+
+## [Project 7 - Whitehouse Petitions](Project07)
+<img alt="Project 7 - Demo" src="Project07/Project7-demo.gif" width="200" height="400" />
