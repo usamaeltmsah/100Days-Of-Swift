@@ -79,23 +79,29 @@ class ViewController: UITableViewController {
     
     func filter(_ text: String) {
         filteredPetitions = []
-        for petition in petitions {
+        for petition in allPetitions {
             if searchIn(petitionObject: petition, text: text.lowercased()) {
                 filteredPetitions.append(petition)
             }
         }
         petitions = filteredPetitions
+        DispatchQueue.main.async {
+            self.title = text
+        }
         tableView.reloadData()
         // Allow the user to search in all the petitions, even if he searched before
-        petitions = allPetitions
     }
 
     func searchIn(petitionObject: Petition, text: String) -> Bool {
-        return petitionObject.body.lowercased().range(of:text) != nil || petitionObject.title.lowercased().range(of:text) != nil
+        return petitionObject.body.lowercased().range(of:text) != nil && petitionObject.title.lowercased().range(of:text) != nil
     }
     
     @objc func refreshPage() {
+        petitions = allPetitions
         tableView.reloadData()
+        DispatchQueue.main.async {
+            self.title = ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
