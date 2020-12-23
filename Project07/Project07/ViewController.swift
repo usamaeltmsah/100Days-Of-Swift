@@ -9,9 +9,12 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition]()
+    var allPetitions = [Petition]()
+    var filteredPetitions = [Petition]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForAnswer))
         
         let urlString: String
         
@@ -53,6 +56,30 @@ class ViewController: UITableViewController {
             petitions = jsonPetitions.results
             tableView.reloadData()
         }
+        allPetitions = petitions
+    }
+    
+    @objc func promptForAnswer() {
+        let ac = UIAlertController(title: "Filter Petition", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Filter", style: .default) { [weak self, weak ac] _ in
+            guard let text = ac?.textFields?[0].text else { return }
+            self?.filter(text)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
+    
+    func filter(_ text: String) {
+        for petition in petitions {
+            if petition.body.contains(text) || petition.title.contains(text) {
+                filteredPetitions.append(petition)
+            }
+        }
+        petitions = filteredPetitions
+        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
