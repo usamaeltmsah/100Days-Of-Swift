@@ -63,8 +63,10 @@ class ViewController: UIViewController {
 
             // make the answers label match the height of the clues label
             answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
-
         ])
+        
+        cluesLabel.backgroundColor = .red
+        answersLabel.backgroundColor = .blue
     }
     override func viewDidLoad() {
         super.viewDidLoad()
