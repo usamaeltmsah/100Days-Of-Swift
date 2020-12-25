@@ -39,6 +39,9 @@ class ViewController: UIViewController {
         answersLabel.textAlignment = .right
         view.addSubview(answersLabel)
         
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        
         currentAnswer = UITextField()
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
         currentAnswer.placeholder = "Tap letters to guess"
@@ -109,6 +112,7 @@ class ViewController: UIViewController {
         
         cluesLabel.backgroundColor = .red
         answersLabel.backgroundColor = .blue
+        buttonsView.backgroundColor = .green
     }
     override func viewDidLoad() {
         super.viewDidLoad()
