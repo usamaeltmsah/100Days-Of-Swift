@@ -47,6 +47,16 @@ class ViewController: UIViewController {
         currentAnswer.isUserInteractionEnabled = false
         view.addSubview(currentAnswer)
         
+        let submit = UIButton(type: .system)
+        submit.translatesAutoresizingMaskIntoConstraints = false
+        submit.setTitle("SUBMIT", for: .normal)
+        view.addSubview(submit)
+
+        let clear = UIButton(type: .system)
+        clear.translatesAutoresizingMaskIntoConstraints = false
+        clear.setTitle("CLEAR", for: .normal)
+        view.addSubview(clear)
+        
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
