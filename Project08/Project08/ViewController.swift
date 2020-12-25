@@ -71,6 +71,10 @@ class ViewController: UIViewController {
 
             // make the answers label match the height of the clues label
             answersLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
+            
+            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            currentAnswer.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor, constant: 20),
         ])
         
         cluesLabel.backgroundColor = .red
