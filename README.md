@@ -33,3 +33,7 @@
 
 ## [Project 7 - Whitehouse Petitions](Project07)
 <img alt="Project 7 - Demo" src="Project07/Project7-demo.gif" width="200" height="400" />
+
+
+## [Project 8 - Swifty Words](Project08)
+<img alt="Project 8 - Demo" src="Project08/Project8-demo.gif" width="400" height="350" />
