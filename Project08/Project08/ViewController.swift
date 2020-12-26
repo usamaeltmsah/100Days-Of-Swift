@@ -168,7 +168,6 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
-            scoreLabel.text = "Score: \(score)"
             
             if score % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
@@ -186,6 +185,17 @@ class ViewController: UIViewController {
         }
         
         activatedButtons.removeAll()
+    }
+    
+    func levelUp(action: UIAlertAction) {
+        level += 1
+        solutions.removeAll()
+        
+        loadLevel()
+        
+        for btn in letterButtons {
+            btn.isHidden = false
+        }
     }
     
     func loadLevel() {
