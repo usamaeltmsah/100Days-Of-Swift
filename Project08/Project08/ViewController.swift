@@ -204,8 +204,6 @@ class ViewController: UIViewController {
     @objc func submitTapped(_ sender: UIButton) {
         guard let answerText = currentAnswer.text else { return }
         
-        numberOfTrials -= 1
-        
         if let solutionPosition = solutions.firstIndex(of: answerText) {
             activatedButtons.removeAll()
             
@@ -221,7 +219,11 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else if numberOfTrials <= 1 {
+            numberOfTrials -= 1
+            gameOver()
         } else {
+            numberOfTrials -= 1
             showErrorAlert()
             clear()
         }
@@ -229,6 +231,17 @@ class ViewController: UIViewController {
     
     func showErrorAlert() {
         let ac = UIAlertController(title: "Wrong Answer", message: "Sorry, this is a wrong answer! try again", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func gameOver() {
+        showGameOverAlert()
+        reload()
+    }
+    
+    func showGameOverAlert() {
+        let ac = UIAlertController(title: "Game Over", message: "Your trials are expired! try again", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Ok", style: .default))
         present(ac, animated: true)
     }
@@ -250,6 +263,14 @@ class ViewController: UIViewController {
     func levelUp(action: UIAlertAction) {
         level += 1
         solutions.removeAll()
+        
+        reload()
+    }
+    
+    func reload() {
+        solutions.removeAll()
+        
+        numberOfTrials += 5
         
         loadLevel()
         
