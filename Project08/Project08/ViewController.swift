@@ -14,9 +14,17 @@ class ViewController: UIViewController {
     var scoreLabel: UILabel!
     var letterButtons = [UIButton]()
     var levelLabel: UILabel!
+    var trialsLabel: UILabel!
     
     var activatedButtons = [UIButton]()
     var solutions = [String]()
+    
+    var numberOfTrials = 5 {
+        didSet {
+            trialsLabel.text = "Trials: \(numberOfTrials)"
+        }
+    }
+    var numberOfCorrectAnswers = 0
     
     var score = 0 {
         didSet {
@@ -39,6 +47,13 @@ class ViewController: UIViewController {
         scoreLabel.textAlignment = .right
         scoreLabel.text = "Score: 0"
         view.addSubview(scoreLabel)
+        
+        trialsLabel = UILabel()
+        trialsLabel.translatesAutoresizingMaskIntoConstraints = false
+        trialsLabel.font = UIFont.systemFont(ofSize: 24)
+        trialsLabel.textAlignment = .right
+        trialsLabel.text = "Trials: \(numberOfTrials)"
+        view.addSubview(trialsLabel)
         
         cluesLabel = UILabel()
         cluesLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -100,6 +115,9 @@ class ViewController: UIViewController {
             
             levelLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             levelLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            
+            trialsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            trialsLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             
             // pin the top of the clues label to the bottom of the score label
             cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
@@ -185,6 +203,8 @@ class ViewController: UIViewController {
     
     @objc func submitTapped(_ sender: UIButton) {
         guard let answerText = currentAnswer.text else { return }
+        
+        numberOfTrials -= 1
         
         if let solutionPosition = solutions.firstIndex(of: answerText) {
             activatedButtons.removeAll()
