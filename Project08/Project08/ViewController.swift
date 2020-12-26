@@ -272,6 +272,8 @@ class ViewController: UIViewController {
         
         numberOfTrials += 5
         
+        score = 0
+        
         loadLevel()
         
         for btn in letterButtons {
