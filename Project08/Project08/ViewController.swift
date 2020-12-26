@@ -181,10 +181,23 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            showErrorAlert()
+            clear()
         }
     }
     
+    func showErrorAlert() {
+        let ac = UIAlertController(title: "Wrong Answer", message: "Sorry, this is a wrong answer! try again", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
     @objc func clearTapped(_ sender: UIButton) {
+        clear()
+    }
+    
+    func clear() {
         currentAnswer.text = ""
         
         for btn in activatedButtons {
