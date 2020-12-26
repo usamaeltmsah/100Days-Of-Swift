@@ -135,6 +135,9 @@ class ViewController: UIViewController {
                 // give the button some temporary text so we can see it on-screen
                 letterButton.setTitle("WWW", for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.gray.cgColor
 
                 // calculate the frame of this button using its column and row
                 let frame = CGRect(x: col * width, y: row * height, width: width, height: height)
