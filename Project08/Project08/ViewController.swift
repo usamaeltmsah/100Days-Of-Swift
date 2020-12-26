@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         cluesLabel.font = UIFont.systemFont(ofSize: 24)
         cluesLabel.text = "CLUES"
         cluesLabel.numberOfLines = 0
+        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(cluesLabel)
         
         answersLabel = UILabel()
@@ -37,10 +38,8 @@ class ViewController: UIViewController {
         answersLabel.text = "ANSWERS"
         answersLabel.numberOfLines = 0
         answersLabel.textAlignment = .right
-        view.addSubview(answersLabel)
-        
-        cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        view.addSubview(answersLabel)
         
         currentAnswer = UITextField()
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
@@ -135,10 +134,6 @@ class ViewController: UIViewController {
                 letterButtons.append(letterButton)
             }
         }
-        
-        cluesLabel.backgroundColor = .red
-        answersLabel.backgroundColor = .blue
-        buttonsView.backgroundColor = .green
     }
     override func viewDidLoad() {
         super.viewDidLoad()
