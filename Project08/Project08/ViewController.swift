@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var currentAnswer: UITextField!
     var scoreLabel: UILabel!
     var letterButtons = [UIButton]()
+    var levelLabel: UILabel!
     
     var activatedButtons = [UIButton]()
     var solutions = [String]()
@@ -22,7 +23,11 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
-    var level = 1
+    var level = 1 {
+        didSet {
+            levelLabel.text = "Level: \(level)"
+        }
+    }
 
     override func loadView() {
         view = UIView()
@@ -30,6 +35,7 @@ class ViewController: UIViewController {
         
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        scoreLabel.font = UIFont.systemFont(ofSize: 24)
         scoreLabel.textAlignment = .right
         scoreLabel.text = "Score: 0"
         view.addSubview(scoreLabel)
@@ -50,6 +56,15 @@ class ViewController: UIViewController {
         answersLabel.textAlignment = .right
         answersLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(answersLabel)
+            
+        levelLabel = UILabel()
+        levelLabel.translatesAutoresizingMaskIntoConstraints = false
+        levelLabel.font = UIFont.systemFont(ofSize: 45)
+        levelLabel.text = "Level: 1"
+        levelLabel.numberOfLines = 0
+        levelLabel.textAlignment = .center
+        levelLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        view.addSubview(levelLabel)
         
         currentAnswer = UITextField()
         currentAnswer.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +77,7 @@ class ViewController: UIViewController {
         // Submit Button
         let submit = UIButton(type: .system)
         submit.translatesAutoresizingMaskIntoConstraints = false
+        submit.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         submit.setTitle("SUBMIT", for: .normal)
         submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
         view.addSubview(submit)
@@ -69,6 +85,7 @@ class ViewController: UIViewController {
         // Clear Button
         let clear = UIButton(type: .system)
         clear.translatesAutoresizingMaskIntoConstraints = false
+        clear.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         clear.setTitle("CLEAR", for: .normal)
         clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
         view.addSubview(clear)
@@ -80,6 +97,9 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            
+            levelLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            levelLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
             
             // pin the top of the clues label to the bottom of the score label
             cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
