@@ -24,6 +24,8 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view.
         
         performSelector(inBackground: #selector(loadNsslImages), with: nil)
+        
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
     }
     
     @objc func loadNsslImages() {
