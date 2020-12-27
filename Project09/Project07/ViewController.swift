@@ -79,7 +79,10 @@ class ViewController: UITableViewController {
         
         let submitAction = UIAlertAction(title: "Filter", style: .default) { [weak self, weak ac] _ in
             guard let text = ac?.textFields?[0].text else { return }
-            self?.filter(text)
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self?.filter(text)
+            }
         }
         
         ac.addAction(submitAction)
@@ -96,8 +99,9 @@ class ViewController: UITableViewController {
         petitions = filteredPetitions
         DispatchQueue.main.async {
             self.title = text
+            self.tableView.reloadData()
         }
-        tableView.reloadData()
+        
         // Allow the user to search in all the petitions, even if he searched before
     }
 

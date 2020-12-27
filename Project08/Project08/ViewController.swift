@@ -171,7 +171,6 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
 
                 // give the button some temporary text so we can see it on-screen
-                letterButton.setTitle("WWW", for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 letterButton.layer.borderWidth = 1
