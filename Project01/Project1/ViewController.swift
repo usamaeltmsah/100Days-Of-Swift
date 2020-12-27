@@ -23,6 +23,10 @@ class ViewController: UITableViewController {
 
         // Do any additional setup after loading the view.
         
+        performSelector(inBackground: #selector(loadNsslImages), with: nil)
+    }
+    
+    @objc func loadNsslImages() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
