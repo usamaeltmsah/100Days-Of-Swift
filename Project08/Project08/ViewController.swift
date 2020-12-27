@@ -191,7 +191,7 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-            loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -281,7 +281,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func loadLevel() {
+    @objc func loadLevel() {
         var clueString = ""
         var solutionString = ""
         var letterBits = [String]()
