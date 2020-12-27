@@ -20,6 +20,15 @@ class ViewController: UITableViewController {
         
         navigationItem.leftBarButtonItems = [refreshButton, filterButton]
         
+        let credits = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(dataComesFrom))
+        
+        navigationItem.rightBarButtonItem = credits
+
+        
+        performSelector(inBackground: #selector(fetchJson), with: nil)
+    }
+    
+    @objc func fetchJson() {
         let urlString: String
         
         if navigationController?.tabBarItem.tag == 0 {
@@ -27,28 +36,21 @@ class ViewController: UITableViewController {
         } else {
             urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
         }
-        let credits = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(dataComesFrom))
-        
-        navigationItem.rightBarButtonItem = credits
-        
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            if let url = URL(string: urlString) {
-                if let data = try? Data(contentsOf: url) {
-                    self?.parse(json: data)
-                    return
-                }
+
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+                parse(json: data)
+                return
             }
-            self?.showError()
         }
+        performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
     }
     
-    func showError() {
-        DispatchQueue.main.async { [weak self] in
-            let ac = UIAlertController(title: "Loading Error ", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
-            
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            self?.present(ac, animated: true)
-        }
+    @objc func showError() {
+        let ac = UIAlertController(title: "Loading Error ", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
     @objc func dataComesFrom() {
@@ -63,9 +65,9 @@ class ViewController: UITableViewController {
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
             petitions = jsonPetitions.results
-            DispatchQueue.main.async { [weak self] in
-                self?.tableView.reloadData()
-            }
+            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+        } else {
+            performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
         allPetitions = petitions
     }
