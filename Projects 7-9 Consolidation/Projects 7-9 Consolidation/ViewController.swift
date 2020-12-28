@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     var allWords = [String]()
+    var usedWords = [String]()
+    var word: String!
     
     override func loadView() {
         if let startWordsURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
@@ -17,9 +19,23 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    @objc func getRandWord() {
+        // Select a random word from the array, its length should be >= 3
+        while let word = allWords.randomElement() {
+            // Remove the selected word
+            allWords.removeAll{$0 == word}
+
+            if word.count >= 3 {
+                self.word = word
+                break
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        performSelector(inBackground: #selector(getRandWord), with: nil)
     }
 
 
