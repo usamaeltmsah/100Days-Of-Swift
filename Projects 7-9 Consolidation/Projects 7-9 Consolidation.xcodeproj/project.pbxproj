@@ -13,6 +13,7 @@
 		19946ADC259A63A500AEE83F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19946ADA259A63A500AEE83F /* Main.storyboard */; };
 		19946ADE259A63AB00AEE83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19946ADD259A63AB00AEE83F /* Assets.xcassets */; };
 		19946AE1259A63AB00AEE83F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19946ADF259A63AB00AEE83F /* LaunchScreen.storyboard */; };
+		19946AEF259A741E00AEE83F /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19946AEE259A741E00AEE83F /* words.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		19946ADD259A63AB00AEE83F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19946AE0259A63AB00AEE83F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19946AE2259A63AB00AEE83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19946AEE259A741E00AEE83F /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				19946AD8259A63A500AEE83F /* ViewController.swift */,
 				19946ADA259A63A500AEE83F /* Main.storyboard */,
 				19946ADD259A63AB00AEE83F /* Assets.xcassets */,
+				19946AEE259A741E00AEE83F /* words.txt */,
 				19946ADF259A63AB00AEE83F /* LaunchScreen.storyboard */,
 				19946AE2259A63AB00AEE83F /* Info.plist */,
 			);
@@ -126,6 +129,7 @@
 			files = (
 				19946AE1259A63AB00AEE83F /* LaunchScreen.storyboard in Resources */,
 				19946ADE259A63AB00AEE83F /* Assets.xcassets in Resources */,
+				19946AEF259A741E00AEE83F /* words.txt in Resources */,
 				19946ADC259A63A500AEE83F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
