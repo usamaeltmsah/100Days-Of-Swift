@@ -168,6 +168,21 @@ class ViewController: UIViewController {
         present(ac, animated: true)
     }
     
+    @objc func getRandWord() -> String? {
+        // Select a random word from the array, its length should be >= 3
+        while let word = allWords.randomElement() {
+            DispatchQueue.main.async { [weak self] in
+                // Remove the selected word
+                self?.allWords.removeAll{$0 == word}
+            }
+
+            if isReal(word: word) {
+                return word
+            }
+        }
+        return nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
