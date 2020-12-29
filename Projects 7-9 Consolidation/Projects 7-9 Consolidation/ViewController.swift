@@ -82,6 +82,35 @@ class ViewController: UIViewController {
         }
     }
     
+    func addButtonsToButtonsView() {
+        let screenSize: CGRect = UIScreen.main.bounds
+        // Set some values for the width and height of each button
+        let width = screenSize.width / 5
+        let height = screenSize.height / 15
+
+        // Create 20 buttons as a 4x5 grid
+        for row in 0..<4 {
+            for col in 0..<5 {
+                // Create a new button and give it a big font size
+                let letterButton = UIButton(type: .system)
+                letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                
+                styleLetterButton(button: letterButton)
+
+                // Calculate the frame of this button using its column and row
+                
+                let frame = CGRect(x: CGFloat(col) * width, y: CGFloat(row) * height, width: width, height: height)
+                letterButton.frame = frame
+
+                // Add it to the buttons view
+                buttonsView.addSubview(letterButton)
+
+                // And also to our letterButtons array
+                letterButtons.append(letterButton)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
