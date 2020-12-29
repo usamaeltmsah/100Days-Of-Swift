@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         let screenSize: CGRect = UIScreen.main.bounds
         // Set some values for the width and height of each button
         let width = screenSize.width / 5
-        let height = screenSize.height / 15
+        let height = screenSize.height / 12
 
         // Create 20 buttons as a 4x5 grid
         for row in 0..<4 {
@@ -134,7 +134,7 @@ class ViewController: UIViewController {
         button.tintColor = .black
         button.titleLabel?.font = UIFont.systemFont(ofSize: 36)
         button.layer.borderWidth = 1
-        button.alpha = 0.7
+        button.isEnabled = true
         button.layer.borderColor = UIColor.gray.cgColor
         button.layer.cornerRadius = 15
         button.backgroundColor = .cyan
@@ -142,14 +142,15 @@ class ViewController: UIViewController {
     
     @objc func letterTapped(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text else { return }
-        sender.alpha = 0.1
         sender.isEnabled = false
+        activatedButtons.append(sender)
         if slectedWord.contains(buttonTitle) {
             let indicies = slectedWord.indicesOf(string: buttonTitle)
-            activatedButtons.append(sender)
+            sender.backgroundColor = .green
             currentAnswer.text?.replace(at: indicies, with: buttonTitle)
         } else {
             trials -= 1
+            sender.backgroundColor = .red
         }
         checkCurrentAnswer(answer: currentAnswer.text!)
     }
@@ -228,9 +229,9 @@ class ViewController: UIViewController {
     func DisplayCharsOnButtons(chars: [String]) {
         print(slectedWord!)
         for i in 0..<letterButtons.count {
-            letterButtons[i].setTitle(chars[i], for: .normal)
-            letterButtons[i].isEnabled = true
-            letterButtons[i].alpha = 0.7
+            let button = letterButtons[i]
+            button.setTitle(chars[i], for: .normal)
+            styleLetterButton(button: button)
         }
     }
     
