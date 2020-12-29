@@ -130,6 +130,16 @@ class ViewController: UIViewController {
         ])
     }
     
+    func styleLetterButton(button: UIButton!) {
+        button.tintColor = .black
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+        button.layer.borderWidth = 1
+        button.alpha = 0.7
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.cornerRadius = 15
+        button.backgroundColor = .cyan
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
