@@ -158,6 +158,9 @@ class ViewController: UIViewController {
             sender.backgroundColor = .red
         }
         checkCurrentAnswer(answer: currentAnswer.text!)
+        if trials <= 0 {
+            youLose()
+        }
     }
     
     func checkCurrentAnswer(answer: String) {
@@ -171,6 +174,13 @@ class ViewController: UIViewController {
     func congratulationAnswerIsCorrect() {
         let ac = UIAlertController(title: "Well done!", message: "Right, '\(slectedWord!)' is the correct answer", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func youLose() {
+        let ac = UIAlertController(title: "You Lose!", message: "Sorry you expired your trials", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: { [self]_ in startGame()}))
         present(ac, animated: true)
     }
     
