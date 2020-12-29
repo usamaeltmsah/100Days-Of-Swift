@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     
     override func loadView() {
         loadWords()
+        
+        loadUI()
     }
     
     func loadWords() {
@@ -45,6 +47,30 @@ class ViewController: UIViewController {
                 allWords = words.components(separatedBy: "\n")
             }
         }
+    }
+    
+    func loadUI() {
+        view = UIView()
+        view.backgroundColor = .white
+        
+        scoreLabel = UILabel()
+        scoreLabel.textAlignment = .right
+        scoreLabel.text = "Score: 0"
+        
+        trialsLabel = UILabel()
+        trialsLabel.textAlignment = .right
+        trialsLabel.text = "Trials: \(trials)"
+        
+        currentAnswer = UITextField()
+        currentAnswer.textAlignment = .center
+        currentAnswer.font = UIFont.systemFont(ofSize: 20)
+        currentAnswer.isUserInteractionEnabled = false
+        
+        addSubViewsToView()
+        
+        addButtonsToButtonsView()
+                
+        addConstraintsToViews()
     }
     
     override func viewDidLoad() {
