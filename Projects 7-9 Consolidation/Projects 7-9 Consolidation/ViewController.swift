@@ -35,6 +35,18 @@ class ViewController: UIViewController {
         }
     }
     
+    override func loadView() {
+        loadWords()
+    }
+    
+    func loadWords() {
+        if let startWordsURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
+            if let words = try? String(contentsOf: startWordsURL) {
+                allWords = words.components(separatedBy: "\n")
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
