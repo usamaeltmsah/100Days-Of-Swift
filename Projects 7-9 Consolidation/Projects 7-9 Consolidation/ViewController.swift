@@ -206,5 +206,36 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        performSelector(inBackground: #selector(startGame), with: nil)
+    }
+    
+    @objc func startGame() {
+        performSelector(inBackground: #selector(getRandWord), with: nil)
+        self.slectedWord = getRandWord()
+
+        performSelector(onMainThread: #selector(addWordReplacement), with: nil, waitUntilDone: false)
+    }
+    
+    @objc func charsForButtons() -> Array<String> {
+        var distnctChars = [String]()
+        var chars = [String]()
+        for letter in slectedWord {
+            let strLetter = String(letter)
+            chars.append(strLetter)
+        }
+
+        distnctChars = Array(Set(chars))
+        if distnctChars.count < letterButtons.count {
+            for letter in englishLetters {
+                if distnctChars.count >= letterButtons.count {
+                    break
+                }
+                let strLetter = String(letter)
+                if !distnctChars.contains(strLetter) {
+                    distnctChars.append(strLetter)
+                }
+            }
+        }
+        return distnctChars.shuffled()
     }
 }
