@@ -214,6 +214,24 @@ class ViewController: UIViewController {
         self.slectedWord = getRandWord()
 
         performSelector(onMainThread: #selector(addWordReplacement), with: nil, waitUntilDone: false)
+        
+        var chars: [String]!
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            chars = charsForButtons()
+        }
+        
+        DispatchQueue.main.async { [self] in
+            DisplayCharsOnButtons(chars: chars)
+        }
+    }
+    
+    func DisplayCharsOnButtons(chars: [String]) {
+        print(slectedWord!)
+        for i in 0..<letterButtons.count {
+            letterButtons[i].setTitle(chars[i], for: .normal)
+            letterButtons[i].isEnabled = true
+            letterButtons[i].alpha = 0.7
+        }
     }
     
     @objc func charsForButtons() -> Array<String> {
