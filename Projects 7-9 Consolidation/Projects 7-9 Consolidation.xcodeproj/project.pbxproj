@@ -44,7 +44,6 @@
 		19946AC8259A63A500AEE83F = {
 			isa = PBXGroup;
 			children = (
-				19946AF1259BB88300AEE83F /* stringExt.swift */,
 				19946AD3259A63A500AEE83F /* Projects 7-9 Consolidation */,
 				19946AD2259A63A500AEE83F /* Products */,
 			);
@@ -61,6 +60,7 @@
 		19946AD3259A63A500AEE83F /* Projects 7-9 Consolidation */ = {
 			isa = PBXGroup;
 			children = (
+				19946AF1259BB88300AEE83F /* stringExt.swift */,
 				19946AD4259A63A500AEE83F /* AppDelegate.swift */,
 				19946AD6259A63A500AEE83F /* SceneDelegate.swift */,
 				19946AD8259A63A500AEE83F /* ViewController.swift */,
