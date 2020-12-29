@@ -111,6 +111,25 @@ class ViewController: UIViewController {
         }
     }
     
+    func addConstraintsToViews() {
+        NSLayoutConstraint.activate([
+            scoreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scoreLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            
+            trialsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            trialsLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            
+            currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            buttonsView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            buttonsView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            buttonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsView.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor, constant: 20),
+            buttonsView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20)
+        ])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
