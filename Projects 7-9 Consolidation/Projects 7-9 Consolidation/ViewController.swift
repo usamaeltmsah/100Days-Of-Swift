@@ -183,6 +183,19 @@ class ViewController: UIViewController {
         return nil
     }
     
+    func isReal(word: String) -> Bool {
+        // Check that the given word is a real English word
+        let wordLen = word.utf16.count
+        
+        if wordLen < 3 || wordLen > 15 {
+            return false
+        }
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: wordLen)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        return misspelledRange.location == NSNotFound
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
