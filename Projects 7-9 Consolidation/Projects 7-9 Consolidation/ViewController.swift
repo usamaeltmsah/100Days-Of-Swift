@@ -154,6 +154,14 @@ class ViewController: UIViewController {
         checkCurrentAnswer(answer: currentAnswer.text!)
     }
     
+    func checkCurrentAnswer(answer: String) {
+        if answer == slectedWord {
+            congratulationAnswerIsCorrect()
+            score += 1
+            startGame()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
