@@ -41,6 +41,11 @@ class ViewController: UIViewController {
         loadUI()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        performSelector(inBackground: #selector(startGame), with: nil)
+    }
+    
     func loadWords() {
         if let startWordsURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
             if let words = try? String(contentsOf: startWordsURL) {
@@ -203,11 +208,6 @@ class ViewController: UIViewController {
         for _ in 0..<wordLen {
             currentAnswer?.text?.append("?")
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        performSelector(inBackground: #selector(startGame), with: nil)
     }
     
     @objc func startGame() {
