@@ -73,6 +73,15 @@ class ViewController: UIViewController {
         addConstraintsToViews()
     }
     
+    func addSubViewsToView() {
+        let views = [scoreLabel, trialsLabel, currentAnswer, buttonsView]
+        
+        for currentView in views {
+            currentView?.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(currentView!)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
