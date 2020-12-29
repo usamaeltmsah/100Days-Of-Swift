@@ -223,7 +223,7 @@ class ViewController: UIViewController {
     }
     
     @objc func startGame() {
-        resetTrials()
+        performSelector(onMainThread: #selector(resetTrials), with: nil, waitUntilDone: false)
         performSelector(inBackground: #selector(getRandWord), with: nil)
         self.slectedWord = getRandWord()
 
@@ -243,7 +243,7 @@ class ViewController: UIViewController {
         score = 0
     }
     
-    func resetTrials() {
+    @objc func resetTrials() {
         trials = 7
     }
     
