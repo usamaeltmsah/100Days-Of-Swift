@@ -140,6 +140,20 @@ class ViewController: UIViewController {
         button.backgroundColor = .cyan
     }
     
+    @objc func letterTapped(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        sender.alpha = 0.1
+        sender.isEnabled = false
+        if slectedWord.contains(buttonTitle) {
+            let indicies = slectedWord.indicesOf(string: buttonTitle)
+            activatedButtons.append(sender)
+            currentAnswer.text?.replace(at: indicies, with: buttonTitle)
+        } else {
+            trials -= 1
+        }
+        checkCurrentAnswer(answer: currentAnswer.text!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
