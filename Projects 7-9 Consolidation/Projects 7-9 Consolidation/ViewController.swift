@@ -179,7 +179,7 @@ class ViewController: UIViewController {
     }
     
     func youLose() {
-        let ac = UIAlertController(title: "You Lose!", message: "Sorry you expired your trials", preferredStyle: .alert)
+        let ac = UIAlertController(title: "You Lose!", message: "Sorry you expired your trials, the correct answer is '\(slectedWord!)'", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: { [self]_ in resetScore()
             startGame()
         }))
