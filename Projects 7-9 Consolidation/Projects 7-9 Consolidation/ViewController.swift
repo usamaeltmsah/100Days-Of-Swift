@@ -9,35 +9,33 @@ import UIKit
 
 class ViewController: UIViewController {
     var allWords = [String]()
-    var usedWords = [String]()
-    var word: String!
+    var slectedWord: String!
     
-    override func loadView() {
-        if let startWordsURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
-            if let words = try? String(contentsOf: startWordsURL) {
-                allWords = words.components(separatedBy: "\n")
-            }
+    var currentAnswer: UITextField!
+    var scoreLabel: UILabel!
+    var letterButtons = [UIButton]()
+    var trialsLabel: UILabel!
+    let buttonsView = UIView()
+    
+    var activatedButtons = [UIButton]()
+    var solutions = [String]()
+    
+    let englishLetters = Array("abcdefghijklmnopqrstuvwxyz")
+    
+    var trials = 7 {
+        didSet {
+            trialsLabel.text = "Trials: \(trials)"
         }
     }
+    var numberOfCorrectAnswers = 0
     
-    @objc func getRandWord() {
-        // Select a random word from the array, its length should be >= 3
-        while let word = allWords.randomElement() {
-            // Remove the selected word
-            allWords.removeAll{$0 == word}
-
-            if word.count >= 3 {
-                self.word = word
-                break
-            }
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        performSelector(inBackground: #selector(getRandWord), with: nil)
     }
-
-
 }
-
