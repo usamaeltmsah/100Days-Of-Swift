@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     }
     
     override func loadView() {
+        title = "HANGMAN GAME"
         loadWords()
         
         loadUI()
@@ -179,8 +180,9 @@ class ViewController: UIViewController {
     
     func youLose() {
         let ac = UIAlertController(title: "You Lose!", message: "Sorry you expired your trials", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Ok", style: .default))
-        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: { [self]_ in startGame()}))
+        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: { [self]_ in resetScore()
+            startGame()
+        }))
         present(ac, animated: true)
     }
     
@@ -221,6 +223,7 @@ class ViewController: UIViewController {
     }
     
     @objc func startGame() {
+        resetTrials()
         performSelector(inBackground: #selector(getRandWord), with: nil)
         self.slectedWord = getRandWord()
 
@@ -234,6 +237,14 @@ class ViewController: UIViewController {
         DispatchQueue.main.async { [self] in
             DisplayCharsOnButtons(chars: chars)
         }
+    }
+    
+    func resetScore() {
+        score = 0
+    }
+    
+    func resetTrials() {
+        trials = 7
     }
     
     func DisplayCharsOnButtons(chars: [String]) {
