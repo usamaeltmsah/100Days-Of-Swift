@@ -162,6 +162,12 @@ class ViewController: UIViewController {
         }
     }
     
+    func congratulationAnswerIsCorrect() {
+        let ac = UIAlertController(title: "Well done!", message: "Right, '\(slectedWord!)' is the correct answer", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
