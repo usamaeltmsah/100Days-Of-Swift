@@ -196,6 +196,14 @@ class ViewController: UIViewController {
         return misspelledRange.location == NSNotFound
     }
     
+    @objc func addWordReplacement() {
+        let wordLen = self.slectedWord.count
+        currentAnswer?.text? = ""
+        for _ in 0..<wordLen {
+            currentAnswer?.text?.append("?")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
