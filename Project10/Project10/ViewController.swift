@@ -81,7 +81,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             self?.renamePerson(at: indexPath)
         })
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self]_ in
-            
+            self?.deletePerson(at: indexPath)
         })
         present(ac, animated: true)
     }
@@ -96,6 +96,17 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
                 return
             }
             person.name = newName
+            self?.collectionView.reloadData()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func deletePerson(at indexPath: IndexPath) {
+        let ac = UIAlertController(title: "Delete Person", message: "This item will be permanently deleted", preferredStyle: .alert)
+
+        ac.addAction(UIAlertAction(title: "OK", style: .destructive){ [weak self] _ in
+            self?.people.remove(at: indexPath.item)
             self?.collectionView.reloadData()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
