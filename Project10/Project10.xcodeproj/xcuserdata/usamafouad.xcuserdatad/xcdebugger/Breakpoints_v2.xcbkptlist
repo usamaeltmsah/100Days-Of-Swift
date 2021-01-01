@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D02EF3EC-E354-4E19-A46B-F186A1B1664B"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E0878A7F-9360-4C67-A66B-3994222858F9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project10/PersonCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "PersonCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - 38c77d2c4d572227"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.imageView.getter : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "126">
+               </Location>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - 3c943034633fd83b"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.imageView.setter : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - c93dc9236ccc1f24"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.imageView.modify : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - f202fa25c33c4aec"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.imageView.modify : Swift.Optional&lt;__C.UIImageView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - a4ee2686e4cbe446"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.init(frame: __C.CGRect) -&gt; Project10.PersonCell"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "142">
+               </Location>
+               <Location
+                  uuid = "E0878A7F-9360-4C67-A66B-3994222858F9 - a79d9b17d790a442"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project10.PersonCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Project10.PersonCell&gt;"
+                  moduleName = "Project10"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/usamafouad/Documents/100Days-Of-Swift/Project10/Project10/PersonCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "119">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
