@@ -17,6 +17,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var editLabel: SKLabelNode!
+    
+    var editingMode: Bool = false {
+        didSet {
+            if editingMode {
+                editLabel.text = "Done"
+            } else {
+                editLabel.text = "Edit"
+            }
+        }
+    }
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: 512, y: 384)
@@ -29,6 +41,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.horizontalAlignmentMode = .right
         scoreLabel.position = CGPoint(x: 980, y: 700)
         addChild(scoreLabel)
+        
+        editLabel = SKLabelNode(fontNamed: "Chalkduster")
+        editLabel.text = "Edit"
+        editLabel.position = CGPoint(x: 800, y: 700)
+        addChild(editLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
