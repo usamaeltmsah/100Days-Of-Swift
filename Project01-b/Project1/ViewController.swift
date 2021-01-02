@@ -63,10 +63,17 @@ class ViewController: UICollectionViewController {
         cell.imageView.layer.cornerRadius = 3
         cell.layer.cornerRadius = 7
         
+        cell.visitsCount.layer.masksToBounds = true
+        cell.visitsCount.layer.cornerRadius = cell.visitsCount.frame.height / 2
+        cell.visitsCount.text = "\(cell.visits)"
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? imgCell
+    
+        cell!.visits += 1
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             

@@ -11,4 +11,11 @@ class imgCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet var imageName: UILabel!
+    @IBOutlet var visitsCount: UILabel!
+    
+    var visits = 0 {
+        didSet {
+            visitsCount.text = "\(visits)"
+        }
+    }
 }
