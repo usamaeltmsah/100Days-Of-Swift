@@ -42,3 +42,6 @@
 
 ## [Project 10 - Names to Faces](Project10)
 <img alt="Project 10 - Demo" src="Project10/Project10-demo.gif" width="200" height="400" />
+
+## [Project 11 - Pachinko Game](Project11)
+<img alt="Project 11 - Demo" src="Project11/Project11-demo.gif" width="400" height="350" />
