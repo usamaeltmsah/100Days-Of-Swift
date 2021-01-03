@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     var score = 0
     var correctAnswer = 0
     var count = 0
-        
+    
+    var highScore = 0
+    
     var countryLabel: UILabel!
     var scoreLabel: UILabel!
 
@@ -103,6 +105,11 @@ class ViewController: UIViewController {
         
         ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: restartGame))
         present(ac, animated: true)
+        
+        if score > highScore {
+            highScore = score
+            saveHighScore()
+        }
     }
     
     func restartGame(action: UIAlertAction) {
