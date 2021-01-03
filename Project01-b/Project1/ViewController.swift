@@ -80,6 +80,8 @@ class ViewController: UICollectionViewController {
         
         cell.visitsCount.layer.masksToBounds = true
         cell.visitsCount.layer.cornerRadius = cell.visitsCount.frame.height / 2
+        cell.visitsCount.layer.borderWidth = 3
+        cell.visitsCount.layer.borderColor = UIColor.white.cgColor
         cell.visits = counts[indexPath.item]
         cell.visitsCount.text = "\(cell.visits)"
         
