@@ -125,5 +125,16 @@ class ViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
+    
+    func saveHighScore() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(highScore) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "highScore")
+        } else {
+            print("Failed to save High Score")
+        }
+    }
 }
 
