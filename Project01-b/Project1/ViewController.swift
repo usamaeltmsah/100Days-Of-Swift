@@ -28,14 +28,13 @@ class ViewController: UICollectionViewController {
         
         collectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: false)
         
-        counts = [Int](repeating: 0, count: pictures.count)
-        
-        let defaults = UserDefaults.standard
-        
-        if let savedCounts = defaults.object(forKey: "counts") as? Data {
-            if let decodedCounts = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedCounts) as? [Int] {
-                counts = decodedCounts
-                print(counts)
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            let defaults = UserDefaults.standard
+            
+            if let savedCounts = defaults.object(forKey: "counts") as? Data {
+                if let decodedCounts = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedCounts) as? [Int] {
+                    counts = decodedCounts
+                }
             }
         }
     }
@@ -56,6 +55,10 @@ class ViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if counts.count < pictures.count {
+            counts = [Int](repeating: 0, count: pictures.count)
+        }
+        
         return pictures.count
     }
     
