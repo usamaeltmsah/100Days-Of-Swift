@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		190C437E259E8DE300631D1F /* imageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C437D259E8DE300631D1F /* imageInfo.swift */; };
 		190C4382259E8EBA00631D1F /* imgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C4381259E8EBA00631D1F /* imgCell.swift */; };
 		1939D9F9257FC1C0005D9B8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1939D9F8257FC1C0005D9B8F /* AppDelegate.swift */; };
 		1939D9FB257FC1C0005D9B8F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1939D9FA257FC1C0005D9B8F /* SceneDelegate.swift */; };
@@ -29,7 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		190C437D259E8DE300631D1F /* imageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageInfo.swift; sourceTree = "<group>"; };
 		190C4381259E8EBA00631D1F /* imgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imgCell.swift; sourceTree = "<group>"; };
 		1939D9F5257FC1C0005D9B8F /* Project1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1939D9F8257FC1C0005D9B8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				1939D9FC257FC1C0005D9B8F /* ViewController.swift */,
 				19676C3A2583E7D10097193E /* DetailViewController.swift */,
 				1939D9FE257FC1C0005D9B8F /* Main.storyboard */,
-				190C437D259E8DE300631D1F /* imageInfo.swift */,
 				190C4381259E8EBA00631D1F /* imgCell.swift */,
 				1939DA01257FC1C5005D9B8F /* Assets.xcassets */,
 				1939DA03257FC1C5005D9B8F /* LaunchScreen.storyboard */,
@@ -194,7 +191,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				190C437E259E8DE300631D1F /* imageInfo.swift in Sources */,
 				1939D9FD257FC1C0005D9B8F /* ViewController.swift in Sources */,
 				1939D9F9257FC1C0005D9B8F /* AppDelegate.swift in Sources */,
 				190C4382259E8EBA00631D1F /* imgCell.swift in Sources */,

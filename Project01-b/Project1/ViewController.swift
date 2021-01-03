@@ -13,6 +13,7 @@ var totalPictures: Int!
 class ViewController: UICollectionViewController {
     
     var pictures = [String]()
+    var counts = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,7 @@ class ViewController: UICollectionViewController {
         
         cell.visitsCount.layer.masksToBounds = true
         cell.visitsCount.layer.cornerRadius = cell.visitsCount.frame.height / 2
+        cell.visits = counts[indexPath.item]
         cell.visitsCount.text = "\(cell.visits)"
         
         return cell
@@ -72,8 +74,9 @@ class ViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? imgCell
-    
-        cell!.visits += 1
+        counts[indexPath.item] += 1
+        cell!.visits = counts[indexPath.item]
+        save()
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             
@@ -85,6 +88,13 @@ class ViewController: UICollectionViewController {
             
             selectedPictureNumber = indexPath.row + 1
 
+        }
+    }
+    
+    func save() {
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: counts, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "counts")
         }
     }
 }
