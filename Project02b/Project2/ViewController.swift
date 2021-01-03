@@ -124,7 +124,21 @@ class ViewController: UIViewController {
         if score > highScore {
             highScore = score
             saveHighScore()
+            alertNewScore()
+        } else {
+            let ac = UIAlertController(title: title, message: "Your final score is \(score)/10", preferredStyle: .alert)
+            
+            ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: restartGame))
+            present(ac, animated: true)
         }
+    }
+    
+    func alertNewScore() {
+        let ac = UIAlertController(title: "New High Score", message: "Congrats, You get a new high score is \(highScore)/10", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: restartGame))
+        present(ac, animated: true)
+        
     }
     
     func restartGame(action: UIAlertAction) {
