@@ -11,12 +11,20 @@ class ViewController: UIViewController {
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
+    @IBOutlet var highScoreLabel: UILabel!
+    
     var countries = [String]()
     var score = 0
     var correctAnswer = 0
     var count = 0
     
-    var highScore = 0
+    var messages: [String] = []
+    
+    var highScore = 0 {
+        didSet {
+            highScoreLabel.text = "High Score: \(highScore)"
+        }
+    }
     
     var countryLabel: UILabel!
     var scoreLabel: UILabel!
@@ -26,6 +34,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show Score", style: .plain, target: self, action: #selector(showScore))
+        
+        let defaults = UserDefaults.standard
+        
+        if let savedHighScore = defaults.object(forKey: "highScore") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                highScore = try jsonDecoder.decode(Int.self, from: savedHighScore)
+            } catch {
+                print("Failed to load highScore.")
+            }
+        }
         startGame()
     }
     
@@ -101,11 +121,6 @@ class ViewController: UIViewController {
     }
     
     func finalAlert() {
-        let ac = UIAlertController(title: title, message: "Your final score is \(score)/10", preferredStyle: .alert)
-        
-        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: restartGame))
-        present(ac, animated: true)
-        
         if score > highScore {
             highScore = score
             saveHighScore()
