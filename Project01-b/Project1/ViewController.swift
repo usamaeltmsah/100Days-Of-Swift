@@ -27,6 +27,17 @@ class ViewController: UICollectionViewController {
         performSelector(inBackground: #selector(loadNsslImages), with: nil)
         
         collectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: false)
+        
+        counts = [Int](repeating: 0, count: pictures.count)
+        
+        let defaults = UserDefaults.standard
+        
+        if let savedCounts = defaults.object(forKey: "counts") as? Data {
+            if let decodedCounts = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedCounts) as? [Int] {
+                counts = decodedCounts
+                print(counts)
+            }
+        }
     }
     
     @objc func loadNsslImages() {
