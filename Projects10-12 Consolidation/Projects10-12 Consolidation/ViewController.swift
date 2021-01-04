@@ -103,6 +103,24 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (_, _, _) in
+            self?.editThingCaption(at: indexPath)
+        }
+            editAction.backgroundColor = .orange
+
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (_, _, _) in
+            self?.deleteThing(at: indexPath)
+            }
+            deleteAction.backgroundColor = .red
+
+            return UISwipeActionsConfiguration(actions: [editAction,deleteAction])
+    }
 
 }
 
