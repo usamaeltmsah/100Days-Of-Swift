@@ -15,6 +15,18 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addNewThing))
+        
+        let defaults = UserDefaults.standard
+        
+        if let savedPeople = defaults.object(forKey: "things") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                things = try jsonDecoder.decode([Thing].self, from: savedPeople)
+            } catch {
+                print("Failed to load things.")
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
