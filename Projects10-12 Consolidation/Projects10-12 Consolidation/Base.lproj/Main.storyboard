@@ -72,7 +72,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n88-L1-qY6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n88-L1-qY6">
                                 <rect key="frame" x="10" y="54" width="394" height="394"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M9-Vw-yCF">
@@ -89,12 +89,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8M9-Vw-yCF" firstAttribute="leading" secondItem="n88-L1-qY6" secondAttribute="leading" id="2Yr-61-NCe"/>
-                            <constraint firstItem="n88-L1-qY6" firstAttribute="leading" secondItem="Jod-qc-Cdk" secondAttribute="leading" constant="10" id="3Ep-nO-bYI"/>
                             <constraint firstItem="8M9-Vw-yCF" firstAttribute="centerX" secondItem="n88-L1-qY6" secondAttribute="centerX" id="Atv-Gw-vgH"/>
                             <constraint firstItem="8M9-Vw-yCF" firstAttribute="top" secondItem="n88-L1-qY6" secondAttribute="bottom" constant="30" id="EfH-F2-oyA"/>
+                            <constraint firstItem="Jod-qc-Cdk" firstAttribute="trailing" secondItem="n88-L1-qY6" secondAttribute="trailing" constant="10" id="HfE-0c-PZj"/>
+                            <constraint firstItem="n88-L1-qY6" firstAttribute="top" secondItem="Jod-qc-Cdk" secondAttribute="top" constant="10" id="IiE-fV-Wbn"/>
                             <constraint firstItem="8M9-Vw-yCF" firstAttribute="bottom" secondItem="Jod-qc-Cdk" secondAttribute="bottom" id="LZ4-rj-I8Z"/>
-                            <constraint firstItem="Jod-qc-Cdk" firstAttribute="trailing" secondItem="n88-L1-qY6" secondAttribute="trailing" constant="10" id="fWH-4m-2vt"/>
-                            <constraint firstItem="n88-L1-qY6" firstAttribute="top" secondItem="Jod-qc-Cdk" secondAttribute="top" constant="10" id="hmc-Hn-27e"/>
+                            <constraint firstItem="n88-L1-qY6" firstAttribute="width" secondItem="uKo-In-dpX" secondAttribute="width" multiplier="0.951691" id="YHl-Wu-UaC"/>
+                            <constraint firstItem="n88-L1-qY6" firstAttribute="height" secondItem="uKo-In-dpX" secondAttribute="height" multiplier="0.439732" id="he7-RA-CLL"/>
+                            <constraint firstItem="n88-L1-qY6" firstAttribute="leading" secondItem="Jod-qc-Cdk" secondAttribute="leading" constant="10" id="lq0-ia-g8C"/>
+                            <constraint firstItem="n88-L1-qY6" firstAttribute="centerX" secondItem="Jod-qc-Cdk" secondAttribute="centerX" id="nQs-n2-avs"/>
                         </constraints>
                     </view>
                     <connections>
