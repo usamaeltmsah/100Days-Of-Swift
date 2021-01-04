@@ -76,6 +76,22 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
         
         return paths[0]
     }
+    
+    func editThingCaption(at indexPath: IndexPath) {
+        let thing = things[indexPath.row]
+        let ac = UIAlertController(title: "Edit the caption", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+
+        ac.addAction(UIAlertAction(title: "OK", style: .default){ [weak self, weak ac] _ in
+            guard let caption = ac?.textFields?[0].text else {
+                return
+            }
+            thing.caption = caption
+            self?.tableView.reloadData()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
+    }
 
 }
 
