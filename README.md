@@ -49,3 +49,6 @@
 ## [Project 12 a - UserDefaults(NSCoding)](Project12a)
 
 ## [Project 12 b - UserDefaults(Codable)](Project12b)
+
+## [Projects 10-12 Consolidation](Projects10-12%20Consolidation)
+<img alt="Projects 10-12 Consolidation - Demo" src="Projects10-12%20Consolidation/Projects 10-12 Consolidation-demo.gif" width="200" height="400" />
