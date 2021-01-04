@@ -136,6 +136,24 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
             return UISwipeActionsConfiguration(actions: [editAction,deleteAction])
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if #available(iOS 13.0, *) {
+            if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
+                let thing = things[indexPath.row]
+                
+                vc.caption = thing.caption
+                
+                let path = getDocumentsDirectory().appendingPathComponent(thing.image)
+                
+                vc.imagePath = path.path
+                
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     func save() {
         let jsonEncoder = JSONEncoder()
         

@@ -15,6 +15,7 @@
 		1994ADFB25A33E9900B5771D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1994ADF925A33E9900B5771D /* LaunchScreen.storyboard */; };
 		1994AE0425A33F9C00B5771D /* ThingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1994AE0325A33F9C00B5771D /* ThingCell.swift */; };
 		1994AE0925A38FBF00B5771D /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1994AE0825A38FBF00B5771D /* Thing.swift */; };
+		1994AE0E25A3AE8A00B5771D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1994AE0D25A3AE8A00B5771D /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1994ADFC25A33E9900B5771D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1994AE0325A33F9C00B5771D /* ThingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingCell.swift; sourceTree = "<group>"; };
 		1994AE0825A38FBF00B5771D /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
+		1994AE0D25A3AE8A00B5771D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				1994ADEE25A33E9600B5771D /* AppDelegate.swift */,
 				1994ADF025A33E9600B5771D /* SceneDelegate.swift */,
 				1994ADF225A33E9600B5771D /* ViewController.swift */,
+				1994AE0D25A3AE8A00B5771D /* DetailViewController.swift */,
 				1994AE0825A38FBF00B5771D /* Thing.swift */,
 				1994ADF425A33E9600B5771D /* Main.storyboard */,
 				1994AE0325A33F9C00B5771D /* ThingCell.swift */,
@@ -146,6 +149,7 @@
 				1994AE0425A33F9C00B5771D /* ThingCell.swift in Sources */,
 				1994ADF325A33E9600B5771D /* ViewController.swift in Sources */,
 				1994ADEF25A33E9600B5771D /* AppDelegate.swift in Sources */,
+				1994AE0E25A3AE8A00B5771D /* DetailViewController.swift in Sources */,
 				1994AE0925A38FBF00B5771D /* Thing.swift in Sources */,
 				1994ADF125A33E9600B5771D /* SceneDelegate.swift in Sources */,
 			);
