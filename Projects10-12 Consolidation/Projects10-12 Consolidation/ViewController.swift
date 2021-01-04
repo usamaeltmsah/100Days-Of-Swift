@@ -137,20 +137,16 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if #available(iOS 13.0, *) {
-            if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-                let thing = things[indexPath.row]
-                
-                vc.caption = thing.caption
-                
-                let path = getDocumentsDirectory().appendingPathComponent(thing.image)
-                
-                vc.imagePath = path.path
-                
-                navigationController?.pushViewController(vc, animated: true)
-            }
-        } else {
-            // Fallback on earlier versions
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            let thing = things[indexPath.row]
+            
+            vc.caption = thing.caption
+            
+            let path = getDocumentsDirectory().appendingPathComponent(thing.image)
+            
+            vc.imagePath = path.path
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
