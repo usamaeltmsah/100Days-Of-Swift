@@ -66,6 +66,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
         
         let thing = Thing(caption: "None", image: imageName)
         things.append(thing)
+        save()
         tableView.reloadData()
         
         dismiss(animated: true)
@@ -87,6 +88,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
                 return
             }
             thing.caption = caption
+            self?.save()
             self?.tableView.reloadData()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
@@ -120,6 +122,17 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
             deleteAction.backgroundColor = .red
 
             return UISwipeActionsConfiguration(actions: [editAction,deleteAction])
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(things) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "things")
+        } else {
+            print("Failed to save things")
+        }
     }
 
 }
