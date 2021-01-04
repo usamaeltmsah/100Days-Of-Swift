@@ -75,7 +75,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n88-L1-qY6">
                                 <rect key="frame" x="10" y="54" width="394" height="394"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M9-Vw-yCF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="18" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8M9-Vw-yCF">
                                 <rect key="frame" x="10" y="478" width="394" height="384"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="384" id="xCX-jz-AFC"/>
@@ -94,8 +94,6 @@
                             <constraint firstItem="Jod-qc-Cdk" firstAttribute="trailing" secondItem="n88-L1-qY6" secondAttribute="trailing" constant="10" id="HfE-0c-PZj"/>
                             <constraint firstItem="n88-L1-qY6" firstAttribute="top" secondItem="Jod-qc-Cdk" secondAttribute="top" constant="10" id="IiE-fV-Wbn"/>
                             <constraint firstItem="8M9-Vw-yCF" firstAttribute="bottom" secondItem="Jod-qc-Cdk" secondAttribute="bottom" id="LZ4-rj-I8Z"/>
-                            <constraint firstItem="n88-L1-qY6" firstAttribute="width" secondItem="uKo-In-dpX" secondAttribute="width" multiplier="0.951691" id="YHl-Wu-UaC"/>
-                            <constraint firstItem="n88-L1-qY6" firstAttribute="height" secondItem="uKo-In-dpX" secondAttribute="height" multiplier="0.439732" id="he7-RA-CLL"/>
                             <constraint firstItem="n88-L1-qY6" firstAttribute="leading" secondItem="Jod-qc-Cdk" secondAttribute="leading" constant="10" id="lq0-ia-g8C"/>
                             <constraint firstItem="n88-L1-qY6" firstAttribute="centerX" secondItem="Jod-qc-Cdk" secondAttribute="centerX" id="nQs-n2-avs"/>
                         </constraints>
