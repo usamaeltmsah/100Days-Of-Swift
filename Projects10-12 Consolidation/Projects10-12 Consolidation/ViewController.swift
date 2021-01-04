@@ -92,6 +92,17 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate,  U
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
     }
+    
+    func deleteThing(at indexPath: IndexPath) {
+        let ac = UIAlertController(title: "Delete Thing", message: "This item will be permanently deleted", preferredStyle: .alert)
+
+        ac.addAction(UIAlertAction(title: "OK", style: .destructive){ [weak self] _ in
+            self?.things.remove(at: indexPath.item)
+            self?.tableView.reloadData()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
+    }
 
 }
 
