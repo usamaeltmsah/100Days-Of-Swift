@@ -47,7 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func changeFilter(_ sender: UIButton) {
         let ac = UIAlertController(title: "Choose filter", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "CIBumpDistortion", style: .default, handler: setFilter))
-        ac.addAction(UIAlertAction(title: "CIGuaussianBlur", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CIGaussianBlur", style: .default, handler: setFilter))
         ac.addAction(UIAlertAction(title: "CIPixellate", style: .default, handler: setFilter))
         ac.addAction(UIAlertAction(title: "CISepiaTone", style: .default, handler: setFilter))
         ac.addAction(UIAlertAction(title: "CITwirlDistortion", style: .default, handler: setFilter))
@@ -65,8 +65,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func setFilter(action: UIAlertAction) {
+        // make sure we have a valid image before continuing!
         guard currentImage != nil else { return }
         
+        // safely read the alert action's title
         guard let actionTitle = action.title else { return }
         
         currentFilter = CIFilter(name: actionTitle)
@@ -85,6 +87,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func applyProcessing() {
+        // Do the actual Core Image manipulation
         let inputKeys = currentFilter.inputKeys
         
         if inputKeys.contains(kCIInputIntensityKey) {
@@ -105,8 +108,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         guard let outputImage = currentFilter.outputImage else { return }
-        currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
         
+        // Which part of the image we want to render, using image.extent means "all of it."
         if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
             let processedImage = UIImage(cgImage: cgImage)
             imageView.image = processedImage
