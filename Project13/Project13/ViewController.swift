@@ -5,11 +5,15 @@
 //  Created by Usama Fouad on 06/01/2021.
 //
 
+import CoreImage
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var intensity: UISlider!
+    
+    var context: CIContext!
+    var currentFilter: CIFilter!
     
     var currentImage: UIImage!
     
@@ -18,6 +22,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         title = "Instafilter"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(importPicture))
+        
+        context = CIContext()
+        currentFilter = CIFilter(name: "CISepiaTone")
     }
     
     @objc func importPicture() {
@@ -31,6 +38,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let image = info[.editedImage] as? UIImage else { return }
         dismiss(animated: true)
         currentImage = image
+        
+        let beginImage = CIImage(image: currentImage)
+        currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
     }
 
     @IBAction func changeFilter(_ sender: Any) {
