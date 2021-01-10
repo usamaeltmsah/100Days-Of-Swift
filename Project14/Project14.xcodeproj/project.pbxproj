@@ -24,6 +24,8 @@
 		19B74D7C25AB8BF40079B9BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19B74D7E25AB8BF70079B9BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19B74D8025AB8BF70079B9BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19B74D8925AB8D500079B9BD /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whackBad.caf; sourceTree = "<group>"; };
+		19B74D8A25AB8D500079B9BD /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,8 @@
 				19B74D7B25AB8BF40079B9BD /* Main.storyboard */,
 				19B74D7E25AB8BF70079B9BD /* Assets.xcassets */,
 				19B74D8025AB8BF70079B9BD /* Info.plist */,
+				19B74D8A25AB8D500079B9BD /* whack.caf */,
+				19B74D8925AB8D500079B9BD /* whackBad.caf */,
 			);
 			path = Project14;
 			sourceTree = "<group>";
