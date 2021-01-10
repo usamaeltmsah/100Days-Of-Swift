@@ -73,6 +73,11 @@ class GameScene: SKScene {
                 score += 1
                 
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
+                
+                if let smokeParticles = SKEmitterNode(fileNamed: "smoke.sks") {
+                    smokeParticles.position = whackSlot.position
+                    addChild(smokeParticles)
+                }
             }
         }
     }

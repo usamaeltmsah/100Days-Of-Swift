@@ -17,6 +17,8 @@
 		19B74D9025ABAEA90079B9BD /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D8925AB8D500079B9BD /* whackBad.caf */; };
 		19B74D9225ABAEAE0079B9BD /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D8A25AB8D500079B9BD /* whack.caf */; };
 		19B74D9525ABB0730079B9BD /* gmeOver.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D9425ABB0730079B9BD /* gmeOver.m4a */; };
+		19B74D9825ABB5AE0079B9BD /* smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D9725ABB5AE0079B9BD /* smoke.sks */; };
+		19B74DA025ABB6630079B9BD /* mud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D9F25ABB6630079B9BD /* mud.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		19B74D8A25AB8D500079B9BD /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
 		19B74D8D25AB98DA0079B9BD /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
 		19B74D9425ABB0730079B9BD /* gmeOver.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gmeOver.m4a; sourceTree = "<group>"; };
+		19B74D9725ABB5AE0079B9BD /* smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = smoke.sks; sourceTree = "<group>"; };
+		19B74D9F25ABB6630079B9BD /* mud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = mud.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				19B74D7125AB8BF40079B9BD /* AppDelegate.swift */,
 				19B74D7325AB8BF40079B9BD /* GameScene.sks */,
 				19B74D7725AB8BF40079B9BD /* GameScene.swift */,
+				19B74D9F25ABB6630079B9BD /* mud.sks */,
+				19B74D9725ABB5AE0079B9BD /* smoke.sks */,
 				19B74D7925AB8BF40079B9BD /* GameViewController.swift */,
 				19B74D8D25AB98DA0079B9BD /* WhackSlot.swift */,
 				19B74D7B25AB8BF40079B9BD /* Main.storyboard */,
@@ -140,8 +146,10 @@
 				19B74D9225ABAEAE0079B9BD /* whack.caf in Resources */,
 				19B74D9525ABB0730079B9BD /* gmeOver.m4a in Resources */,
 				19B74D9025ABAEA90079B9BD /* whackBad.caf in Resources */,
+				19B74D9825ABB5AE0079B9BD /* smoke.sks in Resources */,
 				19B74D7425AB8BF40079B9BD /* GameScene.sks in Resources */,
 				19B74D7F25AB8BF70079B9BD /* Assets.xcassets in Resources */,
+				19B74DA025ABB6630079B9BD /* mud.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

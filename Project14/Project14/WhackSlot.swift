@@ -51,6 +51,10 @@ class WhackSlot: SKNode {
             charNode.name = "charEnemy"
         }
         
+        guard let mudParticles = SKEmitterNode(fileNamed: "mud.sks") else { return }
+        mudParticles.position = charNode.parent!.position
+        addChild(mudParticles)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + (hidTime * 3.5)) { [weak self] in
             self?.hide()
         }
