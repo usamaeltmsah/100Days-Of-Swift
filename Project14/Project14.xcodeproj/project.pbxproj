@@ -16,6 +16,7 @@
 		19B74D8E25AB98DA0079B9BD /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B74D8D25AB98DA0079B9BD /* WhackSlot.swift */; };
 		19B74D9025ABAEA90079B9BD /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D8925AB8D500079B9BD /* whackBad.caf */; };
 		19B74D9225ABAEAE0079B9BD /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D8A25AB8D500079B9BD /* whack.caf */; };
+		19B74D9525ABB0730079B9BD /* gmeOver.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 19B74D9425ABB0730079B9BD /* gmeOver.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		19B74D8925AB8D500079B9BD /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whackBad.caf; sourceTree = "<group>"; };
 		19B74D8A25AB8D500079B9BD /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
 		19B74D8D25AB98DA0079B9BD /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
+		19B74D9425ABB0730079B9BD /* gmeOver.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gmeOver.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				19B74D7B25AB8BF40079B9BD /* Main.storyboard */,
 				19B74D7E25AB8BF70079B9BD /* Assets.xcassets */,
 				19B74D8025AB8BF70079B9BD /* Info.plist */,
+				19B74D9425ABB0730079B9BD /* gmeOver.m4a */,
 				19B74D8A25AB8D500079B9BD /* whack.caf */,
 				19B74D8925AB8D500079B9BD /* whackBad.caf */,
 			);
@@ -135,6 +138,7 @@
 			files = (
 				19B74D7D25AB8BF40079B9BD /* Main.storyboard in Resources */,
 				19B74D9225ABAEAE0079B9BD /* whack.caf in Resources */,
+				19B74D9525ABB0730079B9BD /* gmeOver.m4a in Resources */,
 				19B74D9025ABAEA90079B9BD /* whackBad.caf in Resources */,
 				19B74D7425AB8BF40079B9BD /* GameScene.sks in Resources */,
 				19B74D7F25AB8BF70079B9BD /* Assets.xcassets in Resources */,
