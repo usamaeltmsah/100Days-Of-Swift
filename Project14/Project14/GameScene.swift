@@ -95,8 +95,17 @@ class GameScene: SKScene {
             let gameOver = SKSpriteNode(imageNamed: "gameOver")
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
+            
+            let gameOverScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+            gameOverScoreLabel.text = gameScore.text
+            gameOverScoreLabel.fontSize = 80
+            gameOverScoreLabel.position = CGPoint(x: 512, y: 260)
+            gameOverScoreLabel.zPosition = 1
+            
             run(SKAction.playSoundFileNamed("gmeOver.m4a", waitForCompletion: false))
+            
             addChild(gameOver)
+            addChild(gameOverScoreLabel)
             return
         }
         
