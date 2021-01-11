@@ -55,3 +55,7 @@
 
 ## [Project 13 - Instafilter](Project13)
 <img alt="Project 13 - Demo" src="Project13/project13-demo.gif" width="200" height="400" />
+
+
+## [Project 14 - Whack-a-Penguin game](Project13)
+<img alt="Project 14 - Demo" src="Project14/project14-demo.gif" width="400" height="200" />
