@@ -28,23 +28,30 @@ class ViewController: UIViewController {
                 switch self.currentAnimation {
                 case 0:
                     self.imageView.transform = CGAffineTransform(scaleX: 2, y: 2)
-                    break
+                    sender.setTitle("Back Again!", for: .normal)
                 case 1:
                     self.imageView.transform = .identity
+                    sender.setTitle("Go up!", for: .normal)
                 case 2:
                     self.imageView.transform = CGAffineTransform(translationX: -256, y: -256)
+                    sender.setTitle("Back Again!", for: .normal)
                 case 3:
                     self.imageView.transform = .identity
+                    sender.setTitle("Rotate!", for: .normal)
                 case 4:
                     self.imageView.transform = CGAffineTransform(rotationAngle: .pi)
+                    sender.setTitle("Back Again!", for: .normal)
                 case 5:
                     self.imageView.transform = .identity
+                    sender.setTitle("Hide!", for: .normal)
                 case 6:
                     self.imageView.alpha = 0.1
                     self.imageView.backgroundColor = .green
+                    sender.setTitle("Back Again!", for: .normal)
                 case 7:
                     self.imageView.alpha = 1
                     self.imageView.backgroundColor = .clear
+                    sender.setTitle("Scale Up", for: .normal)
                 default:
                     break
                 }
