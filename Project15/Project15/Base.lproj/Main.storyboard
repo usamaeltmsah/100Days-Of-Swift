@@ -19,6 +19,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzP-lU-btN">
                                 <rect key="frame" x="192" y="832" width="30" height="30"/>
                                 <state key="normal" title="Tap"/>
+                                <connections>
+                                    <action selector="tapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Le3-dp-BF2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -28,9 +31,6 @@
                             <constraint firstItem="yzP-lU-btN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jA1-M3-j3B"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="tapped" destination="jA1-M3-j3B" id="6Hf-k2-puv"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

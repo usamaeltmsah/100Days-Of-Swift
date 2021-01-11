@@ -18,8 +18,13 @@ class ViewController: UIViewController {
         imageView.center = CGPoint(x: 512, y: 384)
         view.addSubview(imageView)
     }
-
-    @IBOutlet var tapped: NSLayoutConstraint!
     
+    @IBAction func tapped(_ sender: Any) {
+        currentAnimation += 1
+        
+        if currentAnimation > 7 {
+            currentAnimation = 0
+        }
+    }
 }
 
