@@ -47,7 +47,7 @@ class ViewController: UIViewController {
                 case 6:
                     self.imageView.alpha = 0.1
                     self.imageView.backgroundColor = .green
-                    sender.setTitle("Back Again!", for: .normal)
+                    sender.setTitle("Show Again!", for: .normal)
                 case 7:
                     self.imageView.alpha = 1
                     self.imageView.backgroundColor = .clear
