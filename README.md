@@ -62,3 +62,6 @@
 
 ## [Project 15 - Animation](Project15)
 <img alt="Project 15 - Demo" src="Project15/project15-demo.gif" width="400" height="400" />
+
+## [Projects 13-15 Consolidation](Projects13-15-Consolidation)
+<img alt="Projects 13-15 Consolidation - Demo" src="Projects13-15-Consolidation/Projects 13-15 Consolidation-demo.gif" width="200" height="400" />
