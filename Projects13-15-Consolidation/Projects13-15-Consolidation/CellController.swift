@@ -28,6 +28,13 @@ class CellController: UITableViewCell {
             self.valueLabel?.text = "\(value)"
         }
     }
+    
+    func addBordrs() {
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 8
+        self.clipsToBounds = true
+    }
 }
 
 extension UIColor {
