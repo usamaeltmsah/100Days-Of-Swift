@@ -68,5 +68,14 @@ class DetailViewController: UITableViewController {
         }
         return CellController()
     }
+    
+    @objc func shareTapped() {
+        let sharedData = getStringDataOfCountry()
+        
+        let vc = UIActivityViewController(activityItems: sharedData, applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        present(vc, animated: true)
+    }
 
 }
