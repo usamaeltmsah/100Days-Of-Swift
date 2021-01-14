@@ -41,5 +41,9 @@ class DetailViewController: UITableViewController {
             }
         }
     }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return allProperties.keys.count
+    }
 
 }
