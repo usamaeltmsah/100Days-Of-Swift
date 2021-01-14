@@ -61,5 +61,14 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countries.count
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let country = countries[indexPath.row]
+        cell.textLabel?.text = country.name
+        cell.detailTextLabel?.text = "Population: \(Float(country.population)/1000000.0) Milion people"
+        
+        return cell
+    }
 }
 
