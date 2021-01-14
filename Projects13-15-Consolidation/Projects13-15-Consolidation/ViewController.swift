@@ -78,5 +78,19 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    @objc func promptForText() {
+        let ac = UIAlertController(title: "Filter Countries", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        
+        let submitAction = UIAlertAction(title: "Filter", style: .default) { [weak self, weak ac] _ in
+            guard let text = ac?.textFields?[0].text else { return }
+            self?.filter(text)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
 }
 
