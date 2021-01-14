@@ -23,6 +23,23 @@ class DetailViewController: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
+        performSelector(inBackground: #selector(addCountriesDataToDictionary), with: nil)
+    }
+    
+    @objc func addCountriesDataToDictionary(){
+        var mirror: Mirror?
+        if let details = details {
+            mirror = Mirror(reflecting: details)
+        }
+        if let properites = mirror?.children {
+            for property in properites {
+                if let key = property.label {
+                    let value = property.value
+                    allProperties[key] = value
+                }
+            }
+        }
     }
 
 }
