@@ -54,5 +54,19 @@ class DetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return cellSpacingHeight
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? CellController {
+            let index = self.allProperties.index(allProperties.startIndex, offsetBy: indexPath.section)
+            let key = allProperties.keys[index]
+            let value = allProperties.values[index]
+            cell.keyLabel?.text = key.uppercased()
+            cell.setValue(value: value)
+            cell.addBordrs()
+            
+            return cell
+        }
+        return CellController()
+    }
 
 }
