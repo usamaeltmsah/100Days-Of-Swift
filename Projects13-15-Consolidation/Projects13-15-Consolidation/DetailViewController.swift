@@ -77,5 +77,17 @@ class DetailViewController: UITableViewController {
         vc.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(vc, animated: true)
     }
+    
+    func getStringDataOfCountry() -> [String] {
+        var sharedData: [String] = ["\(title?.uppercased() ?? "")\n"]
+        
+        for property in allProperties {
+            let key = property.key
+            let value = property.value
+            sharedData.append("\(key): \(value)")
+        }
+        
+        return sharedData
+    }
 
 }
