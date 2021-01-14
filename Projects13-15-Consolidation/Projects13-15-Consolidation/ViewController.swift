@@ -92,5 +92,19 @@ class ViewController: UITableViewController {
         ac.addAction(submitAction)
         present(ac, animated: true)
     }
+    
+    func filter(_ text: String) {
+        filteredCountries = []
+        for country in allCountries {
+            if searchIn(countrynObject: country, text: text.lowercased()) {
+                filteredCountries.append(country)
+            }
+        }
+        countries = filteredCountries
+        DispatchQueue.main.async {
+            self.title = text.uppercased()
+        }
+        tableView.reloadData()
+    }
 }
 
