@@ -42,5 +42,20 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
+    
+    func parse(json: Data) {
+        let decoder = JSONDecoder()
+
+        if let jsonCountries = try? decoder.decode([Country].self, from: json) {
+            countries = jsonCountries
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } else {
+            performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
+        }
+        allCountries = countries
+    }
 }
 
