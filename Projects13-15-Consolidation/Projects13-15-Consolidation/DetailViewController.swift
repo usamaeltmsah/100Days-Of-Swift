@@ -45,5 +45,10 @@ class DetailViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return allProperties.keys.count
     }
+        
+    // There is just one row in every section
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
+    }
 
 }
