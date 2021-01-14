@@ -33,6 +33,14 @@ class ViewController: UITableViewController {
                 return
             }
         }
+        performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
+    }
+    
+    @objc func showError() {
+        let ac = UIAlertController(title: "Loading Error ", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 }
 
