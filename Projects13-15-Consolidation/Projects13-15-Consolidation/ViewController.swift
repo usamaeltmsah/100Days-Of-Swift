@@ -110,5 +110,13 @@ class ViewController: UITableViewController {
     func searchIn(countrynObject: Country, text: String) -> Bool {
         return countrynObject.name.lowercased().range(of:text) != nil || countrynObject.capital.lowercased().range(of:text) != nil
     }
+    
+    @objc func refreshPage() {
+        countries = allCountries
+        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.title = ""
+        }
+    }
 }
 
