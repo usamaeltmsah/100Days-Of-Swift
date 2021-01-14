@@ -106,5 +106,9 @@ class ViewController: UITableViewController {
         }
         tableView.reloadData()
     }
+
+    func searchIn(countrynObject: Country, text: String) -> Bool {
+        return countrynObject.name.lowercased().range(of:text) != nil || countrynObject.capital.lowercased().range(of:text) != nil
+    }
 }
 
