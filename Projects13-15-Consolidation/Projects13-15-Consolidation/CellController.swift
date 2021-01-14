@@ -15,6 +15,19 @@ class CellController: UITableViewCell {
         super.awakeFromNib()
         self.backgroundColor = .random
     }
+
+    func setValue(value: Any){
+        if let val = value as? [Any] {
+            var str = ""
+            for el in val {
+                str += "\(el)\n"
+            }
+            str = String(str.dropLast())
+            self.valueLabel?.text = str
+        } else {
+            self.valueLabel?.text = "\(value)"
+        }
+    }
 }
 
 extension UIColor {
