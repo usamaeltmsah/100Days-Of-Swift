@@ -28,7 +28,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         let washington = Capital(title: "Washington DC", coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), info: "Named after George himself")
         
-        mapView.addAnnotations([london, oslo, paris, rome, washington])
+        let cairo = Capital(title: "Cairo", coordinate: CLLocationCoordinate2D(latitude: 30.0444, longitude: 31.2357), info: " The third largest, and second-most populous city in Africa.")
+        
+        let gaza = Capital(title: "Gaza_Strip", coordinate: CLLocationCoordinate2D(latitude: 31.3547, longitude: 34.3088), info: "Capital of Palestine")
+        
+        mapView.addAnnotations([london, oslo, paris, rome, washington, cairo, gaza])
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -59,12 +63,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
         guard  let capital = view.annotation as? Capital else { return }
         
         let placeName = capital.title
-        let placeInfo = capital.info
+//        let placeInfo = capital.info
         
-        let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        let web = storyboard?.instantiateViewController(identifier: "Wikipedia") as! WekepediaWebViewController
+        web.title = placeName
         
-        present(ac, animated: true)
+        self.navigationController?.pushViewController(web, animated: true)
+//        let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
+//        ac.addAction(UIAlertAction(title: "OK", style: .default))
+//        
+//        present(ac, animated: true)
     }
     
     @objc func changeMapType() {
