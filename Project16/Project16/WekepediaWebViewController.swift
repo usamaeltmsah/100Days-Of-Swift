@@ -21,6 +21,8 @@ class WekepediaWebViewController: UIViewController, WKNavigationDelegate {
         view = webView
         
         setConfigurations()
+        
+        getFromWikipedia(countryName: title!)
     }
     
     func setConfigurations() {
@@ -35,6 +37,12 @@ class WekepediaWebViewController: UIViewController, WKNavigationDelegate {
         
         toolbarItems = [refresh, spacer, progressButton]
         navigationController?.isToolbarHidden = false
+    }
+    
+    func getFromWikipedia(countryName: String) {
+        let url = URL(string: wikipedia + countryName)
+        webView.load(URLRequest(url: url!))
+        webView.allowsBackForwardNavigationGestures = true
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
