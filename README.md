@@ -65,3 +65,6 @@
 
 ## [Projects 13-15 Consolidation](Projects13-15-Consolidation)
 <img alt="Projects 13-15 Consolidation - Demo" src="Projects13-15-Consolidation/Projects 13-15 Consolidation-demo.gif" width="200" height="400" />
+
+## [Project 16 - Capital Cities](Project16)
+<img alt="Project 16 - Demo" src="Project16/Project16-demo.gif" width="200" height="400" />
