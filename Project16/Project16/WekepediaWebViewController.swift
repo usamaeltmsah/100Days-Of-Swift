@@ -15,5 +15,26 @@ class WekepediaWebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        view = webView
+        
+        setConfigurations()
     }
+    
+    func setConfigurations() {
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.sizeToFit()
+        let progressButton = UIBarButtonItem(customView: progressView)
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        
+        toolbarItems = [refresh, spacer, progressButton]
+        navigationController?.isToolbarHidden = false
+    }
+
 }
