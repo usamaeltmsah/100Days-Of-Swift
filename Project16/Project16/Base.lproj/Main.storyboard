@@ -41,6 +41,21 @@
             </objects>
             <point key="canvasLocation" x="886.95652173913049" y="61.607142857142854"/>
         </scene>
+        <!--Wekepedia Web View Controller-->
+        <scene sceneID="szx-tK-iem">
+            <objects>
+                <viewController storyboardIdentifier="Wikipedia" id="Suf-zH-B9R" customClass="WekepediaWebViewController" customModule="Project16" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RCN-tX-Jcw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="keK-iG-bgI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NGa-Au-QjH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2071" y="62"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1JH-TJ-QVf">
             <objects>
