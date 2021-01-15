@@ -14,6 +14,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let mapTypeButton = UIBarButtonItem(title: "Map Type", style: .plain, target: self, action: #selector(changeMapType))
+        
+        navigationItem.rightBarButtonItem = mapTypeButton
+        
         let london = Capital(title: "London", coordinate: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), info: "Home the 2012 Summer Olympics")
         
         let oslo = Capital(title: "Oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "Founded over a thousand years ago")
@@ -59,6 +63,29 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(ac, animated: true)
+    }
+    
+    @objc func changeMapType() {
+        let ac = UIAlertController(title: "Choose Map type", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Standard", style: .default, handler: { _ in
+            self.mapView.mapType = .standard
+        } ))
+        
+        ac.addAction(UIAlertAction(title: "Satellite", style: .default, handler: { _ in
+            self.mapView.mapType = .satellite
+        } ))
+        
+        ac.addAction(UIAlertAction(title: "Satellite Flyover", style: .default, handler: { _ in
+            self.mapView.mapType = .satelliteFlyover
+        } ))
+        
+        ac.addAction(UIAlertAction(title: "Hybrid Flyover", style: .default, handler: { _ in
+            self.mapView.mapType = .hybridFlyover
+        } ))
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .destructive))
         
         present(ac, animated: true)
     }
