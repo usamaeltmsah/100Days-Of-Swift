@@ -68,3 +68,6 @@
 
 ## [Project 16 - Capital Cities](Project16)
 <img alt="Project 16 - Demo" src="Project16/Project16-demo.gif" width="200" height="400" />
+
+## [Project 17 - Space Race](Project17)
+<img alt="Project 17 - Demo" src="Project17/Project17-demo.gif" width="400" height="400" />
