@@ -139,5 +139,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.removeFromParent()
         isGameOver = true
         starfield.isPaused = true
+        gameOver()
+    }
+    
+    func gameOver() {
+        let gamOverLabel = SKLabelNode(fontNamed: "Chalkduster")
+        gamOverLabel.text = "GAME OVER"
+        gamOverLabel.fontSize = 80
+        gamOverLabel.position = CGPoint(x: 512, y: 384)
+        addChild(gamOverLabel)
     }
 }
