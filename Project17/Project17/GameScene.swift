@@ -11,6 +11,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var starfield: SKEmitterNode!
     var player: SKSpriteNode!
     var scoreLabel: SKLabelNode!
+    var playAgainLabel: SKLabelNode!
     
     var possipleEnemies = ["ball", "hammer", "tv"]
     var gameTimer: Timer?
@@ -36,10 +37,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func resetAll() {
+        removeAllChildren()
+        numOfEnemies = 0
+        isGameOver = false
+        timer = 1
+    }
+    
     override func didMove(to view: SKView) {
         backgroundColor = .black
-
         
+        resetAll()
+        startGame()
+    }
+    
+    func startGame() {
         starfield = SKEmitterNode(fileNamed: "starfield")!
         starfield.position = CGPoint(x: 1024, y: 384)
         starfield.advanceSimulationTime(10)
@@ -56,9 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 16, y: 16)
         scoreLabel.horizontalAlignmentMode = .left
         addChild(scoreLabel)
-        
-        score = 0
-        
+                
         physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
         // Set current game scene to be the contact delegate of the physics world
         physicsWorld.contactDelegate = self
@@ -110,6 +120,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if nodes(at: location).contains(player) {
             isPlayerTouched = true
         }
+        
+        if isGameOver {
+            if nodes(at: location).contains(playAgainLabel) {
+                resetAll()
+                startGame()
+            }
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -148,5 +165,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gamOverLabel.fontSize = 80
         gamOverLabel.position = CGPoint(x: 512, y: 384)
         addChild(gamOverLabel)
+        playAgain()
+    }
+    
+    func playAgain() {
+        playAgainLabel = SKLabelNode(fontNamed: "Chalkduster")
+        playAgainLabel.text = "play Again!"
+        playAgainLabel.fontSize = 50
+        playAgainLabel.position = CGPoint(x: 512, y: 230)
+        addChild(playAgainLabel)
     }
 }
