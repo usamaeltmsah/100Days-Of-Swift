@@ -16,6 +16,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameTimer: Timer?
     var isGameOver = false
     
+    var timer: Double = 1
+    var numOfEnemies = 0 {
+        didSet {
+            if numOfEnemies == 5 {
+                timer *= 0.9
+                gameTimer?.invalidate()
+                gameTimer = Timer.scheduledTimer(timeInterval: timer, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+                numOfEnemies = 0
+            }
+        }
+    }
+    
     var isPlayerTouched = false
     
     var score = 0 {
@@ -51,8 +63,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Set current game scene to be the contact delegate of the physics world
         physicsWorld.contactDelegate = self
         
-        // timeInterval: 0.35 -> Three times a second
-        gameTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        // timeInterval: 1 -> Means 1 time a second, 0.5 -> -> Means 2 times a second
+        gameTimer = Timer.scheduledTimer(timeInterval: timer, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
     }
     
     @objc func createEnemy() {
@@ -73,6 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sprite.physicsBody?.linearDamping = 0
         // Never stop spinning (constant rate spinning)
         sprite.physicsBody?.angularDamping = 0
+        numOfEnemies += 1
     }
     
     override func update(_ currentTime: TimeInterval) {
