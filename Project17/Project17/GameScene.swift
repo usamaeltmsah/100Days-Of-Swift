@@ -68,7 +68,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func createEnemy() {
-        guard let enemy = possipleEnemies.randomElement() else { return }
+        if isGameOver { return }
+        guard let enemy = possipleEnemies.randomElement() else {
+            return
+        }
         
         let sprite = SKSpriteNode(imageNamed: enemy)
         sprite.position = CGPoint(x: 1200, y: Int.random(in: 50...736))
@@ -135,5 +138,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.removeFromParent()
         isGameOver = true
+        starfield.isPaused = true
     }
 }
