@@ -42,6 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         numOfEnemies = 0
         isGameOver = false
         timer = 1
+        gameTimer?.invalidate()
     }
     
     override func didMove(to view: SKView) {
@@ -164,6 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gamOverLabel.text = "GAME OVER"
         gamOverLabel.fontSize = 80
         gamOverLabel.position = CGPoint(x: 512, y: 384)
+        gamOverLabel.zPosition = 1
         addChild(gamOverLabel)
         playAgain()
     }
@@ -173,6 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playAgainLabel.text = "play Again!"
         playAgainLabel.fontSize = 50
         playAgainLabel.position = CGPoint(x: 512, y: 230)
+        playAgainLabel.zPosition = 1
         addChild(playAgainLabel)
     }
 }
