@@ -69,7 +69,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 16, y: 16)
         scoreLabel.horizontalAlignmentMode = .left
         addChild(scoreLabel)
-                
+        
+        score = 0
+        
         physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
         // Set current game scene to be the contact delegate of the physics world
         physicsWorld.contactDelegate = self
