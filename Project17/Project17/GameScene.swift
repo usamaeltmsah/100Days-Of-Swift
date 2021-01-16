@@ -31,6 +31,7 @@ class GameScene: SKScene {
         player = SKSpriteNode(imageNamed: "player")
         player.position = CGPoint(x: 100, y: 384)
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
+        player.physicsBody?.contactTestBitMask = 1
         addChild(player)
     }
     
