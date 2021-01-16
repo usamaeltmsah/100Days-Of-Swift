@@ -16,6 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameTimer: Timer?
     var isGameOver = false
     
+    var isPlayerTouched = false
+    
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -24,7 +26,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         backgroundColor = .black
-        
+
         
         starfield = SKEmitterNode(fileNamed: "starfield")!
         starfield.position = CGPoint(x: 1024, y: 384)
@@ -85,6 +87,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        
+        if nodes(at: location).contains(player) {
+            isPlayerTouched = true
+        }
+    }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         var location = touch.location(in: self)
@@ -95,9 +106,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             location.y = 668
         }
         
-        player.position = location
-        
-        self.touchesEnded(touches, with: event)
+        if isPlayerTouched {
+            player.position = location
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isPlayerTouched = false
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -107,9 +122,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.removeFromParent()
         isGameOver = true
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        return
     }
 }
