@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var starfield: SKEmitterNode!
     var player: SKSpriteNode!
     var scoreLabel: SKLabelNode!
@@ -38,6 +38,12 @@ class GameScene: SKScene {
         scoreLabel.position = CGPoint(x: 16, y: 16)
         scoreLabel.horizontalAlignmentMode = .left
         addChild(scoreLabel)
+        
+        score = 0
+        
+        physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
+        // Set current game scene to be the contact delegate of the physics world
+        physicsWorld.contactDelegate = self
     }
     
     override func update(_ currentTime: TimeInterval) {
