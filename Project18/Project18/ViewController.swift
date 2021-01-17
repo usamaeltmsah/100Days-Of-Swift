@@ -11,7 +11,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let errMsg = "Math Failure!"
+        assert(1 == 1, errMsg)
+        assert(1 == 2, errMsg)
     }
 
 
