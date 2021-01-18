@@ -8,6 +8,7 @@
 import SpriteKit
 class GameScene: SKScene {
     var background: SKSpriteNode!
+    var sniper: SKSpriteNode!
     
     override func didMove(to view: SKView) {
         background = SKSpriteNode(imageNamed: "background")
@@ -15,5 +16,9 @@ class GameScene: SKScene {
         background.size = (self.view?.bounds.size)!
         background.zPosition = -1
         addChild(background)
+        
+        sniper = SKSpriteNode(imageNamed: "sniper")
+        sniper.position = CGPoint(x: 512, y: 384)
+        addChild(sniper)
     }
 }
