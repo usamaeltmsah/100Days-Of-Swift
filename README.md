@@ -71,3 +71,5 @@
 
 ## [Project 17 - Space Race](Project17)
 <img alt="Project 17 - Demo" src="Project17/Project17-demo.gif" width="400" height="400" />
+
+## [Project 18 - Debugging](Project18)
