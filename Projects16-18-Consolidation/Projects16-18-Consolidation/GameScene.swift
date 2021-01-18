@@ -38,6 +38,22 @@ class GameScene: SKScene {
         levelTimerLabel.position = CGPoint(x: 160, y: 724)
         levelTimerLabel.text = "Time left: \(levelTimerValue)"
         addChild(levelTimerLabel)
+        
+        countDown()
+    }
+    
+    func countDown() {
+        let wait = SKAction.wait(forDuration: 1) // Wait for a second!
+        let block = SKAction.run({ [unowned self] in
+            if self.levelTimerValue > 0{
+                self.levelTimerValue -= 1
+            } else {
+                self.removeAction(forKey: "countdown")
+            }
+        })
+        let sequence = SKAction.sequence([wait, block])
+
+        run(SKAction.repeatForever(sequence), withKey: "countdown")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
