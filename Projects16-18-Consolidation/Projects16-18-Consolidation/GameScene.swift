@@ -11,16 +11,33 @@ class GameScene: SKScene {
     var sniper: SKSpriteNode!
     var isSniperTouched = false
     
+    var levelTimerLabel: SKLabelNode!
+
+    var levelTimerValue: Int = 60 {
+        didSet {
+            levelTimerLabel.text = "Time left: \(levelTimerValue)"
+        }
+    }
+    
+    let centerPoint = CGPoint(x: 512, y: 384)
+    
     override func didMove(to view: SKView) {
         background = SKSpriteNode(imageNamed: "background")
-        background.position = CGPoint(x: 512, y: 384)
+        background.position = centerPoint
         background.size = (self.view?.bounds.size)!
         background.zPosition = -1
         addChild(background)
         
         sniper = SKSpriteNode(imageNamed: "sniper")
-        sniper.position = CGPoint(x: 512, y: 384)
+        sniper.position = centerPoint
         addChild(sniper)
+        
+        levelTimerLabel = SKLabelNode(fontNamed: "Chalkduster")
+        levelTimerLabel.fontSize = 40
+        levelTimerLabel.zPosition = 1
+        levelTimerLabel.position = CGPoint(x: 160, y: 724)
+        levelTimerLabel.text = "Time left: \(levelTimerValue)"
+        addChild(levelTimerLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
