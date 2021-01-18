@@ -13,6 +13,10 @@ class GameScene: SKScene {
     
     var levelTimerLabel: SKLabelNode!
     
+    var bullet: SKSpriteNode!
+    var touchedOneTime = false
+    
+    
     let goodTargets = ["target3", "target4"]
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
 
@@ -86,7 +90,35 @@ class GameScene: SKScene {
         if nodes(at: location).contains(sniper) {
             isSniperTouched = true
         }
+        touchedOneTime = true
     }
+    
+    func createBullet() {
+        bullet = SKSpriteNode(imageNamed: "bullet")
+        bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*0.2)
+        bullet.physicsBody?.affectedByGravity = false
+        bullet.physicsBody?.contactTestBitMask = bullet.physicsBody?.collisionBitMask ?? 0
+        bullet.yScale = 0.2
+        bullet.position = sniper.position
+        bullet.name = "bullet"
+        addChild(bullet)
+    }
+    
+    func shoot() {
+        createBullet()
+        
+        let move = SKAction.moveTo(y: 50, duration: 0.3)
+        let scale = SKAction.scaleY(to: 1, duration: 0)
+        let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
+        
+        let wait = SKAction.wait(forDuration: 0.25)
+        let sequence = SKAction.sequence([move, rotate, scale, wait])
+        
+        bullet.run(sequence, completion: {
+            self.bullet.removeAllActions()
+            self.bullet.removeFromParent()
+            })
+        }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
@@ -98,6 +130,8 @@ class GameScene: SKScene {
             location.y = 618
         }
         
+        touchedOneTime = false
+        
         if isSniperTouched {
             sniper.position = location
         }
@@ -105,5 +139,10 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isSniperTouched = false
+        
+        if touchedOneTime {
+            shoot()
+        }
+        touchedOneTime = false
     }
 }
