@@ -15,7 +15,7 @@ class GameScene: SKScene {
     var touchedOneTime = false
     
     
-    let goodTargets = ["target3", "target4"]
+    let goodTargets = ["target3", "target5"]
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
         
     var remainingTimeLabel: SKLabelNode!
@@ -44,7 +44,7 @@ class GameScene: SKScene {
         sniper = SKSpriteNode(imageNamed: "sniper")
         sniper.position = centerPoint
         sniper.size = CGSize(width: sniper.size.width / 2, height: sniper.size.height / 2)
-        sniper.zPosition = 1
+        sniper.zPosition = 10
         addChild(sniper)
         
         remainingTimeLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -62,9 +62,15 @@ class GameScene: SKScene {
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
         
-        drawRows()
+        addTarget()
         
         countDown()
+    }
+    
+    func createTarget(at position: CGPoint) {
+        let row = Row()
+        row.configure(at: position)
+        addChild(row)
     }
     
     func countDown() {
@@ -81,22 +87,16 @@ class GameScene: SKScene {
         run(SKAction.repeatForever(sequence), withKey: "countdown")
     }
     
-    func createRow(size: CGSize, color: UIColor, pos: CGPoint) -> SKSpriteNode {
-        let row = SKSpriteNode(color: color, size: size)
-        row.position = pos
-            
-        return row
-    }
-    
-    func drawRows() {
-        let size = CGSize(width: 800, height: 5)
-        let color: UIColor = .white
-        
-        for i in -1...1 {
-            let row = createRow(size: size, color: color, pos: CGPoint(x: centerPoint.x, y: centerPoint.y + CGFloat(i)*150.0))
-            
-            addChild(row)
-        }
+    func addTarget() {
+        /**
+         - Create targets and but them on the rows.
+         - If the player shoots a good target he will get score.
+         - Else if he shoots a bad target or a free space he will lose score.
+         - Every type of shoot will have difftren sound, and when the bullet drop on the ground, another sound will be played.
+         */
+        let rowNum = Int.random(in: -1...1)
+        let xPos: CGFloat = 100
+        createTarget(at: CGPoint(x: xPos, y: centerPoint.y + CGFloat(rowNum)*150.0))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -115,6 +115,7 @@ class GameScene: SKScene {
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.contactTestBitMask = bullet.physicsBody?.collisionBitMask ?? 0
         bullet.yScale = 0.1
+        bullet.zPosition = 5
         bullet.position = sniper.position
         bullet.name = "bullet"
         addChild(bullet)
