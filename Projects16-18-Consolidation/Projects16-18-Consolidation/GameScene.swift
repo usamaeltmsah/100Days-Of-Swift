@@ -43,6 +43,7 @@ class GameScene: SKScene {
         
         sniper = SKSpriteNode(imageNamed: "sniper")
         sniper.position = centerPoint
+        sniper.size = CGSize(width: sniper.size.width / 2, height: sniper.size.height / 2)
         sniper.zPosition = 1
         addChild(sniper)
         
@@ -113,7 +114,7 @@ class GameScene: SKScene {
         bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*0.2)
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.contactTestBitMask = bullet.physicsBody?.collisionBitMask ?? 0
-        bullet.yScale = 0.2
+        bullet.yScale = 0.1
         bullet.position = sniper.position
         bullet.name = "bullet"
         addChild(bullet)
@@ -122,18 +123,19 @@ class GameScene: SKScene {
     func shoot() {
         createBullet()
         
-        let move = SKAction.moveTo(y: 50, duration: 0.3)
-        let scale = SKAction.scaleY(to: 1, duration: 0)
+        let moveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
+        let scale = SKAction.scale(to: 0.5, duration: 0)
+        let moveDown = SKAction.moveTo(y: 50, duration: 0.3)
         let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
         
         let wait = SKAction.wait(forDuration: 0.25)
-        let sequence = SKAction.sequence([move, rotate, scale, wait])
+        let sequence = SKAction.sequence([moveUp, moveDown, scale, rotate, wait])
         
         bullet.run(sequence, completion: {
             self.bullet.removeAllActions()
             self.bullet.removeFromParent()
             })
-        }
+    }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
