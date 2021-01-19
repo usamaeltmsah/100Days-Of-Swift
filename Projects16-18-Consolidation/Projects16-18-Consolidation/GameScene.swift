@@ -11,18 +11,24 @@ class GameScene: SKScene {
     var sniper: SKSpriteNode!
     var isSniperTouched = false
     
-    var levelTimerLabel: SKLabelNode!
-    
     var bullet: SKSpriteNode!
     var touchedOneTime = false
     
     
     let goodTargets = ["target3", "target4"]
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
-
-    var levelTimerValue: Int = 60 {
+        
+    var remainingTimeLabel: SKLabelNode!
+    var remainingTimeValue = 60 {
         didSet {
-            levelTimerLabel.text = "Time left: \(levelTimerValue)"
+            remainingTimeLabel.text = "Time left: \(remainingTimeValue)"
+        }
+    }
+    
+    var scoreLabel: SKLabelNode!
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
         }
     }
     
@@ -37,14 +43,23 @@ class GameScene: SKScene {
         
         sniper = SKSpriteNode(imageNamed: "sniper")
         sniper.position = centerPoint
+        sniper.zPosition = 1
         addChild(sniper)
         
-        levelTimerLabel = SKLabelNode(fontNamed: "Chalkduster")
-        levelTimerLabel.fontSize = 40
-        levelTimerLabel.zPosition = 1
-        levelTimerLabel.position = CGPoint(x: 160, y: 724)
-        levelTimerLabel.text = "Time left: \(levelTimerValue)"
-        addChild(levelTimerLabel)
+        remainingTimeLabel = SKLabelNode(fontNamed: "Chalkduster")
+        remainingTimeLabel.fontSize = 40
+        remainingTimeLabel.zPosition = 1
+        remainingTimeLabel.position = CGPoint(x: 160, y: 724)
+        remainingTimeLabel.text = "Time left: \(remainingTimeValue)"
+        addChild(remainingTimeLabel)
+        
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.fontSize = 50
+        scoreLabel.zPosition = 1
+        scoreLabel.fontColor = .magenta
+        scoreLabel.position = CGPoint(x: 880, y: 724)
+        scoreLabel.text = "Score: \(score)"
+        addChild(scoreLabel)
         
         drawRows()
         
@@ -54,8 +69,8 @@ class GameScene: SKScene {
     func countDown() {
         let wait = SKAction.wait(forDuration: 1) // Wait for a second!
         let block = SKAction.run({ [unowned self] in
-            if self.levelTimerValue > 0{
-                self.levelTimerValue -= 1
+            if self.remainingTimeValue > 0{
+                self.remainingTimeValue -= 1
             } else {
                 self.removeAction(forKey: "countdown")
             }
@@ -142,7 +157,7 @@ class GameScene: SKScene {
         
         if touchedOneTime {
             shoot()
+            touchedOneTime = false
         }
-        touchedOneTime = false
     }
 }
