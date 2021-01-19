@@ -19,9 +19,9 @@ class GameScene: SKScene {
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
         
     var remainingTimeLabel: SKLabelNode!
-    var remainingTimeValue = 60 {
+    var remainingTime = 60 {
         didSet {
-            remainingTimeLabel.text = "Time left: \(remainingTimeValue)"
+            remainingTimeLabel.text = "Time left: \(remainingTime)"
         }
     }
     
@@ -33,6 +33,8 @@ class GameScene: SKScene {
     }
     
     let centerPoint = CGPoint(x: 512, y: 384)
+    
+    var isGameOver = false
     
     override func didMove(to view: SKView) {
         background = SKSpriteNode(imageNamed: "background")
@@ -51,7 +53,7 @@ class GameScene: SKScene {
         remainingTimeLabel.fontSize = 40
         remainingTimeLabel.zPosition = 1
         remainingTimeLabel.position = CGPoint(x: 160, y: 724)
-        remainingTimeLabel.text = "Time left: \(remainingTimeValue)"
+        remainingTimeLabel.text = "Time left: \(remainingTime)"
         addChild(remainingTimeLabel)
         
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -76,8 +78,8 @@ class GameScene: SKScene {
     func countDown() {
         let wait = SKAction.wait(forDuration: 1) // Wait for a second!
         let block = SKAction.run({ [unowned self] in
-            if self.remainingTimeValue > 0{
-                self.remainingTimeValue -= 1
+            if self.remainingTime > 0{
+                self.remainingTime -= 1
             } else {
                 self.removeAction(forKey: "countdown")
             }
@@ -135,6 +137,10 @@ class GameScene: SKScene {
         bullet.run(sequence, completion: {
             self.bullet.removeAllActions()
             self.bullet.removeFromParent()
+            
+            if let bullet = self.childNode(withName: "bullet") {
+                bullet.removeFromParent()
+            }
         })
     }
     
