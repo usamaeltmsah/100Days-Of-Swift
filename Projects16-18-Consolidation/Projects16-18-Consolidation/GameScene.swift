@@ -95,7 +95,7 @@ class GameScene: SKScene {
          - Every type of shoot will have difftren sound, and when the bullet drop on the ground, another sound will be played.
          */
         let rowNum = Int.random(in: -1...1)
-        let xPos: CGFloat = 100
+        let xPos: CGFloat = 900
         createTarget(at: CGPoint(x: xPos, y: centerPoint.y + CGFloat(rowNum)*150.0))
     }
     
@@ -135,7 +135,7 @@ class GameScene: SKScene {
         bullet.run(sequence, completion: {
             self.bullet.removeAllActions()
             self.bullet.removeFromParent()
-            })
+        })
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

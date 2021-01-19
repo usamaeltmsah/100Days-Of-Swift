@@ -31,11 +31,18 @@ class Row: SKNode {
         }
         charNode.size = size
         
-        let rand = CGFloat.random(in: 0.1...1)
+        let rand = CGFloat.random(in: 0.3...1)
         charNode.xScale = rand
         charNode.yScale = rand
         
         addChild(charNode)
+        
+        let duration = Double.random(in: 2...5)
+        let move = SKAction.moveTo(x: -800, duration: duration)
+        charNode.run(move, completion: {
+            self.charNode.removeAllActions()
+            self.charNode.removeFromParent()
+        })
     }
 }
 
