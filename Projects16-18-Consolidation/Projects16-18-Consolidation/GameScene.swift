@@ -51,7 +51,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let centerPoint = CGPoint(x: 512, y: 384)
     
-    var isGameOver = false
+    var isGameOver = false {
+        didSet {
+            if isGameOver {
+                gameOver()
+                playAgain()
+            }
+        }
+    }
     
     var gameTimer: Timer?
     
@@ -183,7 +190,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if nodes(at: location).contains(sniper) {
             isSniperTouched = true
             if isGameOver {
-                playAgain()
                 if nodes(at: location).contains(playAgainLabel) {
                     play()
                     return
@@ -342,10 +348,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             collision(between: nodeB, object: nodeA)
         } else if names.contains(nodeB.name!) && !names.contains(nodeA.name!) {
             collision(between: nodeA, object: nodeB)
-        }
-        
-        if isGameOver {
-            gameOver()
         }
     }
 }
