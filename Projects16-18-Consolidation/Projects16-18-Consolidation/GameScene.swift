@@ -26,12 +26,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var leftBulletsLabel: SKLabelNode!
     
+    var reloadAmmoLabel: SKLabelNode!
+    
     var leftBullets = 6 {
         didSet {
             leftBulletsLabel.text = "🚅 \(leftBullets)"
             
             if leftBullets < 2 {
                 leftBulletsLabel.fontColor = .red
+            } else {
+                leftBulletsLabel.fontColor = .white
             }
         }
     }
@@ -64,11 +68,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addSniper()
         addRemainingTimeLbl()
         addScoreLbl()
-        
-        leftBulletsLabel = SKLabelNode(fontNamed: "Chalkduster")
-        leftBulletsLabel.position = CGPoint(x: 950, y: 650)
-        leftBulletsLabel.zPosition = 10
-        addChild(leftBulletsLabel)
+        addBulletsLabel()
+        addReloadAmmoLabel()
     }
     
     func resetAll() {
@@ -76,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         remainingTime = 60
         touchedOneTime = false
+        isGameOver = false
         score = 0
         leftBullets = 6
         gameTimer?.invalidate()
@@ -124,6 +126,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 880, y: 724)
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
+    }
+    
+    func addBulletsLabel() {
+        leftBulletsLabel = SKLabelNode(fontNamed: "Chalkduster")
+        leftBulletsLabel.position = CGPoint(x: 950, y: 650)
+        leftBulletsLabel.zPosition = 10
+        addChild(leftBulletsLabel)
+    }
+    
+    func addReloadAmmoLabel() {
+        reloadAmmoLabel = SKLabelNode(text: "🔫")
+        reloadAmmoLabel.fontSize = 50
+        reloadAmmoLabel.position = CGPoint(x: 950, y: 600)
+        reloadAmmoLabel.zPosition = 10
+        addChild(reloadAmmoLabel)
     }
     
     func createTarget(at position: CGPoint) {
@@ -230,6 +247,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        
+        if nodes(at: location).contains(reloadAmmoLabel) {
+            run(sound("bulletLoadInMagazine.m4a"))
+            leftBullets = 6
+            return
+        }
+        
         isSniperTouched = false
         
         if touchedOneTime && !isGameOver && leftBullets > 0 {
