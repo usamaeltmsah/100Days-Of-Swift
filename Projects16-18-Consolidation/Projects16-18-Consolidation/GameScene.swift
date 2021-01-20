@@ -11,7 +11,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var sniper: SKSpriteNode!
     var isSniperTouched = false
     
-    var bullet: SKSpriteNode!
     var touchedOneTime = false
     
     
@@ -69,13 +68,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position = CGPoint(x: 880, y: 724)
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
-        
-        physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
-        physicsWorld.contactDelegate = self
-        
-        countDown()
-        
-        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addTarget), userInfo: nil, repeats: true)
     }
     
     func createTarget(at position: CGPoint) {
@@ -121,9 +113,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         touchedOneTime = true
     }
     
-    func createBullet() {
+    func createBullet() -> SKNode {
         let scale:CGFloat = 0.1
-        bullet = SKSpriteNode(imageNamed: "bullet")
+        let bullet = SKSpriteNode(imageNamed: "bullet")
         bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*scale)
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.contactTestBitMask = 1
@@ -132,6 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.position = sniper.position
         bullet.name = "bullet"
         addChild(bullet)
+        return bullet
     }
     
     func sound(_ fileName: String) -> SKAction {
@@ -139,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func shoot() {
-        createBullet()
+        let bullet = createBullet()
         // Run shooting sound when bullet created.
         run(sound("bulletFlyBy.m4a"))
         let moveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
@@ -148,16 +141,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
         let bulletDropSound = sound("bulletDrop.m4a")
         let wait = SKAction.wait(forDuration: 0.25)
-        
         let sequence = SKAction.sequence([moveUp, moveDown, scale, rotate, bulletDropSound, wait])
         
         bullet.run(sequence, completion: {
-            self.bullet.removeAllActions()
-            self.bullet.removeFromParent()
-            
-            if let bullet = self.childNode(withName: "bullet") {
-                bullet.removeFromParent()
-            }
+            bullet.removeAllActions()
+            bullet.removeFromParent()
         })
     }
     
