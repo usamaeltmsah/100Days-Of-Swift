@@ -219,9 +219,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let scale = SKAction.scale(to: 0.5, duration: 0)
         let moveDown = SKAction.moveTo(y: 50, duration: 0.3)
         let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
+        let changeScore = SKAction.run {
+            self.makeFlyingScore(5.00000000001, increase: false)
+            self.score -= 5
+        }
         let bulletDropSound = sound("bulletDrop.m4a")
         let wait = SKAction.wait(forDuration: 0.25)
-        let sequence = SKAction.sequence([moveUp, moveDown, scale, rotate, bulletDropSound, wait])
+        let sequence = SKAction.sequence([moveUp, changeScore, moveDown, scale, rotate, bulletDropSound, wait])
         
         bullet.run(sequence, completion: {
             bullet.removeAllActions()
