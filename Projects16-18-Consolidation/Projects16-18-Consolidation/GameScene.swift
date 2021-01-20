@@ -204,7 +204,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let bullet = SKSpriteNode(imageNamed: "bullet")
         bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*scale)
         bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.contactTestBitMask = 1
+        bullet.physicsBody?.categoryBitMask = 1
         bullet.yScale = scale
         bullet.zPosition = 5
         bullet.position = sniper.position
@@ -222,16 +222,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Run shooting sound when bullet created.
         run(sound("bulletFlyBy.m4a"))
         let moveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
+        // This will happens only if the bullet didn't shooted the target
         let scale = SKAction.scale(to: 0.5, duration: 0)
         let moveDown = SKAction.moveTo(y: 50, duration: 0.3)
         let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
+        let changeBitMaskCategory = SKAction.run {
+            bullet.physicsBody?.categoryBitMask = 0
+        }
+        
         let changeScore = SKAction.run {
             self.makeFlyingScore(5.00000000001, increase: false)
             self.score -= 5
         }
         let bulletDropSound = sound("bulletDrop.m4a")
         let wait = SKAction.wait(forDuration: 0.25)
-        let sequence = SKAction.sequence([moveUp, changeScore, moveDown, scale, rotate, bulletDropSound, wait])
+        let sequence = SKAction.sequence([moveUp, changeBitMaskCategory, changeScore, moveDown, scale, rotate, bulletDropSound, wait])
         
         bullet.run(sequence, completion: {
             bullet.removeAllActions()
