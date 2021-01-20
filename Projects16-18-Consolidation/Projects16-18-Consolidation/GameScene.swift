@@ -186,6 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgain()
                 if nodes(at: location).contains(playAgainLabel) {
                     play()
+                    return
                 }
             }
         }
