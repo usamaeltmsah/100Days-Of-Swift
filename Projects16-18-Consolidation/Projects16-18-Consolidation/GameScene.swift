@@ -40,10 +40,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameTimer: Timer?
     
     override func didMove(to view: SKView) {
-        addBackGround()
-        addSniper()
-        addRemainingTimeLbl()
-        addScoreLbl()
         
         physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
@@ -51,8 +47,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         play()
     }
     
-    func play() {
+    func addViews() {
+        addBackGround()
+        addSniper()
+        addRemainingTimeLbl()
+        addScoreLbl()
+    }
+    
+    func resetAll() {
+        addViews()
+        
         remainingTime = 60
+        touchedOneTime = false
+        score = 0
+        gameTimer?.invalidate()
+    }
+    
+    func play() {
+        removeAllActions()
+        removeAllChildren()
+        
+        resetAll()
         countDown()
         
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addTarget), userInfo: nil, repeats: true)
@@ -132,6 +147,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if nodes(at: location).contains(sniper) {
             isSniperTouched = true
+            if isGameOver {
+                playAgain()
+                if nodes(at: location).contains(playAgainLabel) {
+                    isGameOver = false
+                    play()
+                }
+            }
         }
         touchedOneTime = true
     }
@@ -192,7 +214,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isSniperTouched = false
         
-        if touchedOneTime {
+        if touchedOneTime && !isGameOver{
             shoot()
             touchedOneTime = false
         }
@@ -224,6 +246,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gamOverLabel.zPosition = 1
         addChild(gamOverLabel)
         run(sound("gameOver.m4a"))
+        playAgain()
+    }
+    
+    func playAgain() {
+        playAgainLabel = SKLabelNode(fontNamed: "Chalkduster")
+        playAgainLabel.text = "play Again!"
+        playAgainLabel.fontSize = 50
+        playAgainLabel.position = CGPoint(x: 512, y: 230)
+        playAgainLabel.zPosition = 1
+        addChild(playAgainLabel)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
