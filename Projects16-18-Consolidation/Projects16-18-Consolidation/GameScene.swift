@@ -42,25 +42,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameTimer: Timer?
     
     override func didMove(to view: SKView) {
+        addBackGround()
+        addSniper()
+        addRemainingTimeLbl()
+        addScoreLbl()
+        
+        physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
+        physicsWorld.contactDelegate = self
+        
+        play()
+    }
+    
+    func play() {
+        remainingTime = 60
+        countDown()
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addTarget), userInfo: nil, repeats: true)
+    }
+    
+    func addBackGround() {
         background = SKSpriteNode(imageNamed: "background")
         background.position = centerPoint
         background.size = (self.view?.bounds.size)!
         background.zPosition = -1
         addChild(background)
-        
+    }
+    
+    func addSniper() {
         sniper = SKSpriteNode(imageNamed: "sniper")
         sniper.position = centerPoint
         sniper.size = CGSize(width: sniper.size.width / 2, height: sniper.size.height / 2)
         sniper.zPosition = 10
         addChild(sniper)
-        
+    }
+    
+    func addRemainingTimeLbl() {
         remainingTimeLabel = SKLabelNode(fontNamed: "Chalkduster")
         remainingTimeLabel.fontSize = 40
         remainingTimeLabel.zPosition = 1
         remainingTimeLabel.position = CGPoint(x: 160, y: 724)
         remainingTimeLabel.text = "Time left: \(remainingTime)"
         addChild(remainingTimeLabel)
-        
+    }
+    
+    func addScoreLbl() {
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.fontSize = 50
         scoreLabel.zPosition = 1
