@@ -10,7 +10,7 @@ import SpriteKit
 class Target: SKNode {
     var charNode: SKSpriteNode!
     
-    let goodTargets = ["target1", "target2", "target3"]
+    let goodTargets = ["target1", "target2", "target3", "target4"]
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
     
     let centerPoint = CGPoint(x: 512, y: 384)

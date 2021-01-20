@@ -17,6 +17,7 @@
 		194A2DB025B7AB9A00B971AA /* bulletFlyBy.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 194A2DAF25B7AB9A00B971AA /* bulletFlyBy.m4a */; };
 		194A2DB325B7ABB500B971AA /* bulletImpactGlassShutter.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 194A2DB225B7ABB500B971AA /* bulletImpactGlassShutter.m4a */; };
 		194A2DB625B7AC6A00B971AA /* bulletDrop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 194A2DB525B7AC6A00B971AA /* bulletDrop.m4a */; };
+		197A0E7B25B7C34100EB5B86 /* gameOver.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 197A0E7A25B7C34100EB5B86 /* gameOver.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		194A2DAF25B7AB9A00B971AA /* bulletFlyBy.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = bulletFlyBy.m4a; sourceTree = "<group>"; };
 		194A2DB225B7ABB500B971AA /* bulletImpactGlassShutter.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = bulletImpactGlassShutter.m4a; sourceTree = "<group>"; };
 		194A2DB525B7AC6A00B971AA /* bulletDrop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = bulletDrop.m4a; sourceTree = "<group>"; };
+		197A0E7A25B7C34100EB5B86 /* gameOver.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameOver.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				1929860025B7739500FE040F /* Target.swift */,
 				194A2DAF25B7AB9A00B971AA /* bulletFlyBy.m4a */,
 				194A2DB225B7ABB500B971AA /* bulletImpactGlassShutter.m4a */,
+				197A0E7A25B7C34100EB5B86 /* gameOver.m4a */,
 				194A2DB525B7AC6A00B971AA /* bulletDrop.m4a */,
 				194A2DAA25B7AA4600B971AA /* Assets.xcassets */,
 				192985E625B60B4C00FE040F /* GameViewController.swift */,
@@ -138,6 +141,7 @@
 			files = (
 				194A2DB325B7ABB500B971AA /* bulletImpactGlassShutter.m4a in Resources */,
 				192985EA25B60B4C00FE040F /* Main.storyboard in Resources */,
+				197A0E7B25B7C34100EB5B86 /* gameOver.m4a in Resources */,
 				194A2DB025B7AB9A00B971AA /* bulletFlyBy.m4a in Resources */,
 				194A2DAC25B7AA4600B971AA /* Assets.xcassets in Resources */,
 				192985E125B60B4C00FE040F /* GameScene.sks in Resources */,

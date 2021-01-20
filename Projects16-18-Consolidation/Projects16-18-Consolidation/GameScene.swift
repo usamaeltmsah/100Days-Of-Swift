@@ -13,10 +13,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var touchedOneTime = false
     
-    
-    let goodTargets = ["target3", "target5"]
-    let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
-        
     var remainingTimeLabel: SKLabelNode!
     var remainingTime = 60 {
         didSet {
@@ -27,6 +23,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    var playAgainLabel: SKLabelNode!
     
     var scoreLabel: SKLabelNode!
     var score:CGFloat = 0 {
@@ -218,6 +216,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func gameOver() {
+        let gamOverLabel = SKLabelNode(fontNamed: "Chalkduster")
+        gamOverLabel.text = "GAME OVER"
+        gamOverLabel.fontSize = 80
+        gamOverLabel.position = centerPoint
+        gamOverLabel.zPosition = 1
+        addChild(gamOverLabel)
+        run(sound("gameOver.m4a"))
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -226,6 +234,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             collision(between: nodeB, object: nodeA)
         } else if names.contains(nodeB.name!) && !names.contains(nodeA.name!) {
             collision(between: nodeA, object: nodeB)
+        }
+        
+        if isGameOver {
+            gameOver()
         }
     }
 }
