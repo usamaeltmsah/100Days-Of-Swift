@@ -40,6 +40,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var isGameOver = false
     
+    var gameTimer: Timer?
+    
     override func didMove(to view: SKView) {
         background = SKSpriteNode(imageNamed: "background")
         background.position = centerPoint
@@ -72,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         countDown()
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addTarget), userInfo: nil, repeats: true)
     }
     
     func createTarget(at position: CGPoint) {
