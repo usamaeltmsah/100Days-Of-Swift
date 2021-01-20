@@ -205,6 +205,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*scale)
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.categoryBitMask = 1
+        bullet.xScale = scale
         bullet.yScale = scale
         bullet.zPosition = 5
         bullet.position = sniper.position
