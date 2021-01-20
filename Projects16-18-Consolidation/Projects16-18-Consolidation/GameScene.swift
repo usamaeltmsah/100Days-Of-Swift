@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playAgainLabel: SKLabelNode!
     
     var scoreLabel: SKLabelNode!
-    var score:CGFloat = 0 {
+    var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
         }
@@ -264,14 +264,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             touchedOneTime = false
         }
     }
+    
+    func makeFlyingScore(_ score: CGFloat, increase: Bool) {
+        let flyingScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        flyingScoreLabel.fontSize = 30
+        flyingScoreLabel.zPosition = 1
+        if increase {
+            flyingScoreLabel.fontColor = .green
+            flyingScoreLabel.text = "+\(score)"
+        } else {
+            flyingScoreLabel.fontColor = .red
+            flyingScoreLabel.text = "-\(score)"
+        }
+        
+        flyingScoreLabel.position = CGPoint(x: 880, y: 40)
+        
+        addChild(flyingScoreLabel)
+        
+        let moveUp = SKAction.moveBy(x: 0, y: 200, duration: 1)
+        
+        flyingScoreLabel.run(moveUp, completion: {
+            flyingScoreLabel.removeFromParent()
+        })
+    }
 
     func destroy(Target: SKNode, name: String?) {
-        let sizePenality = Target.xScale
         Target.removeFromParent()
+        let sizePenality = Target.xScale
         if name == "goodTarget" {
-            score += 10 / sizePenality
+            let calculatedScore = 10 / sizePenality
+            score += Int(calculatedScore)
+            makeFlyingScore(calculatedScore, increase: true)
         } else if name == "dangerousTarget" {
-            score -= 10 * sizePenality
+            let calculatedScore = 10 * sizePenality
+            score -= Int(10 * sizePenality)
+            makeFlyingScore(calculatedScore, increase: false)
         }
     }
     
