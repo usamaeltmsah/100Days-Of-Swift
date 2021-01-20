@@ -74,5 +74,5 @@
 
 ## [Project 18 - Debugging](Project18)
 
-## [Projects 16-18 Consolidation](Projects16-18-Consolidation)
+## [Projects 16-18 Consolidation - Shooting Gallery Game](Projects16-18-Consolidation)
 <img alt="Projects 16-18 Consolidation - Demo" src="Projects16-18-Consolidation/Projects 16-18 Consolidation-demo.gif" width="400" height="400" />
