@@ -180,6 +180,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             touchedOneTime = false
         }
     }
+
+    func destroy(Target: SKNode, name: String?) {
+        let sizePenality = Target.xScale
+        Target.removeFromParent()
+        if name == "goodTarget" {
+            score += 10 / sizePenality
+        } else if name == "dangerousTarget" {
+            score -= 10 * sizePenality
+        }
+    }
+    
+    func collision(between bullet: SKNode, object: SKNode) {
+        bullet.removeFromParent()
+        if let name = object.name {
+            destroy(Target: object, name: name)
+        }
+    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
