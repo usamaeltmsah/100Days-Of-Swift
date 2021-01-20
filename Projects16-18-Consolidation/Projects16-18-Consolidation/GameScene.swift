@@ -134,16 +134,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(bullet)
     }
     
+    func sound(_ fileName: String) -> SKAction {
+        return SKAction.playSoundFileNamed(fileName, waitForCompletion: false)
+    }
+    
     func shoot() {
         createBullet()
-        
+        // Run shooting sound when bullet created.
+        run(sound("bulletFlyBy.m4a"))
         let moveUp = SKAction.moveBy(x: 0, y: 30, duration: 0.1)
         let scale = SKAction.scale(to: 0.5, duration: 0)
         let moveDown = SKAction.moveTo(y: 50, duration: 0.3)
         let rotate = SKAction.rotate(byAngle: .pi/2, duration: 0)
-        
+        let bulletDropSound = sound("bulletDrop.m4a")
         let wait = SKAction.wait(forDuration: 0.25)
-        let sequence = SKAction.sequence([moveUp, moveDown, scale, rotate, wait])
+        
+        let sequence = SKAction.sequence([moveUp, moveDown, scale, rotate, bulletDropSound, wait])
         
         bullet.run(sequence, completion: {
             self.bullet.removeAllActions()
@@ -192,6 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func collision(between bullet: SKNode, object: SKNode) {
+        run(sound("bulletImpactGlassShutter.m4a"))
         bullet.removeFromParent()
         if let name = object.name {
             destroy(Target: object, name: name)
