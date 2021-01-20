@@ -180,4 +180,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             touchedOneTime = false
         }
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        let names = ["goodTarget", "dangerousTarget"]
+        if names.contains(nodeA.name!) && !names.contains(nodeB.name!) {
+            collision(between: nodeB, object: nodeA)
+        } else if names.contains(nodeB.name!) && !names.contains(nodeA.name!) {
+            collision(between: nodeA, object: nodeB)
+        }
+    }
 }
