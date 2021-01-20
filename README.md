@@ -73,3 +73,6 @@
 <img alt="Project 17 - Demo" src="Project17/Project17-demo.gif" width="400" height="400" />
 
 ## [Project 18 - Debugging](Project18)
+
+## [Projects 16-18 Consolidation](Projects16-18-Consolidation)
+<img alt="Projects 16-18 Consolidation - Demo" src="Projects16-18-Consolidation/Projects 16-18 Consolidation-demo.gif" width="400" height="400" />
