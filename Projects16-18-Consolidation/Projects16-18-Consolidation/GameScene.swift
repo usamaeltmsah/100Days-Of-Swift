@@ -6,7 +6,7 @@
 //
 
 import SpriteKit
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var background: SKSpriteNode!
     var sniper: SKSpriteNode!
     var isSniperTouched = false
@@ -22,11 +22,15 @@ class GameScene: SKScene {
     var remainingTime = 60 {
         didSet {
             remainingTimeLabel.text = "Time left: \(remainingTime)"
+            
+            if remainingTime <= 0 {
+                isGameOver = true
+            }
         }
     }
     
     var scoreLabel: SKLabelNode!
-    var score = 0 {
+    var score:CGFloat = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
         }
@@ -64,15 +68,16 @@ class GameScene: SKScene {
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
         
-        addTarget()
+        physicsWorld.gravity = .zero // Or: CGVector(dx: 0, dy: 0)
+        physicsWorld.contactDelegate = self
         
         countDown()
     }
     
     func createTarget(at position: CGPoint) {
-        let row = Row()
-        row.configure(at: position)
-        addChild(row)
+        let target = Target()
+        target.configure(at: position)
+        addChild(target)
     }
     
     func countDown() {
@@ -89,7 +94,8 @@ class GameScene: SKScene {
         run(SKAction.repeatForever(sequence), withKey: "countdown")
     }
     
-    func addTarget() {
+    @objc func addTarget() {
+        if isGameOver { return }
         /**
          - Create targets and but them on the rows.
          - If the player shoots a good target he will get score.
@@ -112,11 +118,12 @@ class GameScene: SKScene {
     }
     
     func createBullet() {
+        let scale:CGFloat = 0.1
         bullet = SKSpriteNode(imageNamed: "bullet")
-        bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*0.2)
+        bullet.physicsBody = SKPhysicsBody(circleOfRadius: bullet.size.height*scale)
         bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.contactTestBitMask = bullet.physicsBody?.collisionBitMask ?? 0
-        bullet.yScale = 0.1
+        bullet.physicsBody?.contactTestBitMask = 1
+        bullet.yScale = scale
         bullet.zPosition = 5
         bullet.position = sniper.position
         bullet.name = "bullet"
