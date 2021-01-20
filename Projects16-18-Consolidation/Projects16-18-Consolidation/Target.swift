@@ -7,10 +7,10 @@
 
 import SpriteKit
 
-class Row: SKNode {
+class Target: SKNode {
     var charNode: SKSpriteNode!
     
-    let goodTargets = ["target3", "target5"]
+    let goodTargets = ["target1", "target2", "target3"]
     let dangerousTargets = ["dangerous_target1", "dangerous_target2"]
     
     let centerPoint = CGPoint(x: 512, y: 384)
@@ -34,10 +34,11 @@ class Row: SKNode {
         let rand = CGFloat.random(in: 0.3...1)
         charNode.xScale = rand
         charNode.yScale = rand
-        
+        charNode.physicsBody = SKPhysicsBody(circleOfRadius: charNode.size.height * rand)
+        charNode.physicsBody?.contactTestBitMask = 1
         addChild(charNode)
         
-        let duration = Double.random(in: 2...5)
+        let duration = Double.random(in: 2...10)
         let move = SKAction.moveTo(x: -800, duration: duration)
         charNode.run(move, completion: {
             self.charNode.removeAllActions()
