@@ -24,6 +24,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var leftBulletsLabel: SKLabelNode!
+    
+    var leftBullets = 6 {
+        didSet {
+            leftBulletsLabel.text = "🚅 \(leftBullets)"
+            
+            if leftBullets < 2 {
+                leftBulletsLabel.fontColor = .red
+            }
+        }
+    }
+    
     var playAgainLabel: SKLabelNode!
     
     var scoreLabel: SKLabelNode!
@@ -52,6 +64,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addSniper()
         addRemainingTimeLbl()
         addScoreLbl()
+        
+        leftBulletsLabel = SKLabelNode(fontNamed: "Chalkduster")
+        leftBulletsLabel.position = CGPoint(x: 950, y: 650)
+        leftBulletsLabel.zPosition = 10
+        addChild(leftBulletsLabel)
     }
     
     func resetAll() {
@@ -60,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         remainingTime = 60
         touchedOneTime = false
         score = 0
+        leftBullets = 6
         gameTimer?.invalidate()
     }
     
@@ -150,7 +168,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if isGameOver {
                 playAgain()
                 if nodes(at: location).contains(playAgainLabel) {
-                    isGameOver = false
                     play()
                 }
             }
@@ -192,6 +209,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet.removeAllActions()
             bullet.removeFromParent()
         })
+        leftBullets -= 1
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -214,7 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         isSniperTouched = false
         
-        if touchedOneTime && !isGameOver{
+        if touchedOneTime && !isGameOver && leftBullets > 0 {
             shoot()
             touchedOneTime = false
         }
