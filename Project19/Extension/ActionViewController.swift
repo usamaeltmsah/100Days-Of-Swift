@@ -18,6 +18,8 @@ class ActionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        
         // extensionContext: lets us control how it interacts with the parent app.
         // inputItems: is an array of data the parent app is sending to our extension to use.
         if let inputItem = extensionContext?.inputItems.first as? NSExtensionItem {
@@ -44,9 +46,12 @@ class ActionViewController: UIViewController {
     }
 
     @IBAction func done() {
-        // Return any edited content to the host app.
-        // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+        let item = NSExtensionItem()
+        let argument: NSDictionary = ["customJavaScript": script.text!]
+        let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
+        let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: kUTTypePropertyList as String)
+        item.attachments = [customJavaScript]
+        extensionContext?.completeRequest(returningItems: [item])
     }
 
 }
