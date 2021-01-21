@@ -78,15 +78,6 @@ class ActionViewController: UIViewController {
     }
 
     @IBAction func done() {
-        if let i = pagesScripts.firstIndex(where: { $0.URL == pageURL }) {
-            // Update it!
-            pagesScripts[i].javaScript = script.text
-            print("Updated!")
-        } else {
-            // Append it!
-            pagesScripts.append(SiteJS(URL: pageURL, javaScript: script.text))
-            print("Appended!")
-        }
         save()
         let item = NSExtensionItem()
         let argument: NSDictionary = ["customJavaScript": script.text!]
@@ -155,6 +146,16 @@ class ActionViewController: UIViewController {
     }
     
     func save() {
+        if let i = pagesScripts.firstIndex(where: { $0.URL == pageURL }) {
+            // Update it!
+            pagesScripts[i].javaScript = script.text
+            print("Updated!")
+        } else {
+            // Append it!
+            pagesScripts.append(SiteJS(URL: pageURL, javaScript: script.text))
+            print("Appended!")
+        }
+        
         let jsonEncoder = JSONEncoder()
         
         if let savedData = try? jsonEncoder.encode(pagesScripts) {
