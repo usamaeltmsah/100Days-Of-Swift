@@ -25,7 +25,11 @@ class ActionViewController: UIViewController {
                     // dict: dictionary that was given to us by the item provider.
                     // error: any error that occurred.
                     [weak self] (dict, error) in
-                    // Do stuff
+                    guard let itemDictionary = dict as? NSDictionary else { return }
+                    
+                    guard let javaScriptValues = itemDictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary else { return }
+                    
+                    print(javaScriptValues)
                 }
             }
         }
