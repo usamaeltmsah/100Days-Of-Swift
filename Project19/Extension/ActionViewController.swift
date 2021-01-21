@@ -10,7 +10,7 @@ import MobileCoreServices
 
 class ActionViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet var script: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
