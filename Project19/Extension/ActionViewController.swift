@@ -20,6 +20,8 @@ class ActionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
+        
         // addObserver() method, takes four parameters: the object that should receive notifications (it's self), the method that should be called, the notification we want to receive, and the object we want to watch.
         
         // keyboardWillHideNotification: will be sent when the keyboard has finished hiding.
@@ -61,6 +63,43 @@ class ActionViewController: UIViewController {
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: kUTTypePropertyList as String)
         item.attachments = [customJavaScript]
         extensionContext?.completeRequest(returningItems: [item])
+    }
+    
+    @objc func getScripts() {
+        let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
+        let txt = "Get current site title"
+        ac.addAction(UIAlertAction(title: "alert(document.title)", style: .default, handler: { _ in
+            self.script.text += txt
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Get current date", style: .default, handler: { _ in
+            self.script.text += "alert(Date());\n"
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Get Random Number between 1 and 10000", style: .default, handler: { _ in
+            self.script.text += "alert(Math.floor(Math.random() * 10000) + 1);\n"
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Sort array", style: .default, handler: { _ in
+            self.script.text += """
+            // Be free to edit the array's values
+                var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
+                alert(PLs.sort());
+
+            """
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Math multiplication", style: .default, handler: { _ in
+            self.script.text += """
+            var x = 15;
+            var y = 3;
+            var z = x * y;
+            alert(x + " * " + y + " = " + z);
+
+            """
+        }))
+        
+        present(ac, animated: true)
     }
     
     @objc func adjustForKeyboard(notification: Notification) {
