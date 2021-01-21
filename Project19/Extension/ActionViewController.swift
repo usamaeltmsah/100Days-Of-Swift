@@ -20,8 +20,13 @@ class ActionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
+        // addObserver() method, takes four parameters: the object that should receive notifications (it's self), the method that should be called, the notification we want to receive, and the object we want to watch.
+        
+        // keyboardWillHideNotification: will be sent when the keyboard has finished hiding.
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // keyboardWillChangeFrameNotification: will be shown when any keyboard state change happens – including showing and hiding, but also orientation, QuickType and more.
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         // extensionContext: lets us control how it interacts with the parent app.
@@ -59,14 +64,17 @@ class ActionViewController: UIViewController {
     }
     
     @objc func adjustForKeyboard(notification: Notification) {
+        // UIResponder.keyboardFrameEndUserInfoKey: telling us the frame of the keyboard after it has finished animating.
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
         let keyboardScreenEndFrame = keyboardValue.cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         
+        // Adjust the contentInset and scrollIndicatorInsets of the text view.
         if notification.name == UIResponder.keyboardWillHideNotification {
             script.contentInset = .zero
         } else {
+            // UIEdgeInsets(): used to setting the inset of a text view
             script.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
         }
         
