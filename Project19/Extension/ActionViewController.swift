@@ -14,13 +14,28 @@ class ActionViewController: UIViewController {
     
     var pageTitle = ""
     var pageURL = ""
-
+    var pagesScripts: [SiteJS] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
+        
+        
+        let defaults = UserDefaults.standard
+        
+        if let data = defaults.object(forKey: "scripts") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                pagesScripts = try jsonDecoder.decode([SiteJS].self, from: data)
+            } catch {
+                print("Failed to load scripts.")
+            }
+            
+        }
         
         // addObserver() method, takes four parameters: the object that should receive notifications (it's self), the method that should be called, the notification we want to receive, and the object we want to watch.
         
@@ -48,6 +63,12 @@ class ActionViewController: UIViewController {
                     self?.pageTitle = javaScriptValues["title"] as? String ?? ""
                     self?.pageURL = javaScriptValues["URL"] as? String ?? ""
                     
+                    if let i = self?.pagesScripts.firstIndex(where: { (self?.pageURL.contains($0.URL) ?? false) }) {
+                        DispatchQueue.main.async {
+                        self?.script.text = self?.pagesScripts[i].javaScript
+                        }
+                    }
+                    
                     DispatchQueue.main.async {
                         self?.title = self?.pageTitle
                     }
@@ -57,6 +78,16 @@ class ActionViewController: UIViewController {
     }
 
     @IBAction func done() {
+        if let i = pagesScripts.firstIndex(where: { $0.URL == pageURL }) {
+            // Update it!
+            pagesScripts[i].javaScript = script.text
+            print("Updated!")
+        } else {
+            // Append it!
+            pagesScripts.append(SiteJS(URL: pageURL, javaScript: script.text))
+            print("Appended!")
+        }
+        save()
         let item = NSExtensionItem()
         let argument: NSDictionary = ["customJavaScript": script.text!]
         let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
@@ -67,8 +98,8 @@ class ActionViewController: UIViewController {
     
     @objc func getScripts() {
         let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
-        let txt = "Get current site title"
-        ac.addAction(UIAlertAction(title: "alert(document.title)", style: .default, handler: { _ in
+        let txt = "alert(document.title)"
+        ac.addAction(UIAlertAction(title: "Get current site title", style: .default, handler: { _ in
             self.script.text += txt
         }))
         
@@ -121,6 +152,17 @@ class ActionViewController: UIViewController {
         
         let selectedRange = script.selectedRange
         script.scrollRangeToVisible(selectedRange)
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(pagesScripts) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "scripts")
+        } else {
+            print("Failed to save data")
+        }
     }
 
 }
