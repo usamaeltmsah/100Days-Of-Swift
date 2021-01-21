@@ -21,7 +21,11 @@ class ActionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
+        let scripts = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
+        
+        let addScriptsButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScripts))
+        
+        navigationItem.leftBarButtonItems = [scripts, addScriptsButton]
         
         
         let defaults = UserDefaults.standard
@@ -122,6 +126,13 @@ class ActionViewController: UIViewController {
         }))
         
         present(ac, animated: true)
+    }
+    
+    @objc func addScripts() {
+        if let vc = storyboard?.instantiateViewController(identifier: "Scripts") as? ScriptsController {
+        
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func adjustForKeyboard(notification: Notification) {
