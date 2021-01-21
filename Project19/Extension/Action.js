@@ -4,7 +4,7 @@ Action.prototype = {
 
 run: function(parameters) {
     // Called before the extension is run.
-
+    parameters.completionFunction({"URL": document.URL, "title": document.title});
 },
 
 finalize: function(parameters) {
