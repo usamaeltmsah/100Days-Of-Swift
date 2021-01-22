@@ -16,21 +16,35 @@ class ScriptsController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScript))
         
-        scripts["Get current site title"] = "alert(document.title)"
-        scripts["Get current date"] = "alert(Date());"
-        scripts["Get Random Number between 1 and 10000"] = "alert(Math.floor(Math.random() * 10000) + 1);"
-        scripts["Sorting array"] = """
-            // Be free to edit the array's values
-                var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
-                alert(PLs.sort());
-            """
-        scripts["Math multiplication"] = """
-            var x = 15;
-            var y = 3;
-            var z = x * y;
-            alert(x + " * " + y + " = " + z);
-            """
+        let defaults = UserDefaults.standard
         
+        if let data = defaults.object(forKey: "scripts") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                scripts = try jsonDecoder.decode([String:String].self, from: data)
+            } catch {
+                print("Failed to load scripts.")
+            }
+            
+        }
+        
+        if scripts.isEmpty {
+            scripts["Get current site title"] = "alert(document.title)"
+            scripts["Get current date"] = "alert(Date());"
+            scripts["Get Random Number between 1 and 10000"] = "alert(Math.floor(Math.random() * 10000) + 1);"
+            scripts["Sorting array"] = """
+                // Be free to edit the array's values
+                    var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
+                    alert(PLs.sort());
+                """
+            scripts["Math multiplication"] = """
+                var x = 15;
+                var y = 3;
+                var z = x * y;
+                alert(x + " * " + y + " = " + z);
+                """
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -52,6 +66,9 @@ class ScriptsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "ScriptDetail") as? ScriptViewController {
+            //Confirming delegate
+            vc.delegate = self
+            
             let name = Array(scripts.keys)[indexPath.row]
             vc.scriptName = name
             vc.scriptValue = scripts[name]!
@@ -67,6 +84,17 @@ class ScriptsController: UITableViewController {
                 if let navigator = navigationController {
                     navigator.pushViewController(vc, animated: true)
                 }
+        }
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(scripts) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "scripts")
+        } else {
+            print("Failed to save data")
         }
     }
 }
