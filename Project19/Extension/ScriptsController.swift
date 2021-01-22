@@ -9,42 +9,18 @@ import UIKit
 
 class ScriptsController: UITableViewController {
     // Each script has a name and its content
-    var scripts: [String:String] = [:]
+//    var scripts: [String:String] = [:]
+    
+    struct allScripts {
+        static var scripts: [String:String] = [:]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScript))
         
-        let defaults = UserDefaults.standard
-        
-        if let data = defaults.object(forKey: "scripts") as? Data {
-            let jsonDecoder = JSONDecoder()
-            
-            do {
-                scripts = try jsonDecoder.decode([String:String].self, from: data)
-            } catch {
-                print("Failed to load scripts.")
-            }
-            
-        }
-        
-        if scripts.isEmpty {
-            scripts["Get current site title"] = "alert(document.title)"
-            scripts["Get current date"] = "alert(Date());"
-            scripts["Get Random Number between 1 and 10000"] = "alert(Math.floor(Math.random() * 10000) + 1);"
-            scripts["Sorting array"] = """
-                // Be free to edit the array's values
-                    var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
-                    alert(PLs.sort());
-                """
-            scripts["Math multiplication"] = """
-                var x = 15;
-                var y = 3;
-                var z = x * y;
-                alert(x + " * " + y + " = " + z);
-                """
-        }
+        loadScripts()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,13 +29,13 @@ class ScriptsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return scripts.count
+        return allScripts.scripts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Script", for: indexPath)
         
-        cell.textLabel?.text = Array(scripts.keys)[indexPath.row]
+        cell.textLabel?.text = Array(allScripts.scripts.keys)[indexPath.row]
                 
         return cell
     }
@@ -69,9 +45,9 @@ class ScriptsController: UITableViewController {
             //Confirming delegate
             vc.delegate = self
             
-            let name = Array(scripts.keys)[indexPath.row]
+            let name = Array(allScripts.scripts.keys)[indexPath.row]
             vc.scriptName = name
-            vc.scriptValue = scripts[name]!
+            vc.scriptValue = allScripts.scripts[name]!
             
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -87,10 +63,39 @@ class ScriptsController: UITableViewController {
         }
     }
     
+    func loadScripts() -> [String:String] {
+        let defaults = UserDefaults.standard
+        
+        if let data = defaults.object(forKey: "scripts") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                allScripts.scripts = try jsonDecoder.decode([String:String].self, from: data)
+                print(allScripts.scripts)
+            } catch {
+                allScripts.scripts["Get current site title"] = "alert(document.title)"
+                allScripts.scripts["Get current date"] = "alert(Date());"
+                allScripts.scripts["Get Random Number between 1 and 10000"] = "alert(Math.floor(Math.random() * 10000) + 1);"
+                allScripts.scripts["Sorting array"] = """
+                    // Be free to edit the array's values
+                        var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
+                        alert(PLs.sort());
+                    """
+                allScripts.scripts["Math multiplication"] = """
+                    var x = 15;
+                    var y = 3;
+                    var z = x * y;
+                    alert(x + " * " + y + " = " + z);
+                    """
+            }
+        }
+        return allScripts.scripts
+    }
+    
     func save() {
         let jsonEncoder = JSONEncoder()
         
-        if let savedData = try? jsonEncoder.encode(scripts) {
+        if let savedData = try? jsonEncoder.encode(allScripts.scripts) {
             let defaults = UserDefaults.standard
             defaults.set(savedData, forKey: "scripts")
         } else {
@@ -99,12 +104,12 @@ class ScriptsController: UITableViewController {
     }
     
     func add(key:String, value: String) {
-        scripts[key] = value
+        allScripts.scripts[key] = value
     }
     
     func rename(oldKey: String, newKey: String, value: String) {
-        if (scripts.removeValue(forKey: oldKey) != nil) {
-            scripts[newKey] = value
+        if (allScripts.scripts.removeValue(forKey: oldKey) != nil) {
+            allScripts.scripts[newKey] = value
         }
     }
 }

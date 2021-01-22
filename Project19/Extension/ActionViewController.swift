@@ -16,6 +16,8 @@ class ActionViewController: UIViewController {
     var pageURL = ""
     var pagesScripts: [SiteJS] = []
     
+    var scripts: [String:String] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,8 +94,8 @@ class ActionViewController: UIViewController {
     }
     
     @objc func getScripts() {
+        scripts = ScriptsController().loadScripts()
         let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
-        let scripts = ScriptsController().scripts
         
         for script in scripts {
             ac.addAction(UIAlertAction(title: script.key, style: .default, handler: {_ in
