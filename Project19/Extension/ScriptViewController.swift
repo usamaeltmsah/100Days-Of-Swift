@@ -12,6 +12,8 @@ class ScriptViewController: UIViewController {
     var scriptName: String = ""
     var scriptValue: String = ""
     
+    var delegate: ScriptsController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,10 +23,8 @@ class ScriptViewController: UIViewController {
     }
     
     @objc func save() {
-        renameScript()
         scriptValue = scriptTextView.text
-        
-        self.reloadInputViews()
+        renameScript()
     }
     
     func renameScript() {
@@ -39,6 +39,9 @@ class ScriptViewController: UIViewController {
             self?.scriptName = newName
             
             self?.title = newName
+            self?.delegate?.scripts[self!.scriptName] = self?.scriptValue
+            self?.delegate?.tableView.reloadData()
+            self?.navigationController?.popViewController(animated: true)
         }
         
         ac.addAction(saveAction)

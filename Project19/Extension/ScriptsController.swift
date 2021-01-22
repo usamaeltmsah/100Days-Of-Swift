@@ -52,26 +52,21 @@ class ScriptsController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "ScriptDetail") as? ScriptViewController {
-            
-            vc.scriptName = Array(scripts.keys)[indexPath.row]
-            
-            vc.scriptValue = Array(scripts.values)[indexPath.row]
+            let name = Array(scripts.keys)[indexPath.row]
+            vc.scriptName = name
+            vc.scriptValue = scripts[name]!
             
             navigationController?.pushViewController(vc, animated: true)
-
         }
     }
     
     @objc func addScript() {
-        if let vc = storyboard?.instantiateViewController(identifier: "ScriptDetail") as? ScriptViewController {
-            
-            navigationController?.pushViewController(vc, animated: true)
-            
-            let name = vc.scriptName
-            let value = vc.scriptValue
-            
-            scripts[name] = value
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "ScriptDetail") as? ScriptViewController {
+                 //Confirming delegate
+                vc.delegate = self
+                if let navigator = navigationController {
+                    navigator.pushViewController(vc, animated: true)
+                }
         }
     }
-
 }
