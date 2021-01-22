@@ -40,13 +40,13 @@ class ScriptsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Script", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Script", for: indexPath) as? ScriptCell
         
-        cell.textLabel?.text = Array(scripts.keys)[indexPath.row]
+        cell?.scriptName = Array(scripts.keys)[indexPath.row]
         
-        cell.detailTextLabel?.text = Array(scripts.values)[indexPath.row]
+        cell?.scriptValue = Array(scripts.values)[indexPath.row]
         
-        return cell
+        return cell ?? ScriptCell()
     }
 
 }
