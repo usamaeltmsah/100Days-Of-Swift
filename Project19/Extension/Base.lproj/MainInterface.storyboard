@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="1617" y="17"/>
         </scene>
-        <!--View Controller-->
+        <!--Script View Controller-->
         <scene sceneID="H6u-4o-Jzg">
             <objects>
-                <viewController id="aTR-Af-o4n" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScriptDetail" id="aTR-Af-o4n" customClass="ScriptViewController" customModule="Extension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lCc-c7-fCH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,6 +99,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="49M-XA-Tiy"/>
+                    <connections>
+                        <outlet property="scriptTextView" destination="Moh-kc-GBz" id="oEL-F2-cq6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2k-ex-5UE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

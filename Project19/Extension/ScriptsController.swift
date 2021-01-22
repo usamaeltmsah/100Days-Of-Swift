@@ -40,13 +40,23 @@ class ScriptsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Script", for: indexPath) as? ScriptCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Script", for: indexPath)
         
-        cell?.scriptName = Array(scripts.keys)[indexPath.row]
-        
-        cell?.scriptValue = Array(scripts.values)[indexPath.row]
-        
-        return cell ?? ScriptCell()
+        cell.textLabel?.text = Array(scripts.keys)[indexPath.row]
+                
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(identifier: "ScriptDetail") as? ScriptViewController {
+            
+            vc.scriptName = Array(scripts.keys)[indexPath.row]
+            
+            vc.scriptValue = Array(scripts.values)[indexPath.row]
+            
+            navigationController?.pushViewController(vc, animated: true)
+
+        }
     }
 
 }
