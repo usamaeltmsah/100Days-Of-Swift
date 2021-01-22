@@ -21,11 +21,11 @@ class ActionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
-        let scripts = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
+        let scriptsButton = UIBarButtonItem(title: "Scripts", style: .plain, target: self, action: #selector(getScripts))
         
         let addScriptsButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScripts))
         
-        navigationItem.leftBarButtonItems = [scripts, addScriptsButton]
+        navigationItem.leftBarButtonItems = [scriptsButton, addScriptsButton]
         
         
         let defaults = UserDefaults.standard
@@ -93,38 +93,15 @@ class ActionViewController: UIViewController {
     
     @objc func getScripts() {
         let ac = UIAlertController(title: "Scripts", message: nil, preferredStyle: .actionSheet)
-        let txt = "alert(document.title)"
-        ac.addAction(UIAlertAction(title: "Get current site title", style: .default, handler: { _ in
-            self.script.text += txt
-        }))
+        let scripts = ScriptsController().scripts
         
-        ac.addAction(UIAlertAction(title: "Get current date", style: .default, handler: { _ in
-            self.script.text += "alert(Date());\n"
-        }))
+        for script in scripts {
+            ac.addAction(UIAlertAction(title: script.key, style: .default, handler: {_ in
+                self.script.text += script.value
+            }))
+        }
         
-        ac.addAction(UIAlertAction(title: "Get Random Number between 1 and 10000", style: .default, handler: { _ in
-            self.script.text += "alert(Math.floor(Math.random() * 10000) + 1);\n"
-        }))
-        
-        ac.addAction(UIAlertAction(title: "Sort array", style: .default, handler: { _ in
-            self.script.text += """
-            // Be free to edit the array's values
-                var PLs = ['C++', 'Java', 'Python', 'Swift', 'Ruby'];
-                alert(PLs.sort());
-
-            """
-        }))
-        
-        ac.addAction(UIAlertAction(title: "Math multiplication", style: .default, handler: { _ in
-            self.script.text += """
-            var x = 15;
-            var y = 3;
-            var z = x * y;
-            alert(x + " * " + y + " = " + z);
-
-            """
-        }))
-        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
     
