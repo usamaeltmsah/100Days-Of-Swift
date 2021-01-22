@@ -13,6 +13,9 @@ class ScriptsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScript))
+        
         scripts["Get current site title"] = "alert(document.title)"
         scripts["Get current date"] = "alert(Date());"
         scripts["Get Random Number between 1 and 10000"] = "alert(Math.floor(Math.random() * 10000) + 1);"
@@ -56,6 +59,18 @@ class ScriptsController: UITableViewController {
             
             navigationController?.pushViewController(vc, animated: true)
 
+        }
+    }
+    
+    @objc func addScript() {
+        if let vc = storyboard?.instantiateViewController(identifier: "ScriptDetail") as? ScriptViewController {
+            
+            navigationController?.pushViewController(vc, animated: true)
+            
+            let name = vc.scriptName
+            let value = vc.scriptValue
+            
+            scripts[name] = value
         }
     }
 
