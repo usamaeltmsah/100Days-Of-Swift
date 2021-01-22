@@ -20,7 +20,7 @@ class ScriptsController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addScript))
         
-        loadScripts()
+        let _ = loadScripts()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,6 +53,27 @@ class ScriptsController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (_, _, _) in
+            self?.deletScript(at: indexPath)
+            }
+            deleteAction.backgroundColor = .red
+
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func deletScript(at index: IndexPath) {
+        let ac = UIAlertController(title: "Delete Script", message: "This item will be permanently deleted", preferredStyle: .alert)
+        let name = Array(allScripts.scripts.keys)[index.row]
+        ac.addAction(UIAlertAction(title: "OK", style: .destructive){ [weak self] _ in
+            ScriptsController.allScripts.scripts.removeValue(forKey: name)
+            self?.tableView.reloadData()
+            self?.save()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
+    }
+    
     @objc func addScript() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "ScriptDetail") as? ScriptViewController {
                  //Confirming delegate
@@ -71,7 +92,6 @@ class ScriptsController: UITableViewController {
             
             do {
                 allScripts.scripts = try jsonDecoder.decode([String:String].self, from: data)
-                print(allScripts.scripts)
             } catch {
                 allScripts.scripts["Get current site title"] = "alert(document.title)"
                 allScripts.scripts["Get current date"] = "alert(Date());"
