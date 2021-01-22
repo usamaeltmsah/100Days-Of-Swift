@@ -28,9 +28,16 @@ class ScriptViewController: UIViewController {
     }
     
     func renameScript() {
+        var rename = false
         let ac = UIAlertController(title: "Rename script", message: nil, preferredStyle: .alert)
         ac.addTextField { (textField) in
             textField.text = self.scriptName
+        }
+        
+        let oldName = ac.textFields?[0].text
+        
+        if oldName?.count ?? 0 > 0 {
+            rename = true
         }
         
         ac.addAction(UIAlertAction(title: "Cancel", style: .destructive))
@@ -39,7 +46,14 @@ class ScriptViewController: UIViewController {
             self?.scriptName = newName
             
             self?.title = newName
-            self?.delegate?.scripts[self!.scriptName] = self?.scriptValue
+            
+            if rename {
+                self?.delegate?.rename(oldKey: oldName!, newKey: newName, value: self!.scriptValue)
+            } else {
+                self?.delegate?.add(key: newName, value: self!.scriptValue)
+            }
+            
+            self?.delegate?.save()
             self?.delegate?.tableView.reloadData()
             self?.navigationController?.popViewController(animated: true)
         }

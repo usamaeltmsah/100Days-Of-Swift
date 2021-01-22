@@ -97,4 +97,14 @@ class ScriptsController: UITableViewController {
             print("Failed to save data")
         }
     }
+    
+    func add(key:String, value: String) {
+        scripts[key] = value
+    }
+    
+    func rename(oldKey: String, newKey: String, value: String) {
+        if (scripts.removeValue(forKey: oldKey) != nil) {
+            scripts[newKey] = value
+        }
+    }
 }
