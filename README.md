@@ -76,3 +76,6 @@
 
 ## [Projects 16-18 Consolidation - Shooting Gallery Game](Projects16-18-Consolidation)
 <img alt="Projects 16-18 Consolidation - Demo" src="Projects16-18-Consolidation/Projects 16-18 Consolidation-demo.gif" width="400" height="400" />
+
+## [Project 19 - JavaScript Injection](Project19)
+<img alt="Project 19 - Demo" src="Project19/Project19-demo.gif" width="200" height="400" />
