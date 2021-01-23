@@ -82,4 +82,33 @@ class GameScene: SKScene {
         fireWorks.append(node)
         addChild(node)
     }
+    
+    @objc func launchFireworks() {
+        let movementAmount: CGFloat = 1800
+        
+        switch Int.random(in: 0...3) {
+        case 0:
+            // Fire five, straight up
+            for i in -2...2 {
+                createFirework(xMovement: 0, x: 512 + i*100, y: bottomEdge)
+            }
+        case 1:
+            // Fire five, in a fan
+            for i in -2...2 {
+                createFirework(xMovement: CGFloat(i*100), x: 512 + i*100, y: bottomEdge)
+            }
+        case 2:
+            // Fire five, from the left to the right
+            for i in 0...4 {
+                createFirework(xMovement: movementAmount, x: leftEdge, y: bottomEdge + i*100)
+            }
+        case 3:
+            // Fire five, from the right to the left
+            for i in 0...4 {
+                createFirework(xMovement: -movementAmount, x: rightEdge, y: bottomEdge + i*100)
+            }
+        default:
+            break
+        }
+    }
 }
