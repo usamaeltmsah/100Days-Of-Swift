@@ -31,4 +31,48 @@ class GameScene: SKScene {
         // Launch fire works every 6 seconds
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
     }
+    
+    // xMovement: speed of the firework, X and Y positions for creation.
+    func createFirework(xMovement: CGFloat, x: Int, y: Int) {
+        // 1. Create an SKNode that will act as the firework container, and place it at the position that was specified.
+        let node = SKNode()
+        node.position = CGPoint(x: x, y: y)
+        
+        // 2. Create a rocket sprite node, give it the name "firework" so we know that it's the important thing, adjust its colorBlendFactor property so that we can color it, then add it to the container node.
+        let firework = SKSpriteNode(imageNamed: "rocket")
+        firework.colorBlendFactor = 1
+        firework.name = "firework"
+        node.addChild(firework)
+        
+        // 3. Give the firework sprite node one of three random colors: cyan, green or red. I've chosen cyan because pure blue isn't particularly visible on a starry sky background picture.
+        switch Int.random(in: 0...2) {
+        case 0:
+            firework.color = .cyan
+        case 1:
+            firework.color = .green
+        case 2:
+            firework.color = .red
+        default:
+            break
+        }
+        
+        // 4. Create a UIBezierPath that will represent the movement of the firework.
+        let path = UIBezierPath()
+        path.move(to: .zero)
+        path.addLine(to: CGPoint(x: xMovement, y: 1000))
+        
+        // 5. Tell the container node to follow that path, turning itself as needed.
+        let move = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 200)
+        node.run(move)
+        
+        // 6. Create particles behind the rocket to make it look like the fireworks are lit.
+        if let emitter = SKEmitterNode(fileNamed: "fuse") {
+            emitter.position = CGPoint(x: 0, y: -22)
+            node.addChild(emitter)
+        }
+        
+        // 7. Add the firework to our fireworks array and also to the scene.
+        fireWorks.append(node)
+        addChild(node)
+    }
 }
