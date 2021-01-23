@@ -40,6 +40,9 @@ class GameScene: SKScene {
         
         // 2. Create a rocket sprite node, give it the name "firework" so we know that it's the important thing, adjust its colorBlendFactor property so that we can color it, then add it to the container node.
         let firework = SKSpriteNode(imageNamed: "rocket")
+        
+        // colorBlendFactor: ability to recolor your sprites dynamically with absolutely no performance cost.
+        // with colorBlendFactor set to 1 (use the new color exclusively)
         firework.colorBlendFactor = 1
         firework.name = "firework"
         node.addChild(firework)
@@ -62,6 +65,10 @@ class GameScene: SKScene {
         path.addLine(to: CGPoint(x: xMovement, y: 1000))
         
         // 5. Tell the container node to follow that path, turning itself as needed.
+        // follow(): takes a CGPath as its first parameter (we'll pull this from the UIBezierPath) and makes the node move along that path.
+        // asOffset: decides whether the path coordinates are absolute or are relative to the node's current position. If you specify it as true, it means any coordinates in your path are adjusted to take into account the node's position.
+        // orientToPath: When it's set to true, the node will automatically rotate itself as it moves on the path so that it's always facing down the path.
+        // speed: how fast it moves along the path.
         let move = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 200)
         node.run(move)
         
