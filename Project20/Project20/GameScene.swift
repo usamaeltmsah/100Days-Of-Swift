@@ -27,5 +27,8 @@ class GameScene: SKScene {
         background.blendMode = .replace
         background.zPosition = -1
         addChild(background)
+        
+        // Launch fire works every 6 seconds
+        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
     }
 }
