@@ -79,3 +79,6 @@
 
 ## [Project 19 - JavaScript Injection](Project19)
 <img alt="Project 19 - Demo" src="Project19/Project19-demo.gif" width="200" height="400" />
+
+## [Project 20 - Fireworks Night Game](Project20)
+<img alt="Project 20 - Demo" src="Project20/Project20-demo.gif" width="400" height="400" />
