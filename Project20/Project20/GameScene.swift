@@ -23,6 +23,10 @@ class GameScene: SKScene {
         }
     }
     
+    var numLaunches = 5
+    
+    var isGameOver = false
+    
     override func didMove(to view: SKView) {
         addBackground()
                 
@@ -100,6 +104,7 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
+        if isGameOver { return }
         let movementAmount: CGFloat = 1800
         
         switch Int.random(in: 0...3) {
@@ -126,6 +131,7 @@ class GameScene: SKScene {
         default:
             break
         }
+        numLaunches -= 1
     }
     
     func checkTouches(_ touches: Set<UITouch>) {
@@ -154,6 +160,9 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if numLaunches <= 0 {
+            isGameOver = true
+        }
         super.touchesBegan(touches, with: event)
         checkTouches(touches)
     }
@@ -164,6 +173,10 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if isGameOver {
+            gameTimer?.invalidate()
+        }
+        
         for (index, firework) in fireWorks.enumerated().reversed() {
             if firework.position.y > 900 {
                 // This uses a position high above so that rockets can explode off screen
