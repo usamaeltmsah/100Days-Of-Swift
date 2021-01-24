@@ -38,13 +38,29 @@ class GameScene: SKScene {
     var leftLaunchesLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
+        play()
+    }
+    
+    func addViews() {
         addBackground()
-                
         addScoreLabel()
-        
         addLeftLaunchesLabel()
+    }
+    
+    func resetAll() {
+        addViews()
+        numLaunches = 5
+        isGameOver = false
+        score = 0
+        gameTimer?.invalidate()
+    }
+    
+    func play() {
+        removeAllActions()
+        removeAllChildren()
         
-        // Launch fire works every 6 seconds
+        resetAll()
+        
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
     }
     
@@ -184,6 +200,15 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        if isGameOver {
+            if nodes(at: location).contains(playAgainLabel) {
+                play()
+                return
+            }
+        }
+        
         checkTouches(touches)
     }
     
