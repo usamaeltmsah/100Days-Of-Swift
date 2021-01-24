@@ -8,7 +8,7 @@
 import UserNotifications
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     }
     
     @objc func registerLocal() {
+        registerCategories()
+        
         // Get access to current version user notification center, which one lets us post messages to the home screen.
         let center = UNUserNotificationCenter.current()
         
@@ -59,6 +61,15 @@ class ViewController: UIViewController {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
+    }
+    
+    func registerCategories() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
+        let show = UNNotificationAction(identifier: "show", title: "Tell me more__", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alerts", actions: [show], intentIdentifiers: [])
+        center.setNotificationCategories([category])
     }
 
 
