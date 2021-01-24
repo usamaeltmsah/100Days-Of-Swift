@@ -29,7 +29,14 @@ class GameScene: SKScene {
         }
     }
     
-    var isGameOver = false
+    var isGameOver = false {
+        didSet {
+            if isGameOver {
+                gameTimer?.invalidate()
+                gameOver()
+            }
+        }
+    }
     
     var gameOverLabel: SKLabelNode!
     
@@ -74,7 +81,7 @@ class GameScene: SKScene {
     
     func addScoreLabel() {
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.position = CGPoint(x: 900, y: 730)
+        scoreLabel.position = CGPoint(x: 920, y: 670)
         score = 0
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
@@ -82,7 +89,7 @@ class GameScene: SKScene {
     
     func addLeftLaunchesLabel() {
         leftLaunchesLabel = SKLabelNode(fontNamed: "Chalkduster")
-        leftLaunchesLabel.position = CGPoint(x: 150, y: 50)
+        leftLaunchesLabel.position = CGPoint(x: 150, y: 70)
 
         leftLaunchesLabel.text = "Left launches: \(numLaunches)"
         addChild(leftLaunchesLabel)
@@ -219,8 +226,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if isGameOver {
-            gameTimer?.invalidate()
-            gameOver()
+            return
         }
         
         for (index, firework) in fireWorks.enumerated().reversed() {
