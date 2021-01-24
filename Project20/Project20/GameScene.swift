@@ -23,14 +23,22 @@ class GameScene: SKScene {
         }
     }
     
-    var numLaunches = 5
+    var numLaunches = 5 {
+        didSet {
+            leftLaunchesLabel.text = "Left launches: \(numLaunches)"
+        }
+    }
     
     var isGameOver = false
+    
+    var leftLaunchesLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
         addBackground()
                 
         addScoreLabel()
+        
+        addLeftLaunchesLabel()
         
         // Launch fire works every 6 seconds
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
@@ -46,10 +54,18 @@ class GameScene: SKScene {
     
     func addScoreLabel() {
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.position = CGPoint(x: 900, y: 700)
+        scoreLabel.position = CGPoint(x: 900, y: 730)
         score = 0
         scoreLabel.text = "Score: \(score)"
         addChild(scoreLabel)
+    }
+    
+    func addLeftLaunchesLabel() {
+        leftLaunchesLabel = SKLabelNode(fontNamed: "Chalkduster")
+        leftLaunchesLabel.position = CGPoint(x: 150, y: 50)
+
+        leftLaunchesLabel.text = "Left launches: \(numLaunches)"
+        addChild(leftLaunchesLabel)
     }
     
     // xMovement: speed of the firework, X and Y positions for creation.
