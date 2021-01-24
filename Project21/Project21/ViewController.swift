@@ -5,6 +5,7 @@
 //  Created by Usama Fouad on 24/01/2021.
 //
 
+import UserNotifications
 import UIKit
 
 class ViewController: UIViewController {
@@ -17,7 +18,16 @@ class ViewController: UIViewController {
     }
     
     @objc func registerLocal() {
+        // Get access to current version user notification center, which one lets us post messages to the home screen.
+        let center = UNUserNotificationCenter.current()
         
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Yay!")
+            } else {
+                print("D'oh!")
+            }
+        }
     }
     
     @objc func scheduleLocal() {
