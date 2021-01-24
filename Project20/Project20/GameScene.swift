@@ -31,6 +31,10 @@ class GameScene: SKScene {
     
     var isGameOver = false
     
+    var gameOverLabel: SKLabelNode!
+    
+    var playAgainLabel: SKLabelNode!
+    
     var leftLaunchesLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
@@ -120,7 +124,10 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
-        if isGameOver { return }
+        if numLaunches <= 0 {
+            isGameOver = true
+            return
+        }
         let movementAmount: CGFloat = 1800
         
         switch Int.random(in: 0...3) {
@@ -176,9 +183,6 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if numLaunches <= 0 {
-            isGameOver = true
-        }
         super.touchesBegan(touches, with: event)
         checkTouches(touches)
     }
@@ -191,6 +195,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if isGameOver {
             gameTimer?.invalidate()
+            gameOver()
         }
         
         for (index, firework) in fireWorks.enumerated().reversed() {
@@ -246,5 +251,24 @@ class GameScene: SKScene {
         default:
             score += 4000
         }
+    }
+    
+    func gameOver() {
+        gameOverLabel = SKLabelNode(fontNamed: "Chalkduster")
+        gameOverLabel.text = "GAME OVER"
+        gameOverLabel.fontSize = 80
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        gameOverLabel.zPosition = 1
+        addChild(gameOverLabel)
+        playAgain()
+    }
+    
+    func playAgain() {
+        playAgainLabel = SKLabelNode(fontNamed: "Chalkduster")
+        playAgainLabel.text = "play Again!"
+        playAgainLabel.fontSize = 50
+        playAgainLabel.position = CGPoint(x: 512, y: 230)
+        playAgainLabel.zPosition = 1
+        addChild(playAgainLabel)
     }
 }
