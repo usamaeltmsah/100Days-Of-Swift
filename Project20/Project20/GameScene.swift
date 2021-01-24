@@ -146,4 +146,14 @@ class GameScene: SKScene {
         super.touchesMoved(touches, with: event)
         checkTouches(touches)
     }
+    
+    override func update(_ currentTime: TimeInterval) {
+        for (index, firework) in fireWorks.enumerated().reversed() {
+            if firework.position.y > 900 {
+                // This uses a position high above so that rockets can explode off screen
+                fireWorks.remove(at: index)
+                firework.removeFromParent()
+            }
+        }
+    }
 }
