@@ -65,15 +65,23 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     func registerCategories() {
         let center = UNUserNotificationCenter.current()
+        
+        // Setting the delegate property of the user notification center to be self, meaning that any alert-based messages that get sent will be routed to our view controller to be handled.
         center.delegate = self
         
+        // Options, describe any special options that relate to the action. You can choose from .authenticationRequired, .destructive, and .foreground.
         let show = UNNotificationAction(identifier: "show", title: "Tell me more ...", options: .foreground)
+        
+        // Once you have as many actions as you want, you group them together into a single UNNotificationCategory and give it the same identifier you used with a notification.
+        // intentIdentifiers: Used to connect your notifications to intents, if you have created any.
         let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
 
         center.setNotificationCategories([category])
     }
     
+    // didReceive method: is triggered on our view controller because we’re the center’s delegate, so it’s down to us to decide how to handle the notification.
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // pull out the buried userInfo dictionary
         let userInfo = response.notification.request.content.userInfo
         
         if let customData = userInfo["customData"] as? String {
@@ -84,12 +92,14 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
                 // The user swiped to unlock
                 print("Default identifer")
             case "show":
+                // the user tapped our "show more info…" button
                 print("Show more information...")
             default:
                 break
             }
         }
         
+        // you must call the completion handler when you're done
         completionHandler()
     }
 
