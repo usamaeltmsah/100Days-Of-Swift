@@ -82,3 +82,6 @@
 
 ## [Project 20 - Fireworks Night Game](Project20)
 <img alt="Project 20 - Demo" src="Project20/Project20-demo.gif" width="400" height="400" />
+
+## [Project 21 - Local Notification](Project21)
+<img alt="Project 21 - Demo" src="Project21/Project21-demo.gif" width="200" height="400" />
