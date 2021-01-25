@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
@@ -46,6 +46,8 @@ class ViewController: UIViewController {
                 print("Failed to load highScore.")
             }
         }
+        registerLocal()
+        scheduleLocal()
         startGame()
     }
     
@@ -170,6 +172,67 @@ class ViewController: UIViewController {
         } else {
             print("Failed to save High Score")
         }
+    }
+    
+    @objc func registerLocal() {
+        registerCategories()
+        
+        // Get access to current version user notification center, which one lets us post messages to the home screen.
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                print("Yay!")
+            } else {
+                print("D'oh!")
+            }
+        }
+    }
+    
+    @objc func scheduleLocal() {
+        // This method will configure all the data needed to schedule a notification, which is three things:-
+        // content (what to show), a trigger (when to show it), and a request (the combination of content and trigger.)
+        
+        let center = UNUserNotificationCenter.current()
+        
+        // UNMutableNotificationContent: What to show
+        let content = UNMutableNotificationContent()
+        content.title = "Let's play!"
+        content.body = "It's time to play the flags game."
+        
+        // categoryIdentifier: attach custom actions.
+        content.categoryIdentifier = "alarm"
+        // userInfo dictionary: To attach custom data to the notification, e.g. an internal ID, use the.
+        content.userInfo = ["customData": "fizzbuzz"]
+        // MARK: UNNotificationSound object: User if you want to specify a sound.
+        content.sound = .default
+        
+        // Repeat the notification every morning at 10:30am
+        var dateComponents = DateComponents()
+        dateComponents.weekday = 7
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        // MARK: center.removeAllPendingNotificationRequests(): Used to cancel pending notifications – i.e., notifications you have scheduled that have yet to be delivered because their trigger hasn’t been met.
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+    }
+    
+    func registerCategories() {
+        let center = UNUserNotificationCenter.current()
+        
+        // Setting the delegate property of the user notification center to be self, meaning that any alert-based messages that get sent will be routed to our view controller to be handled.
+        center.delegate = self
+        
+        // Options, describe any special options that relate to the action. You can choose from .authenticationRequired, .destructive, and .foreground.
+        let remindLater = UNNotificationAction(identifier: "later", title: "Remind me later", options: .destructive)
+                
+        // Once you have as many actions as you want, you group them together into a single UNNotificationCategory and give it the same identifier you used with a notification.
+        // intentIdentifiers: Used to connect your notifications to intents, if you have created any.
+        let category = UNNotificationCategory(identifier: "alarm", actions: [remindLater], intentIdentifiers: [])
+
+        center.setNotificationCategories([category])
+        
+        center.removeAllPendingNotificationRequests()
     }
 }
 
