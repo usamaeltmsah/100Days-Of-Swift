@@ -60,15 +60,33 @@
                     <view key="view" contentMode="scaleToFill" id="LvS-XJ-E51">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9bF-lH-mPL">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="WdG-PB-D9t"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9bF-lH-mPL" firstAttribute="bottom" secondItem="WdG-PB-D9t" secondAttribute="bottom" id="26Z-17-RbB"/>
+                            <constraint firstItem="9bF-lH-mPL" firstAttribute="top" secondItem="WdG-PB-D9t" secondAttribute="top" id="30B-fi-ewS"/>
+                            <constraint firstItem="9bF-lH-mPL" firstAttribute="centerX" secondItem="LvS-XJ-E51" secondAttribute="centerX" id="HdB-T9-Wjs"/>
+                            <constraint firstItem="9bF-lH-mPL" firstAttribute="leading" secondItem="WdG-PB-D9t" secondAttribute="leading" id="lDV-Ke-U6Y"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="9og-Vu-cBw"/>
                     <navigationItem key="navigationItem" id="Tvl-gK-IOY"/>
+                    <connections>
+                        <outlet property="textView" destination="9bF-lH-mPL" id="niy-Yd-pzB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdm-uK-9Gw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5201.449275362319" y="77.678571428571431"/>
+            <point key="canvasLocation" x="4298.5507246376819" y="81.696428571428569"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="H6q-gr-Aar">
@@ -86,7 +104,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="4291.304347826087" y="77.678571428571431"/>
+            <point key="canvasLocation" x="3330" y="82"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bB0-jB-8oG">
@@ -108,6 +126,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
