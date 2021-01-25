@@ -30,6 +30,15 @@ class ViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(identifier: "NoteStoryboard") as? DetailViewController {
+            
+            vc.note = notes[indexPath.row]
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 
 
 }

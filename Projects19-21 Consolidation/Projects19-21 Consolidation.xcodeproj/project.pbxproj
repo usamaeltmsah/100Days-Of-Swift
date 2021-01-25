@@ -14,6 +14,7 @@
 		199C59B425BF608A00900E5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199C59B325BF608A00900E5E /* Assets.xcassets */; };
 		199C59B725BF608A00900E5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 199C59B525BF608A00900E5E /* LaunchScreen.storyboard */; };
 		199C59C025BF633900900E5E /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199C59BF25BF633900900E5E /* Note.swift */; };
+		199C59C325BF678500900E5E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199C59C225BF678500900E5E /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		199C59B625BF608A00900E5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		199C59B825BF608A00900E5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		199C59BF25BF633900900E5E /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		199C59C225BF678500900E5E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				199C59AA25BF608700900E5E /* AppDelegate.swift */,
 				199C59AC25BF608700900E5E /* SceneDelegate.swift */,
 				199C59AE25BF608700900E5E /* ViewController.swift */,
+				199C59C225BF678500900E5E /* DetailViewController.swift */,
 				199C59BF25BF633900900E5E /* Note.swift */,
 				199C59B025BF608700900E5E /* Main.storyboard */,
 				199C59B325BF608A00900E5E /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			files = (
 				199C59AF25BF608700900E5E /* ViewController.swift in Sources */,
 				199C59AB25BF608700900E5E /* AppDelegate.swift in Sources */,
+				199C59C325BF678500900E5E /* DetailViewController.swift in Sources */,
 				199C59AD25BF608700900E5E /* SceneDelegate.swift in Sources */,
 				199C59C025BF633900900E5E /* Note.swift in Sources */,
 			);
