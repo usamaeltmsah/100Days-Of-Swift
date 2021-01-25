@@ -90,10 +90,10 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             switch response.actionIdentifier {
             case UNNotificationDefaultActionIdentifier:
                 // The user swiped to unlock
-                print("Default identifer")
+                defualtAlert()
             case "show":
                 // the user tapped our "show more info…" button
-                print("Show more information...")
+                showMoreInfoAlert()
             default:
                 break
             }
@@ -101,6 +101,18 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         // you must call the completion handler when you're done
         completionHandler()
+    }
+    
+    func showMoreInfoAlert() {
+        let ac = UIAlertController(title: "More information", message: "This is a result for clicking on show more inforamation button.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func defualtAlert() {
+        let ac = UIAlertController(title: "Default", message: "This is a result for clicking on the default notification", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 
 
