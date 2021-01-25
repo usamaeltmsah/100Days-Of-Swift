@@ -14,7 +14,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Register", style: .plain, target: self, action: #selector(registerLocal))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocal))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain, target: self, action: #selector(schedule))
     }
     
     @objc func registerLocal() {
@@ -32,7 +32,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         }
     }
     
-    @objc func scheduleLocal() {
+    @objc func schedule() {
+        scheduleLocal()
+        schedualAlert()
+    }
+    
+    func scheduleLocal() {
         // This method will configure all the data needed to schedule a notification, which is three things:-
         // content (what to show), a trigger (when to show it), and a request (the combination of content and trigger.)
         
@@ -62,8 +67,6 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
-        
-        schedualAlert()
     }
     
     func registerCategories() {
