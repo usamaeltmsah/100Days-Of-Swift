@@ -58,9 +58,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         // MARK: center.removeAllPendingNotificationRequests(): Used to cancel pending notifications – i.e., notifications you have scheduled that have yet to be delivered because their trigger hasn’t been met.
         // Wait 5 seconds then show the notification
+        // 86400 per day
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
+        
+        schedualAlert()
     }
     
     func registerCategories() {
@@ -72,9 +75,11 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         // Options, describe any special options that relate to the action. You can choose from .authenticationRequired, .destructive, and .foreground.
         let show = UNNotificationAction(identifier: "show", title: "Tell me more ...", options: .foreground)
         
+        let remindLater = UNNotificationAction(identifier: "later", title: "Remind me later", options: .destructive)
+                
         // Once you have as many actions as you want, you group them together into a single UNNotificationCategory and give it the same identifier you used with a notification.
         // intentIdentifiers: Used to connect your notifications to intents, if you have created any.
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remindLater], intentIdentifiers: [])
 
         center.setNotificationCategories([category])
     }
@@ -94,6 +99,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             case "show":
                 // the user tapped our "show more info…" button
                 showMoreInfoAlert()
+            case "later":
+                scheduleLocal()
             default:
                 break
             }
@@ -111,6 +118,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     func defualtAlert() {
         let ac = UIAlertController(title: "Default", message: "This is a result for clicking on the default notification", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+    
+    func schedualAlert() {
+        let ac = UIAlertController(title: "Schedualed succesfully!", message: "I will remind you in 24 hrs :)", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
