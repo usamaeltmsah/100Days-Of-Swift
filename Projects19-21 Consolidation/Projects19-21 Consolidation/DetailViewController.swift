@@ -21,7 +21,11 @@ class DetailViewController: UIViewController {
         textView.text = note?.context
         navigationItem.largeTitleDisplayMode = .never
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteNote))
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))
+        
+        navigationItem.rightBarButtonItems = [doneButton, shareButton, deleteButton]
         
         let notificationCenter = NotificationCenter.default
         
@@ -50,8 +54,20 @@ class DetailViewController: UIViewController {
     
     @objc func done() {
 //        save()
-        delegate?.notes.append(Note(name: textView.text, context: textView.text))
+        delegate?.notes.append(Note(name: note?.context, context: textView.text))
         delegate?.tableView.reloadData()
+    }
+    
+    @objc func deleteNote() {
+        
+    }
+    
+    @objc func shareNote() {
+        guard let note = textView.text else { return }
+        let vc = UIActivityViewController(activityItems: [note], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 
 }
