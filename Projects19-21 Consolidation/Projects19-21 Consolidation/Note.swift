@@ -8,6 +8,6 @@
 import UIKit
 
 struct Note: Codable {
-    var name: String
-    var context: String
+    var name: String?
+    var context: String?
 }

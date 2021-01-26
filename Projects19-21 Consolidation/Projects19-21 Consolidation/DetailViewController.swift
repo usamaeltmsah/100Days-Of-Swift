@@ -10,13 +10,18 @@ import UIKit
 class DetailViewController: UIViewController {
     @IBOutlet var textView: UITextView!
     
+    var delegate: ViewController?
+    
     var note: Note?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = note?.name
+        textView.text = note?.context
         navigationItem.largeTitleDisplayMode = .never
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         
         let notificationCenter = NotificationCenter.default
         
@@ -41,6 +46,12 @@ class DetailViewController: UIViewController {
         
         let selectedRange = textView.selectedRange
         textView.scrollRangeToVisible(selectedRange)
+    }
+    
+    @objc func done() {
+//        save()
+        delegate?.notes.append(Note(name: textView.text, context: textView.text))
+        delegate?.tableView.reloadData()
     }
 
 }
