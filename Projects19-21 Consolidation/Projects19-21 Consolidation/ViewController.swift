@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UITableViewController {
 
     var notes = [Note]()
+    var lastId: Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +21,13 @@ class ViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewNote))
         
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        
+        if notes.isEmpty {
+            lastId = 0
+        }
+//        else {
+//            lastId = looadId()
+//        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,7 +36,6 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
-        
         let cntxt = notes[indexPath.row].context
         
         let note = setNoteData(context: cntxt)
@@ -39,7 +46,7 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    func  setNoteData(context: String?) -> Note {
+    func setNoteData(context: String?) -> Note {
         var note = Note()
         if let title = context?.prefix(30) {
             note.name = String(title)
@@ -65,6 +72,7 @@ class ViewController: UITableViewController {
         if let vc = storyboard?.instantiateViewController(identifier: "NoteStoryboard") as? DetailViewController {
             
             vc.note = notes[indexPath.row]
+            vc.note?.id = indexPath.row
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -75,6 +83,24 @@ class ViewController: UITableViewController {
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    func edit(id: Int, context: String) {
+        notes[id].context = context
+    }
+    
+    func add(context: String) {
+        if let id = lastId {
+        let note = Note(context: context, id: id)
+            notes.insert(note, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+            lastId! += 1
+        }
+    }
+    
+    func save() {
+        
     }
 
 

@@ -53,13 +53,34 @@ class DetailViewController: UIViewController {
     }
     
     @objc func done() {
-//        save()
-        delegate?.notes.append(Note(name: note?.context, context: textView.text))
+        saveNote(note: self.note ?? Note(context: textView.text))
         delegate?.tableView.reloadData()
     }
     
-    @objc func deleteNote() {
+    func saveNote(note: Note) {
+        let context = textView.text
         
+        var id: Int
+        if let idx = note.id {
+            id = idx
+            self.delegate?.edit(id: id, context: context ?? "")
+        } else {
+            self.delegate?.add(context: context ?? "")
+        }
+        
+        self.delegate?.save()
+        self.delegate?.tableView.reloadData()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func deleteNote() {
+        if let id = self.note?.id {
+            self.delegate?.notes.remove(at: id)
+            
+            self.delegate?.save()
+            self.delegate?.tableView.reloadData()
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc func shareNote() {
