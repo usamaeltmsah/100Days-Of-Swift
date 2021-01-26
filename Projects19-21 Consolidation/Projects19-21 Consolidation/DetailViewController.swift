@@ -75,10 +75,7 @@ class DetailViewController: UIViewController {
     
     @objc func deleteNote() {
         if let id = self.note?.id {
-            self.delegate?.notes.remove(at: id)
-            
-            self.delegate?.save()
-            self.delegate?.tableView.reloadData()
+            self.delegate?.delete(at: id)
             self.navigationController?.popViewController(animated: true)
         }
     }

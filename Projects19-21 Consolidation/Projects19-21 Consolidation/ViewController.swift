@@ -110,6 +110,13 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    func delete(at index: Int) {
+        notes.remove(at: index)
+        filterdNotes = notes
+        save()
+        tableView.reloadData()
+    }
+    
     func save() {
         
     }
