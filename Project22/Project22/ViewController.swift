@@ -24,6 +24,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         view.backgroundColor = .gray
     }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        // Did we get authorized by the user?
+        if manager.authorizationStatus == .authorizedAlways {
+            // Is our device able to monitor iBeacons?
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                // Is ranging available? (Ranging is the ability to tell roughly how far something else is away from our device.)
+                if CLLocationManager.isRangingAvailable() {
+                    // Do stuff
+                }
+            }
+        }
+    }
 
 
 }
