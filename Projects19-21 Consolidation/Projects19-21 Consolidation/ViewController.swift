@@ -95,21 +95,30 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     
     func setNoteData(context: String?) -> Note {
         var note = Note()
-        if let title = context?.prefix(30) {
-            note.name = String(title)
-            if title.count < 1 {
-                note.name = "New Note"
-                note.context =  "No Additional text"
-                return note
-            } else {
-                if let cntxt = context?[title.endIndex...] {
-                    if cntxt.count < 1 {
-                        note.context =  "No Additional text"
-                    } else {
-                        note.context = String(cntxt)
+        var texts = context?.split(separator: "\n")
+        if !(texts?.isEmpty ?? false) {
+//        if let title = context?.prefix(30) {
+            if let title = texts?[0] {
+                texts?.removeFirst()
+                note.name = String(title)
+//                if title.count < 1 {
+//                    note.name = "New Note"
+//                    note.context =  "No Additional text"
+//                    return note
+//                } else {
+                    if let cntxt = texts?.joined(separator: "\n") {
+    //                if let cntxt = context?[title.endIndex...] {
+                        if cntxt.count < 1 {
+                            note.context =  "No Additional text"
+                        } else {
+                            note.context = String(cntxt)
+                        }
                     }
                 }
-            }
+//            }
+        } else {
+            note.name = "New Note"
+            note.context =  "No Additional text"
         }
         
         return note
