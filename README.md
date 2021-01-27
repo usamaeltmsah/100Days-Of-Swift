@@ -86,5 +86,5 @@
 ## [Project 21 - Local Notification](Project21)
 <img alt="Project 21 - Demo" src="Project21/Project21-demo.gif" width="200" height="400" />
 
-## [Projects 19-21 Consolidation - Notes App](Projects19-21-Consolidation)
-<img alt="Projects 19-21 Consolidation - Demo" src="Projects19-21-Consolidation/Projects 19-21 Consolidation-demo.gif" width="200" height="400" />
+## [Projects 19-21 Consolidation - Notes App](Projects19-21 Consolidation)
+<img alt="Projects 19-21 Consolidation - Demo" src="Projects19-21 Consolidation/Projects 19-21 Consolidation-demo.gif" width="200" height="400" />
