@@ -27,15 +27,48 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(createNewNote))
-        filterdNotes = notes
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         searchBar.delegate = self
+        
+        if let _ = loadNotes() {
+            filterdNotes = notes
+        }
+        
         if notes.isEmpty {
             lastId = 0
         }
-//        else {
-//            lastId = looadId()
-//        }
+        else {
+            loadId()
+        }
+    }
+    
+    func loadNotes() -> [Note]? {
+        let defaults = UserDefaults.standard
+        
+        if let data = defaults.object(forKey: "Notes") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                notes = try jsonDecoder.decode([Note].self, from: data)
+            } catch {
+                print("Couldn't load the notes!")
+            }
+        }
+        return notes
+    }
+    
+    func loadId() {
+        let defaults = UserDefaults.standard
+        
+        if let data = defaults.object(forKey: "LastId") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                lastId = try jsonDecoder.decode(Int.self, from: data)
+            } catch {
+                print("Couldn't load the last id!")
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,6 +143,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
             lastId! += 1
+            saveId()
         }
     }
     
@@ -150,14 +184,31 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         ac.addAction(UIAlertAction(title: "OK", style: .destructive){ [weak self] _ in
             self?.delete(at: index)
             self?.tableView.reloadData()
-            self?.save()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
     }
     
     func save() {
+        let jsonEncoder = JSONEncoder()
         
+        if let savedData = try? jsonEncoder.encode(notes) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "Notes")
+        } else {
+            print("Failed to save data")
+        }
+    }
+    
+    func saveId() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(lastId) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "LastId")
+        } else {
+            print("Failed to save last id")
+        }
     }
 
 
