@@ -127,7 +127,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "NoteStoryboard") as? DetailViewController {
             
-            vc.note = notes[indexPath.row]
+            vc.note = filterdNotes[indexPath.row]
             vc.note?.id = indexPath.row
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
