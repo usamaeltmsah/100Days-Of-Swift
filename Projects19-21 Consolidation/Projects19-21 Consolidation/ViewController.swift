@@ -10,7 +10,11 @@ import UIKit
 class ViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet var searchBar: UISearchBar!
     
-    var notes = [Note]()
+    var notes = [Note]() {
+        didSet {
+            filterdNotes = notes
+        }
+    }
     var filterdNotes = [Note]()
 
     var lastId: Int?
@@ -103,7 +107,6 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         if let id = lastId {
         let note = Note(context: context, id: id)
             notes.insert(note, at: 0)
-            filterdNotes = notes
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
             lastId! += 1
@@ -112,9 +115,45 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     
     func delete(at index: Int) {
         notes.remove(at: index)
-        filterdNotes = notes
         save()
         tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (_, _, _) in
+            self?.deleteNote(at: indexPath.row)
+        }
+        let trashImage = UIImage(named: "trash")
+        deleteAction.image = trashImage?.withTintColor(.white)
+        deleteAction.backgroundColor = .red
+        
+        let shareAction = UIContextualAction(style: .normal, title: "Share") { [weak self] (_, _, _) in
+            self?.share(at: indexPath.row)
+        }
+        let shareImage = UIImage(named: "share")
+        shareAction.image = shareImage?.withTintColor(.white)
+        shareAction.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+
+        return UISwipeActionsConfiguration(actions: [shareAction, deleteAction])
+    }
+    
+    func share(at index: Int) {
+        guard let context = notes[index].context else { return }
+        let vc = UIActivityViewController(activityItems: [context], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
+    
+    func deleteNote(at index: Int) {
+        let ac = UIAlertController(title: "Delete Note", message: "This note will be permanently deleted", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .destructive){ [weak self] _ in
+            self?.delete(at: index)
+            self?.tableView.reloadData()
+            self?.save()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
     }
     
     func save() {

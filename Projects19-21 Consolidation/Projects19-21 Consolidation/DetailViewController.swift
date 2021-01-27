@@ -81,11 +81,8 @@ class DetailViewController: UIViewController {
     }
     
     @objc func shareNote() {
-        guard let note = textView.text else { return }
-        let vc = UIActivityViewController(activityItems: [note], applicationActivities: [])
-        
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
+        guard let idx = note?.id else { return }
+        self.delegate?.share(at: idx)
     }
 
 }
