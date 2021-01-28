@@ -13,7 +13,7 @@ enum ForceBomb {
 }
 
 enum SequenceType: CaseIterable {
-    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain
+    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain, fastMoving
 }
 
 class GameScene: SKScene {
@@ -50,6 +50,10 @@ class GameScene: SKScene {
     var sequencePosition = 0
     var chainDelay = 3.0
     var nextSequenceQueued = true
+    
+    var gameOverLabel: SKLabelNode!
+    
+    var playAgainLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
         addBackground()
@@ -219,6 +223,27 @@ class GameScene: SKScene {
                 livesImages[i].texture = SKTexture(imageNamed: "sliceLifeGone")
             }
         }
+        
+        gameOver()
+    }
+    
+    func gameOver() {
+        gameOverLabel = SKLabelNode(fontNamed: "Chalkduster")
+        gameOverLabel.text = "GAME OVER"
+        gameOverLabel.fontSize = 80
+        gameOverLabel.position = CGPoint(x: 512, y: 384)
+        gameOverLabel.zPosition = 1
+        addChild(gameOverLabel)
+        playAgain()
+    }
+    
+    func playAgain() {
+        playAgainLabel = SKLabelNode(fontNamed: "Chalkduster")
+        playAgainLabel.text = "play Again!"
+        playAgainLabel.fontSize = 50
+        playAgainLabel.position = CGPoint(x: 512, y: 230)
+        playAgainLabel.zPosition = 1
+        addChild(playAgainLabel)
     }
     
     func playSwooshingSound() {
@@ -437,6 +462,8 @@ class GameScene: SKScene {
             for i in 1...4 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * Double(i))) { [weak self] in self?.createEnemy() }
             }
+        case .fastMoving:
+            createEnemy(forceBomb: .never)
         }
         
         sequencePosition += 1
