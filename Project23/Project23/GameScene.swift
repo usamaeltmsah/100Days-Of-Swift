@@ -39,6 +39,11 @@ class GameScene: SKScene {
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -6)
         physicsWorld.speed = 0.85
+        
+        createScore()
+        createLives()
+        createSlices()
+        createEnemy(forceBomb: .always)
     }
     
     func addBackground() {
@@ -47,10 +52,6 @@ class GameScene: SKScene {
         background.blendMode = .replace
         background.zPosition = -1
         addChild(background)
-        
-        createScore()
-        createLives()
-        createSlices()
     }
     
     func createScore() {
@@ -230,5 +231,22 @@ class GameScene: SKScene {
         
         addChild(enemy)
         activeEnemies.append(enemy)
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        var bombCount = 0
+        
+        for node in activeEnemies {
+            if node.name == "bombContainer" {
+                bombCount += 1
+                break
+            }
+        }
+        
+        if bombCount == 0 {
+            // No bombos - Stop the fuse sound, then destroy it!
+            bombSoundEffect?.stop()
+            bombSoundEffect = nil
+        }
     }
 }
