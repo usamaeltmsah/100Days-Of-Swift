@@ -116,6 +116,26 @@ class GameScene: SKScene {
     }
     
     func redrawActiveSlice() {
+        if activeSlicePoints.count < 2 {
+            activeSliceBG.path = nil
+            activeSliceFG.path = nil
+            
+            return
+        }
         
+        if activeSlicePoints.count > 12 {
+            // Remove first (activeSlicePoints.count - 12) items while drawing.
+            activeSlicePoints.removeFirst(activeSlicePoints.count - 12)
+        }
+        
+        let path = UIBezierPath()
+        path.move(to: activeSlicePoints[0])
+        
+        for i in 1 ..< activeSlicePoints.count {
+            path.addLine(to: activeSlicePoints[i])
+        }
+        
+        activeSliceBG.path = path.cgPath
+        activeSliceFG.path = path.cgPath
     }
 }
