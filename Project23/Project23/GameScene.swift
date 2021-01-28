@@ -6,7 +6,10 @@
 //
 
 import SpriteKit
-import GameplayKit
+
+enum ForceBomb {
+    case never, always, random
+}
 
 class GameScene: SKScene {
     var gameScore: SKLabelNode!
@@ -27,6 +30,7 @@ class GameScene: SKScene {
     var activeSlicePoints = [CGPoint]()
     
     var isSwooshingSoundActive = false
+    var activeEnemies = [SKSpriteNode]()
     
     override func didMove(to view: SKView) {
         addBackground()
@@ -155,5 +159,30 @@ class GameScene: SKScene {
         
         activeSliceBG.path = path.cgPath
         activeSliceFG.path = path.cgPath
+    }
+    
+    func createEnemy(forceBomb: ForceBomb) {
+        let enemy: SKSpriteNode
+        
+        var enemyType = Int.random(in: 0...6)
+        
+        if forceBomb == .never {
+            enemyType = 1
+        } else if forceBomb == .always {
+            enemyType = 0
+        }
+        
+        if enemyType == 0 {
+            // Bomb code goes here
+        } else {
+            enemy = SKSpriteNode(imageNamed: "penguin")
+            run(SKAction.playSoundFileNamed("launch.caf", waitForCompletion: false))
+            enemy.name = "enemy"
+        }
+        
+        // Position code goes here
+        
+        addChild(enemy)
+        activeEnemies.append(enemy)
     }
 }
