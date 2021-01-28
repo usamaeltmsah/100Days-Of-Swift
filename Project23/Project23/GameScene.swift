@@ -180,7 +180,28 @@ class GameScene: SKScene {
             enemy.name = "enemy"
         }
         
-        // Position code goes here
+        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        enemy.position = randomPosition
+        
+        let randomAngularVelocity = CGFloat.random(in: -3...3)
+        let randomXVelocity: Int
+        
+        if randomPosition.x < 256 {
+            randomXVelocity = Int.random(in: 8...15)
+        } else if randomPosition.x < 512 {
+            randomXVelocity = Int.random(in: 3...5)
+        } else if randomPosition.x < 768 {
+            randomXVelocity = -Int.random(in: 3...5)
+        } else {
+            randomXVelocity = -Int.random(in: 8...15)
+        }
+        
+        let randomYVelocity = Int.random(in: 24...32)
+        
+        enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
+        enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
+        enemy.physicsBody?.angularVelocity = randomAngularVelocity
+        enemy.physicsBody?.collisionBitMask = 0
         
         addChild(enemy)
         activeEnemies.append(enemy)
