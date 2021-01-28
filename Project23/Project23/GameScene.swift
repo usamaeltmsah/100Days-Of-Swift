@@ -41,6 +41,10 @@ class GameScene: SKScene {
     var activeEnemies = [SKSpriteNode]()
     var bombSoundEffect: AVAudioPlayer?
     
+    let PopTimeScale = 0.991
+    let ChainDelayScale = 0.99
+    let SpeedScale: CGFloat = 1.02
+    
     var popupTime = 0.9
     var sequence = [SequenceType]()
     var sequencePosition = 0
@@ -395,9 +399,9 @@ class GameScene: SKScene {
     
     func toussEnemies() {
         guard isGameEnded == false else { return }
-        popupTime *= 0.991
-        chainDelay *= 0.99
-        physicsWorld.speed *= 1.02
+        popupTime *= self.PopTimeScale
+        chainDelay *= self.ChainDelayScale
+        physicsWorld.speed *= self.SpeedScale
         
         let sequenceType = sequence[sequencePosition]
         
