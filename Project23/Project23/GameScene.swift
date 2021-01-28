@@ -12,7 +12,8 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         addBackground()
         
-        
+        physicsWorld.gravity = CGVector(dx: 0, dy: -6)
+        physicsWorld.speed = 0.85
     }
     
     func addBackground() {
