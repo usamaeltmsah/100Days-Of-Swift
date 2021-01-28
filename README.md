@@ -88,3 +88,6 @@
 
 ## [Projects 19-21 Consolidation - Notes App](Projects19-21%20Consolidation)
 <img alt="Projects 19-21 Consolidation - Demo" src="Projects19-21%20Consolidation/Projects 19-21 Consolidation-demo.gif" width="200" height="400" />
+
+## [Project 23 - Swifty Ninja](Project23)
+<img alt="Project 23 - Demo" src="Project23/Project23-demo.gif" width="400" height="400" />
