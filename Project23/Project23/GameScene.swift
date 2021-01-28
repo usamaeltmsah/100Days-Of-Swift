@@ -12,6 +12,10 @@ enum ForceBomb {
     case never, always, random
 }
 
+enum SequenceType: CaseIterable {
+    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain
+}
+
 class GameScene: SKScene {
     var gameScore: SKLabelNode!
     
@@ -34,6 +38,12 @@ class GameScene: SKScene {
     var activeEnemies = [SKSpriteNode]()
     var bombSoundEffect: AVAudioPlayer?
     
+    var popupTime = 0.9
+    var sequence = [SequenceType]()
+    var sequencePosition = 0
+    var chainDelay = 3.0
+    var nextSequenceQueued = true
+    
     override func didMove(to view: SKView) {
         addBackground()
         
@@ -43,7 +53,6 @@ class GameScene: SKScene {
         createScore()
         createLives()
         createSlices()
-        createEnemy(forceBomb: .always)
     }
     
     func addBackground() {
@@ -164,7 +173,7 @@ class GameScene: SKScene {
         activeSliceFG.path = path.cgPath
     }
     
-    func createEnemy(forceBomb: ForceBomb) {
+    func createEnemy(forceBomb: ForceBomb = .random) {
         let enemy: SKSpriteNode
         
         var enemyType = Int.random(in: 0...6)
@@ -248,5 +257,50 @@ class GameScene: SKScene {
             bombSoundEffect?.stop()
             bombSoundEffect = nil
         }
+    }
+    
+    func toussEnemies() {
+        popupTime *= 0.991
+        chainDelay *= 0.99
+        physicsWorld.speed *= 1.02
+        
+        let sequenceType = sequence[sequencePosition]
+        
+        switch sequenceType {
+        case .oneNoBomb:
+            createEnemy(forceBomb: .never)
+        case .one:
+            createEnemy()
+        case .twoWithOneBomb:
+            createEnemy(forceBomb: .never)
+            createEnemy(forceBomb: .always)
+        case .two:
+            for _ in 0...1 {
+                createEnemy()
+            }
+        case .three:
+            for _ in 0...2 {
+                createEnemy()
+            }
+        case .four:
+            for _ in 0...4 {
+                createEnemy()
+            }
+        case .chain:
+            createEnemy()
+            
+            for i in 1...4 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 5.0 * Double(i))) { [weak self] in self?.createEnemy() }
+            }
+        case .fastChain:
+            createEnemy()
+            
+            for i in 1...4 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * Double(i))) { [weak self] in self?.createEnemy() }
+            }
+        }
+        
+        sequencePosition += 1
+        nextSequenceQueued = false
     }
 }
