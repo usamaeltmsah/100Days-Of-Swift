@@ -94,6 +94,13 @@ class GameScene: SKScene {
         activeSlicePoints.append(location)
         
         redrawActiveSlice()
+        
+        // Remove the fading out actions
+        activeSliceBG.removeAllActions()
+        activeSliceFG.removeAllActions()
+        
+        activeSliceBG.alpha = 1
+        activeSliceFG.alpha = 1
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
