@@ -5,6 +5,7 @@
 //  Created by Usama Fouad on 28/01/2021.
 //
 
+import AVFoundation
 import SpriteKit
 
 enum ForceBomb {
@@ -31,6 +32,7 @@ class GameScene: SKScene {
     
     var isSwooshingSoundActive = false
     var activeEnemies = [SKSpriteNode]()
+    var bombSoundEffect: AVAudioPlayer?
     
     override func didMove(to view: SKView) {
         addBackground()
@@ -173,7 +175,30 @@ class GameScene: SKScene {
         }
         
         if enemyType == 0 {
-            // Bomb code goes here
+            enemy = SKSpriteNode()
+            enemy.zPosition = 1
+            enemy.name = "bombContainer"
+            
+            let bombImage = SKSpriteNode(imageNamed: "sliceBomb")
+            bombImage.name = "bomb"
+            enemy.addChild(bombImage)
+            
+            if bombSoundEffect != nil {
+                bombSoundEffect?.stop()
+                bombSoundEffect = nil
+            }
+            
+            if let path = Bundle.main.url(forResource: "sliceBombFuse", withExtension: "caf") {
+                if let sound = try? AVAudioPlayer(contentsOf: path) {
+                    bombSoundEffect = sound
+                    sound.play()
+                }
+            }
+            
+            if let emitter = SKEmitterNode(fileNamed: "sliceFuse") {
+                emitter.position = CGPoint(x: 76, y: 64)
+                enemy.addChild(emitter)
+            }
         } else {
             enemy = SKSpriteNode(imageNamed: "penguin")
             run(SKAction.playSoundFileNamed("launch.caf", waitForCompletion: false))
