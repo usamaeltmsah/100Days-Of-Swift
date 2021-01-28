@@ -28,6 +28,9 @@ class GameScene: SKScene {
     var livesImages = [SKSpriteNode]()
     var lives = 3
     
+    var isGameOver = false
+    var isGameEnded = false
+    
     // One for the background, and another for the foreground, to make it glows!
     var activeSliceBG: SKShapeNode!
     var activeSliceFG: SKShapeNode!
@@ -134,6 +137,8 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isGameEnded == false else { return }
+        
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         activeSlicePoints.append(location)
@@ -190,13 +195,26 @@ class GameScene: SKScene {
                     activeEnemies.remove(at: index)
                 }
                 run(SKAction.playSoundFileNamed("explosion.caf", waitForCompletion: false))
-                endGame()
+                endGame(triggeredByBomb: true)
             }
         }
     }
     
-    func endGame() {
+    func endGame(triggeredByBomb: Bool) {
+        guard isGameEnded == false else { return }
         
+        isGameOver = true
+        physicsWorld.speed = 0
+        isUserInteractionEnabled = false
+        
+        bombSoundEffect?.stop()
+        bombSoundEffect = nil
+        
+        if triggeredByBomb {
+            for i in 0...2 {
+                livesImages[i].texture = SKTexture(imageNamed: "sliceLifeGone")
+            }
+        }
     }
     
     func playSwooshingSound() {
@@ -310,7 +328,24 @@ class GameScene: SKScene {
     }
     
     func subtractLife() {
+        lives -= 1
         
+        run(SKAction.playSoundFileNamed("wrong.caf", waitForCompletion: false))
+        
+        var life: SKSpriteNode
+        if lives == 2 {
+            life = livesImages[0]
+        } else if lives == 1 {
+            life = livesImages[1]
+        } else {
+            life = livesImages[2]
+            endGame(triggeredByBomb: false)
+        }
+        
+        life.texture = SKTexture(imageNamed: "sliceLifeGone")
+        life.xScale = 1.3
+        life.yScale = 1.3
+        life.run(SKAction.scale(to: 1, duration: 0.1))
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -359,6 +394,7 @@ class GameScene: SKScene {
     }
     
     func toussEnemies() {
+        guard isGameEnded == false else { return }
         popupTime *= 0.991
         chainDelay *= 0.99
         physicsWorld.speed *= 1.02
