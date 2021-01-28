@@ -232,7 +232,7 @@ class GameScene: SKScene {
         gameOverLabel.text = "GAME OVER"
         gameOverLabel.fontSize = 80
         gameOverLabel.position = CGPoint(x: 512, y: 384)
-        gameOverLabel.zPosition = 1
+        gameOverLabel.zPosition = 4
         addChild(gameOverLabel)
         playAgain()
     }
@@ -242,7 +242,7 @@ class GameScene: SKScene {
         playAgainLabel.text = "play Again!"
         playAgainLabel.fontSize = 50
         playAgainLabel.position = CGPoint(x: 512, y: 230)
-        playAgainLabel.zPosition = 1
+        playAgainLabel.zPosition = 4
         addChild(playAgainLabel)
     }
     
