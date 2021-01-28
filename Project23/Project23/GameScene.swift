@@ -20,6 +20,10 @@ class GameScene: SKScene {
     var livesImages = [SKSpriteNode]()
     var lives = 3
     
+    // One for the background, and another for the foreground, to make it glows!
+    var activeSliceBG: SKShapeNode!
+    var activeSliceFG: SKShapeNode!
+    
     override func didMove(to view: SKView) {
         addBackground()
         
@@ -58,7 +62,24 @@ class GameScene: SKScene {
         }
     }
     
+    // Swiping around the screen will lead a glowing trail of slice marks that fade away when you let go or keep on moving.
     func createSlices() {
+        // Draw two slice shapes, one in white and one in yellow to make it look like there's a hot glow.
         
+        // MARK: SKShapeNode(): Lets you define any kind of shape you can draw, along with line width, stroke color and more, and it will render it to the screen.
+        activeSliceBG = SKShapeNode()
+        activeSliceBG.zPosition = 2
+        
+        activeSliceFG = SKShapeNode()
+        activeSliceFG.zPosition = 3
+        
+        activeSliceBG.strokeColor = UIColor(red: 1, green: 0.9, blue: 0, alpha: 1)
+        activeSliceBG.lineWidth = 9
+        
+        activeSliceFG.strokeColor = .white
+        activeSliceFG.lineWidth = 5
+        
+        addChild(activeSliceBG)
+        addChild(activeSliceFG)
     }
 }
