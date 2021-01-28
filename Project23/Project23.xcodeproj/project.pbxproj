@@ -13,6 +13,17 @@
 		19411D3125C2E3530066B804 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19411D3025C2E3530066B804 /* GameViewController.swift */; };
 		19411D3425C2E3530066B804 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19411D3225C2E3530066B804 /* Main.storyboard */; };
 		19411D3625C2E3590066B804 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19411D3525C2E3590066B804 /* Assets.xcassets */; };
+		19411D4A25C2E4380066B804 /* launch.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D3F25C2E4360066B804 /* launch.caf */; };
+		19411D4B25C2E4380066B804 /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4025C2E4360066B804 /* whack.caf */; };
+		19411D4C25C2E4380066B804 /* sliceHitBomb.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4125C2E4360066B804 /* sliceHitBomb.sks */; };
+		19411D4D25C2E4380066B804 /* sliceFuse.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4225C2E4360066B804 /* sliceFuse.sks */; };
+		19411D4E25C2E4380066B804 /* sliceBombFuse.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4325C2E4370066B804 /* sliceBombFuse.caf */; };
+		19411D4F25C2E4380066B804 /* sliceHitEnemy.sks in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4425C2E4370066B804 /* sliceHitEnemy.sks */; };
+		19411D5025C2E4380066B804 /* swoosh1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4525C2E4370066B804 /* swoosh1.caf */; };
+		19411D5125C2E4380066B804 /* swoosh2.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4625C2E4370066B804 /* swoosh2.caf */; };
+		19411D5225C2E4380066B804 /* swoosh3.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4725C2E4380066B804 /* swoosh3.caf */; };
+		19411D5325C2E4380066B804 /* wrong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4825C2E4380066B804 /* wrong.caf */; };
+		19411D5425C2E4380066B804 /* explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 19411D4925C2E4380066B804 /* explosion.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +35,17 @@
 		19411D3325C2E3530066B804 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19411D3525C2E3590066B804 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19411D3725C2E3590066B804 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19411D3F25C2E4360066B804 /* launch.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = launch.caf; sourceTree = "<group>"; };
+		19411D4025C2E4360066B804 /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
+		19411D4125C2E4360066B804 /* sliceHitBomb.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sliceHitBomb.sks; sourceTree = "<group>"; };
+		19411D4225C2E4360066B804 /* sliceFuse.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sliceFuse.sks; sourceTree = "<group>"; };
+		19411D4325C2E4370066B804 /* sliceBombFuse.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sliceBombFuse.caf; sourceTree = "<group>"; };
+		19411D4425C2E4370066B804 /* sliceHitEnemy.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sliceHitEnemy.sks; sourceTree = "<group>"; };
+		19411D4525C2E4370066B804 /* swoosh1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh1.caf; sourceTree = "<group>"; };
+		19411D4625C2E4370066B804 /* swoosh2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh2.caf; sourceTree = "<group>"; };
+		19411D4725C2E4380066B804 /* swoosh3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swoosh3.caf; sourceTree = "<group>"; };
+		19411D4825C2E4380066B804 /* wrong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong.caf; sourceTree = "<group>"; };
+		19411D4925C2E4380066B804 /* explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +83,17 @@
 				19411D2E25C2E3530066B804 /* GameScene.swift */,
 				19411D3025C2E3530066B804 /* GameViewController.swift */,
 				19411D3225C2E3530066B804 /* Main.storyboard */,
+				19411D4925C2E4380066B804 /* explosion.caf */,
+				19411D3F25C2E4360066B804 /* launch.caf */,
+				19411D4325C2E4370066B804 /* sliceBombFuse.caf */,
+				19411D4225C2E4360066B804 /* sliceFuse.sks */,
+				19411D4125C2E4360066B804 /* sliceHitBomb.sks */,
+				19411D4425C2E4370066B804 /* sliceHitEnemy.sks */,
+				19411D4525C2E4370066B804 /* swoosh1.caf */,
+				19411D4625C2E4370066B804 /* swoosh2.caf */,
+				19411D4725C2E4380066B804 /* swoosh3.caf */,
+				19411D4025C2E4360066B804 /* whack.caf */,
+				19411D4825C2E4380066B804 /* wrong.caf */,
 				19411D3525C2E3590066B804 /* Assets.xcassets */,
 				19411D3725C2E3590066B804 /* Info.plist */,
 			);
@@ -124,9 +157,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19411D4F25C2E4380066B804 /* sliceHitEnemy.sks in Resources */,
+				19411D5025C2E4380066B804 /* swoosh1.caf in Resources */,
+				19411D5125C2E4380066B804 /* swoosh2.caf in Resources */,
+				19411D4C25C2E4380066B804 /* sliceHitBomb.sks in Resources */,
 				19411D3425C2E3530066B804 /* Main.storyboard in Resources */,
+				19411D5225C2E4380066B804 /* swoosh3.caf in Resources */,
+				19411D4B25C2E4380066B804 /* whack.caf in Resources */,
+				19411D4A25C2E4380066B804 /* launch.caf in Resources */,
+				19411D5425C2E4380066B804 /* explosion.caf in Resources */,
+				19411D4E25C2E4380066B804 /* sliceBombFuse.caf in Resources */,
 				19411D2B25C2E3530066B804 /* GameScene.sks in Resources */,
+				19411D4D25C2E4380066B804 /* sliceFuse.sks in Resources */,
 				19411D3625C2E3590066B804 /* Assets.xcassets in Resources */,
+				19411D5325C2E4380066B804 /* wrong.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +332,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = usamaeltmsah.Project23;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -307,7 +351,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = usamaeltmsah.Project23;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
