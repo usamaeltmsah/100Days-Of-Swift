@@ -160,9 +160,14 @@ extension String {
         guard let _ = Double(self) else { return false }
         return true
     }
+    
+    var lines: [Substring] {
+        return self.split(separator: "\n")
+    }
 }
 
 "pet".withPrefix("car")
 "12".isNumeric
 "1211.323243332121".isNumeric
 "123.ew".isNumeric
+"this\nis\na\ntest".lines
