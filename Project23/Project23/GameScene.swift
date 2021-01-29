@@ -28,7 +28,6 @@ class GameScene: SKScene {
     var livesImages = [SKSpriteNode]()
     var lives = 3
     
-    var isGameOver = false
     var isGameEnded = false
     
     // One for the background, and another for the foreground, to make it glows!
@@ -68,15 +67,41 @@ class GameScene: SKScene {
     var playAgainLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
-        addBackground()
+        play()
+    }
+    
+    func resetAll() {
+        removeAllActions()
+        removeAllChildren()
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -6)
         physicsWorld.speed = 0.85
         
+        lives = 3
+        popupTime = 0.9
+        sequencePosition = 0
+        chainDelay = 3.0
+        
+        isGameEnded = false
+        isSwooshingSoundActive = false
+        nextSequenceQueued = true
+        
+        livesImages.removeAll()
+        activeSlicePoints.removeAll()
+        activeEnemies.removeAll()
+        
+        addViews()
+    }
+    
+    func addViews() {
+        addBackground()
         createScore()
         createLives()
         createSlices()
-        
+    }
+    
+    func play() {
+        resetAll()
         sequence = [.oneNoBomb, .oneNoBomb, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
         
         for _ in 0...1000 {
@@ -144,6 +169,13 @@ class GameScene: SKScene {
         activeSlicePoints.removeAll(keepingCapacity: true)
         
         let location = touch.location(in: self)
+        
+        if isGameEnded {
+            if nodes(at: location).contains(playAgainLabel) {
+                play()
+            }
+        }
+        
         activeSlicePoints.append(location)
         
         redrawActiveSlice()
@@ -227,7 +259,7 @@ class GameScene: SKScene {
     func endGame(triggeredByBomb: Bool) {
         guard isGameEnded == false else { return }
         
-        isGameOver = true
+        isGameEnded = true
         physicsWorld.speed = 0
         isUserInteractionEnabled = false
         
@@ -251,6 +283,7 @@ class GameScene: SKScene {
         gameOverLabel.zPosition = 4
         addChild(gameOverLabel)
         playAgain()
+        isUserInteractionEnabled = true
     }
     
     func playAgain() {
