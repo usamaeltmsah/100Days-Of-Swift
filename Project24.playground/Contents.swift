@@ -149,3 +149,12 @@ attributedString2.addAttribute(.shadow, value: 3, range: NSRange(location: 15, l
 /*
  UILabel, UITextField, UITextView, UIButton, UINavigationBar, and more all support attributed strings just as well as regular strings. So, for a label you would just use attributedText rather than text, and UIKit takes care of the rest.
  */
+
+extension String {
+    func withPrefix(_ prefix: String) -> String {
+        guard !self.hasPrefix(prefix) else { return self }
+        return prefix + self
+    }
+}
+
+"pet".withPrefix("car")
