@@ -155,6 +155,14 @@ extension String {
         guard !self.hasPrefix(prefix) else { return self }
         return prefix + self
     }
+    
+    var isNumeric: Bool {
+        guard let _ = Int(self) else { return false }
+        guard let _ = Double(self) else { return false }
+        return true
+    }
 }
 
 "pet".withPrefix("car")
+"12".isNumeric
+"1211.32324335435432121".isNumeric
