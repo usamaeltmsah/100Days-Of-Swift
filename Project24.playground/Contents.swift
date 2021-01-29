@@ -72,6 +72,8 @@ print(weather.capitalized)
 // Language is complicated, and although many languages have one-to-one mappings between lowercase and uppercase characters, some do not.
 // For example, in English “a” maps to “A”, “b” to “B”, and so on, but in German “ß” becomes “SS” when uppercased. “SS” is clearly two separate letters, so uppercased() has no choice but to return a string.
 
+/****************************************************************************************/
+
 // Contains
 let input = "Swift is like Objective-C without the C"
 input.contains("Swift")
@@ -111,3 +113,39 @@ languages.contains(where: input.contains)
 // In that code we’re passing input.contains as the closure that contains(where:) should run. This means Swift will call input.contains("Python") and get back false, then it will call input.contains("Ruby") and get back false again, and finally call input.contains("Swift") and get back true – then stop there.
 
 // So, because the contains() method of strings has the exact same signature that contains(where:) expects (take a string and return a Boolean), this works perfectly – this's how Swift blurs the lines between these things?
+
+/****************************************************************************************/
+
+/// NSAttributedString: allows us to add formatting like bold or italics, select from different fonts, or add some color.
+// Attributed strings are made up of two parts: a plain Swift string, plus a dictionary containing a series of attributes that describe how various segments of the string are formatted. In its most basic form you might want to create one set of attributes that affect the whole string, like this:
+
+let string = "This is a test string"
+let attributs: [NSAttributedString.Key: Any] = [
+    .foregroundColor: UIColor.white,
+    .backgroundColor: UIColor.red,
+    .font: UIFont.boldSystemFont(ofSize: 36)
+    
+    // It’s common to use an explicit type annotation when making attributed strings, because inside the dictionary we can just write things like .foregroundColor for the key rather than NSAttributedString.Key.foregroundColor.
+]
+
+let attributedString = NSAttributedString(string: string, attributes: attributs)
+
+// NSMutableAttributedString: is an attributed string that you can modify.
+let attributedString2 = NSMutableAttributedString(string: string)
+
+attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 8), range: NSRange(location: 0, length: 4))
+attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 5, length: 2))
+attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 24), range: NSRange(location: 8, length: 1))
+attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 32), range: NSRange(location: 10, length: 4))
+attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 40), range: NSRange(location: 15, length: 6))
+attributedString2.addAttribute(.shadow, value: 3, range: NSRange(location: 15, length: 6))
+
+// Set .underlineStyle to a value from NSUnderlineStyle to strike out characters.
+// Set .strikethroughStyle to a value from NSUnderlineStyle (no, that’s not a typo) to strike out characters.
+// Set .paragraphStyle to an instance of NSMutableParagraphStyle to control text alignment and spacing.
+// Set .link to be a URL to make clickable links in your strings.
+
+
+/*
+ UILabel, UITextField, UITextView, UIButton, UINavigationBar, and more all support attributed strings just as well as regular strings. So, for a label you would just use attributedText rather than text, and UIKit takes care of the rest.
+ */
