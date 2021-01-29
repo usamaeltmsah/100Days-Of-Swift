@@ -157,7 +157,6 @@ extension String {
     }
     
     var isNumeric: Bool {
-        guard let _ = Int(self) else { return false }
         guard let _ = Double(self) else { return false }
         return true
     }
@@ -165,4 +164,5 @@ extension String {
 
 "pet".withPrefix("car")
 "12".isNumeric
-"1211.32324335435432121".isNumeric
+"1211.323243332121".isNumeric
+"123.ew".isNumeric
