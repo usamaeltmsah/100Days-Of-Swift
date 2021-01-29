@@ -41,9 +41,21 @@ class GameScene: SKScene {
     var activeEnemies = [SKSpriteNode]()
     var bombSoundEffect: AVAudioPlayer?
     
+    let EnemyType = 1
+    let BombType = 0
+    let EnemiesTypesRange = 0...6
+    let FuseEmitterPositionRelativeToBomb = CGPoint(x: 76, y: 64)
+    let RandomPositionXRange = 64...960
+    let RandomPositionY = -128
+    let RandomAngularVelocityRange: ClosedRange<CGFloat> = -3...3
+    let RandomYVelocityRange = 24...32
+    let NormalEnemyVelocityScalar = 40
+    let FastEnemyVelocityScalar = 50
+    let EnemyCircleOfRadius: CGFloat = 64
     let PopTimeScale = 0.991
     let ChainDelayScale = 0.99
     let SpeedScale: CGFloat = 1.02
+    let LifeScale: CGFloat = 1.3
     
     var popupTime = 0.9
     var sequence = [SequenceType]()
@@ -294,15 +306,15 @@ class GameScene: SKScene {
     func createEnemy(forceBomb: ForceBomb = .random, isFast: Bool = false) {
         let enemy: SKSpriteNode
         
-        var enemyType = Int.random(in: 0...6)
+        var enemyType = Int.random(in: EnemiesTypesRange)
         
         if forceBomb == .never {
-            enemyType = 1
+            enemyType = EnemyType
         } else if forceBomb == .always {
-            enemyType = 0
+            enemyType = BombType
         }
         
-        if enemyType == 0 {
+        if enemyType == BombType {
             enemy = SKSpriteNode()
             enemy.zPosition = 1
             enemy.name = "bombContainer"
@@ -324,7 +336,7 @@ class GameScene: SKScene {
             }
             
             if let emitter = SKEmitterNode(fileNamed: "sliceFuse") {
-                emitter.position = CGPoint(x: 76, y: 64)
+                emitter.position = FuseEmitterPositionRelativeToBomb
                 enemy.addChild(emitter)
             }
         } else {
@@ -333,10 +345,10 @@ class GameScene: SKScene {
             enemy.name = "enemy"
         }
         
-        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        let randomPosition = CGPoint(x: Int.random(in: RandomPositionXRange), y: RandomPositionY)
         enemy.position = randomPosition
         
-        let randomAngularVelocity = CGFloat.random(in: -3...3)
+        let randomAngularVelocity = CGFloat.random(in: RandomAngularVelocityRange)
         let randomXVelocity: Int
         
         if randomPosition.x < 256 {
@@ -349,21 +361,19 @@ class GameScene: SKScene {
             randomXVelocity = -Int.random(in: 8...15)
         }
         
-        let randomYVelocity = Int.random(in: 24...32)
+        let randomYVelocity = Int.random(in: RandomYVelocityRange)
         
+        enemy.physicsBody = SKPhysicsBody(circleOfRadius: EnemyCircleOfRadius)
         if isFast {
             enemy.name = "fast"
             
-            enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
-            enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 45, dy: randomYVelocity * 60)
-            enemy.physicsBody?.angularVelocity = randomAngularVelocity
-            enemy.physicsBody?.collisionBitMask = 0
+            enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * FastEnemyVelocityScalar, dy: randomYVelocity * FastEnemyVelocityScalar)
         } else {
-            enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
-            enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
-            enemy.physicsBody?.angularVelocity = randomAngularVelocity
-            enemy.physicsBody?.collisionBitMask = 0
+            enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * NormalEnemyVelocityScalar, dy: randomYVelocity * NormalEnemyVelocityScalar)
         }
+        
+        enemy.physicsBody?.angularVelocity = randomAngularVelocity
+        enemy.physicsBody?.collisionBitMask = .zero
         
         addChild(enemy)
         activeEnemies.append(enemy)
@@ -385,8 +395,8 @@ class GameScene: SKScene {
         }
         
         life.texture = SKTexture(imageNamed: "sliceLifeGone")
-        life.xScale = 1.3
-        life.yScale = 1.3
+        life.xScale = LifeScale
+        life.yScale = LifeScale
         life.run(SKAction.scale(to: 1, duration: 0.1))
     }
     
