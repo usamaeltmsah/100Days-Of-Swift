@@ -13,6 +13,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     // Core Location class that lets us configure how we want to be notified about location, and will also deliver location updates to us.
     var locationManager: CLLocationManager?
     
+    var alertShown = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways {
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-                print(3)
                 if CLLocationManager.isRangingAvailable() {
                     startScanning()
                 }
@@ -116,12 +117,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         if let beacon = beacons.first {
-            print(1)
+            if !alertShown {
+                showAlert()
+            }
+            alertShown = true
             update(distance: beacon.proximity)
         } else {
-            print(2)
+            alertShown = false
             update(distance: .unknown)
         }
+    }
+    
+    func showAlert() {
+        let ac = UIAlertController(title: "Beacon detected!", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(ac, animated: true)
     }
     
 //    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
