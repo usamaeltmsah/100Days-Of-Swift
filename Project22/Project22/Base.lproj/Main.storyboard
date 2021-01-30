@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,21 +23,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJG-8X-6hT">
+                                <rect key="frame" x="207" y="518" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="cJG-8X-6hT" firstAttribute="top" secondItem="Ftz-Ua-egg" secondAttribute="bottom" constant="41" id="0Fw-nw-cKq"/>
                             <constraint firstItem="Ftz-Ua-egg" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="G12-Nf-Qwc"/>
+                            <constraint firstItem="cJG-8X-6hT" firstAttribute="centerX" secondItem="Ftz-Ua-egg" secondAttribute="centerX" id="cQw-h6-ySn"/>
                             <constraint firstItem="Ftz-Ua-egg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dzt-Op-axT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="beaconIdLabel" destination="cJG-8X-6hT" id="CRP-Wx-5Nb"/>
                         <outlet property="distanceReading" destination="Ftz-Ua-egg" id="dB0-ed-Hiz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23" y="63"/>
+            <point key="canvasLocation" x="-23.188405797101453" y="62.946428571428569"/>
         </scene>
     </scenes>
     <resources>

@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var distanceReading: UILabel!
+    @IBOutlet var beaconIdLabel: UILabel!
     // Core Location class that lets us configure how we want to be notified about location, and will also deliver location updates to us.
     var locationManager: CLLocationManager?
     
@@ -87,10 +88,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func startScanning() {
         let uuid = UUID(uuidString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")!
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: "MyBeacon")
+        let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: "MyBeacon - 5A4BCFCE")
+        
+        let uuid2 = UUID(uuidString: "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0")!
+        let beaconRegion2 = CLBeaconRegion(proximityUUID: uuid2, major: 1, minor: 2, identifier: "MyBeacon - E2C56DB5")
 
         locationManager?.startMonitoring(for: beaconRegion)
         locationManager?.startRangingBeacons(in: beaconRegion)
+        
+        locationManager?.startMonitoring(for: beaconRegion2)
+        locationManager?.startRangingBeacons(in: beaconRegion2)
+        
+        let uuid3 = UUID(uuidString: "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6")!
+        let beaconRegion3 = CLBeaconRegion(proximityUUID: uuid3, major: 1, minor: 2, identifier: "MyBeacon - 2F234454")
+
+        locationManager?.startMonitoring(for: beaconRegion3)
+        locationManager?.startRangingBeacons(in: beaconRegion3)
     }
     
     func update(distance: CLProximity) {
@@ -120,9 +133,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if !alertShown {
                 showAlert()
             }
+            beaconIdLabel.text = region.identifier
             alertShown = true
             update(distance: beacon.proximity)
         } else {
+            beaconIdLabel.text = ""
             alertShown = false
             update(distance: .unknown)
         }
