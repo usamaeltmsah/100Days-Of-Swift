@@ -4,7 +4,7 @@ import UIKit
 extension UIView {
     // Use animation to scale its size down to 0.0001 over a specified number of seconds.
     func bounceOut(duration: TimeInterval) {
-        UIView.animate(withDuration: duration, animations: {
+        UIView.animate(withDuration: duration, animations: { [unowned self] in
             self.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
         })
     }
@@ -13,6 +13,8 @@ extension UIView {
 // Extend Int with a times() method that runs a closure as many times as the number is high.
 extension Int {
     func times(closure: () -> Void) {
+        guard self > 0 else { return }
+        
         for _ in 0..<self {
             closure()
         }
