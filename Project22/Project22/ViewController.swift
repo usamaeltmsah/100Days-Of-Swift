@@ -16,6 +16,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var alertShown = false
     
+    var circle: CAShapeLayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager?.requestAlwaysAuthorization()
         
         view.backgroundColor = .gray
+        
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 205, y: 370), radius: 128, startAngle: 0, endAngle: CGFloat(Double.pi * 2), clockwise: true)
+            
+        circle = CAShapeLayer()
+        circle.path = circlePath.cgPath
+            
+        circle.fillColor = UIColor.clear.cgColor
+        circle.strokeColor = UIColor.red.cgColor
+        circle.lineWidth = 10.0
+            
+        view.layer.addSublayer(circle)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -110,18 +123,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         UIView.animate(withDuration: 0.8) {
             switch distance {
             case .far:
+                self.circle.scaleAndChangeColor(scaledby: 0.25, color: .blue)
                 self.view.backgroundColor = UIColor.blue
                 self.distanceReading.text = "FAR"
 
             case .near:
+                self.circle.scaleAndChangeColor(scaledby: 0.5, color: .blue)
                 self.view.backgroundColor = UIColor.orange
                 self.distanceReading.text = "NEAR"
 
             case .immediate:
+                self.circle.scaleAndChangeColor(scaledby: 1.0, color: .blue)
                 self.view.backgroundColor = UIColor.red
                 self.distanceReading.text = "RIGHT HERE"
 
             default:
+                self.circle.scaleAndChangeColor(scaledby: 0.001, color: .blue)
                 self.view.backgroundColor = UIColor.gray
                 self.distanceReading.text = "UNKNOWN"
             }
@@ -163,3 +180,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
 }
 
+extension CAShapeLayer {
+    // Use animation to scale a circle and change it's color.
+    func scaleAndChangeColor(scaledby value: CGFloat, color: UIColor) {
+            self.strokeColor = color.cgColor
+            self.transform = CATransform3DMakeScale(value, value, 1.0)
+    }
+}
