@@ -12,6 +12,7 @@ enum ForceBomb {
     case never, always, random
 }
 
+// CaseIterable: It's one of Swift’s most useful protocols, and it will automatically add an "allCases" property to the SequenceType enum that lists all its cases as an array. This is really useful in our project because we can then use randomElement() to pick random sequence types to run our game.
 enum SequenceType: CaseIterable {
     case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain, fastMoving
 }
@@ -56,10 +57,15 @@ class GameScene: SKScene {
     let SpeedScale: CGFloat = 1.02
     let LifeScale: CGFloat = 1.3
     
+    // popupTime: The amount of time to wait between the last enemy being destroyed and a new one being created.
     var popupTime = 0.9
+    // sequence: Array of our SequenceType enum that defines what enemies to create.
     var sequence = [SequenceType]()
+    // sequencePosition: Is where we are right now in the game.
     var sequencePosition = 0
+    // chainDelay: How long to wait before creating a new enemy when the sequence type is .chain or .fastChain. Enemy chains don't wait until the previous enemy is offscreen before creating a new one, so it's like throwing five enemies quickly but with a small delay between each one.
     var chainDelay = 3.0
+    // nextSequenceQueued: Used so we know when all the enemies are destroyed and we're ready to create more.
     var nextSequenceQueued = true
     
     var gameOverLabel: SKLabelNode!
@@ -209,29 +215,41 @@ class GameScene: SKScene {
         for case let node as SKSpriteNode in nodesAtPoint {
             if node.name == "enemy" || node.name == "fast" {
                 // Destroy the benguin
+                
+                // Create a particle effect over the penguin.
                 if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy") {
                     emitter.position = node.position
                     addChild(emitter)
                 }
                 
                 if node.name == "fast" {
+                    // Add 5 to the player's score if player touches a fast penguin.
                     score += 5
                 } else {
+                    // Add 1 to the player's score if player touches a normal penguin.
                     score += 1
                 }
                 
+                // Clear its node name so that it can't be swiped repeatedly.
                 node.name = ""
+                // Disable the isDynamic of its physics body so that it doesn't carry on falling.
                 node.physicsBody?.isDynamic = false
                 
+                // Make the penguin scale out and fade out at the same time.
                 let scaleOut = SKAction.scale(to: 0.001, duration: 0.2)
                 let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+                // An action 'group' specifies that all actions inside it should execute simultaneously,
+                // whereas an action 'sequence' runs them all one at a time.
                 let group = SKAction.group([scaleOut, fadeOut])
+                // .removeFromParent(): After making the penguin scale out and fade out, we should remove it from the scene.
                 let seq = SKAction.sequence([group, .removeFromParent()])
                 node.run(seq)
                 
+                // Remove the enemy from our activeEnemies array.
                 if let index = activeEnemies.firstIndex(of: node) {
                     activeEnemies.remove(at: index)
                 }
+                // Play a sound so the player knows they hit the penguin.
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
             } else if node.name == "bomb" {
                 // Destroy the bomb
@@ -459,18 +477,23 @@ class GameScene: SKScene {
     
     // This method is called every frame before it's drawn, and gives you a chance to update your game state as you want.
     override func update(_ currentTime: TimeInterval) {
+        
+        // If we have active enemies, we loop through each of them.
         if activeEnemies.count > 0 {
             for (index, node) in activeEnemies.enumerated().reversed() {
+                // If any enemy is at or lower than Y position -140, we remove it from the game and our activeEnemies array.
                 if node.position.y < -140 {
                     node.removeAllActions()
-                    
+                    // If you miss a penguin you lose one life; else if you swipe a bomb, you lose all your lives.
                     if node.name == "enemy" {
                         node.name = ""
+                        // If the player misses slicing a normal speed penguin, they lose a life
                         subtractLife()
                         
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
                     } else if node.name == "bombContainer" || node.name == "fast" {
+                        // Delete the node's name just in case any further checks for enemies or bombs happen – clearing the node name will avoid any problems.
                         node.name = ""
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
@@ -478,6 +501,7 @@ class GameScene: SKScene {
                 }
             }
         } else {
+            // If we don't have any active enemies and we haven't already queued the next enemy sequence, we schedule the next enemy sequence and set nextSequenceQueued to be true.
             if !nextSequenceQueued {
                 DispatchQueue.main.asyncAfter(deadline: .now() + popupTime) { [weak self] in
                     self?.toussEnemies()
@@ -540,6 +564,12 @@ class GameScene: SKScene {
         case .fastChain:
             createEnemy()
             
+            // To handle these chains, we have calls to asyncAfter() with a timer value. If we assume for a moment that chainDelay is 10 seconds, then:
+            
+                // That makes chainDelay / 10.0 equal to 1 second.
+                // That makes chainDelay / 10.0 * 2 equal to 2 seconds.
+                // That makes chainDelay / 10.0 * 3 equal to three seconds.
+                // That makes chainDelay / 10.0 * 4 equal to four seconds.
             for i in 1...4 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + (chainDelay / 10.0 * Double(i))) { [weak self] in self?.createEnemy() }
             }
@@ -550,6 +580,7 @@ class GameScene: SKScene {
         }
         
         sequencePosition += 1
+        // nextSequenceQueued: If it's false, it means we don't have a call to tossEnemies() in the pipeline waiting to execute. It gets set to true only in the gap between the previous sequence item finishing and tossEnemies() being called. Think of it as meaning, "I know there aren't any enemies right now, but more will come shortly."
         nextSequenceQueued = false
     }
 }
