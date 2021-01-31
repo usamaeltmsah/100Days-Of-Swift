@@ -91,3 +91,5 @@
 
 ## [Project 23 - Swifty Ninja](Project23)
 <img alt="Project 23 - Demo" src="Project23/Project23-demo.gif" width="400" height="400" />
+
+## [Project 24 - Swift Strings](Project24.playground)
