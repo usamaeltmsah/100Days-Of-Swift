@@ -32,6 +32,13 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hws-project25", discoveryInfo: nil, session: mcSession)
     }
     
+    func joinSession(action: UIAlertAction) {
+        guard let mcSession = mcSession else { return }
+        let mcBrowser = MCBrowserViewController(serviceType: "hws-project25", session: mcSession)
+        mcBrowser.delegate = self
+        present(mcBrowser, animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
