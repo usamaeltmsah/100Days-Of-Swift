@@ -101,6 +101,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         ac.addAction(UIAlertAction(title: "Host a session", style: .default, handler: startHosting))
         ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
         ac.addAction(UIAlertAction(title: "Send Text message", style: .default, handler: promptForTextMessage))
+        ac.addAction(UIAlertAction(title: "Show connected peers", style: .default, handler: showConnectedPeers))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
     }
@@ -131,6 +132,20 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
                 present(ac, animated: true)
             }
         }
+    }
+    
+    func showConnectedPeers(action: UIAlertAction) {
+        guard let mcSession = mcSession else { return }
+        
+        let ac = UIAlertController(title: "Connected peers", message: nil, preferredStyle: .actionSheet)
+        
+        for peer in mcSession.connectedPeers {
+            ac.addAction(UIAlertAction(title: "\(peer.displayName)", style: .default))
+        }
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
