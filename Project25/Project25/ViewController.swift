@@ -127,10 +127,12 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case .connected:
+            showStatusAlert(peerName: peerID.displayName, isConnected: true)
             print("Connected: \(peerID.displayName)")
         case .connecting:
             print("Connecting: \(peerID.displayName)")
         case .notConnected:
+            showStatusAlert(peerName: peerID.displayName, isConnected: false)
             print("Not Connected: \(peerID.displayName)")
         @unknown default:
             print("Unkown state recieved: \(peerID.displayName)")
@@ -143,6 +145,16 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
             }
+        }
+    }
+    
+    func showStatusAlert(peerName: String, isConnected: Bool) {
+        let connectedStr = isConnected ? "connected" : "disconnected"
+        DispatchQueue.main.async { [weak self] in
+            let ac = UIAlertController(title: "\(peerName) has \(connectedStr)", message: nil, preferredStyle: .alert)
+            
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self?.present(ac, animated: true)
         }
     }
 
