@@ -98,3 +98,6 @@
 ## [Project 24 - Swift Strings](Project24.playground)
 
 ## [Projects 22-24 Consolidation - Extensions Practice](Projects22-24-Consolidation.playground)
+
+## [Project 25 - Selfie Share - MultiPeer Networking](Project25)
+<img alt="Project 25 - Demo" src="Project25/Project25-demo.gif" width="500" height="400" />
