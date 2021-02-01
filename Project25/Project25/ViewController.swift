@@ -100,8 +100,37 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         let ac = UIAlertController(title: "Connect to others", message: nil, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Host a session", style: .default, handler: startHosting))
         ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
+        ac.addAction(UIAlertAction(title: "Send Text message", style: .default, handler: promptForTextMessage))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
+    }
+    
+    func promptForTextMessage(action: UIAlertAction) {
+        let ac = UIAlertController(title: "Enter Text message", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Send", style: .default) { [weak self, weak ac] _ in
+            guard let message = ac?.textFields?[0].text else { return }
+            self?.send(message)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
+    
+    func send(_ message: String) {
+        guard let mcSession = mcSession else { return }
+        
+        if mcSession.connectedPeers.count > 0 {
+            let textData = Data(message.utf8)
+            do {
+                try mcSession.send(textData, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch {
+                let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -144,6 +173,13 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
                 self?.collectionView.reloadData()
+            } else {
+                let textMessage = String(decoding: data, as: UTF8.self)
+                DispatchQueue.main.async { [weak self] in
+                    let ac = UIAlertController(title: "Message from \(peerID.displayName)", message: textMessage, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    self?.present(ac, animated: true)
+                }
             }
         }
     }
