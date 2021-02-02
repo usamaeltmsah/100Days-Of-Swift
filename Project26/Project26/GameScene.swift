@@ -16,6 +16,7 @@ enum CollisionTypes: UInt32 {
 }
 class GameScene: SKScene {
     var player: SKSpriteNode!
+    var lastTouchPosition: CGPoint?
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background.jpg")
@@ -116,5 +117,11 @@ class GameScene: SKScene {
         player.physicsBody?.collisionBitMask = CollisionTypes.wall.rawValue
         
         addChild(player)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        lastTouchPosition = location
     }
 }
