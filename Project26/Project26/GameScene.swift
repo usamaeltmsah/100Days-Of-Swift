@@ -175,4 +175,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         #endif
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        
+        if nodeA == player {
+            playerCollide(with: nodeB)
+        } else if nodeB == player {
+            playerCollide(with: nodeA)
+        }
+    }
 }
