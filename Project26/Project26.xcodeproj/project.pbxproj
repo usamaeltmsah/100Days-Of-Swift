@@ -13,6 +13,7 @@
 		19DDB3E325C9DB470063C057 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DDB3E225C9DB470063C057 /* GameViewController.swift */; };
 		19DDB3E625C9DB470063C057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19DDB3E425C9DB470063C057 /* Main.storyboard */; };
 		19DDB3E825C9DB4A0063C057 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19DDB3E725C9DB4A0063C057 /* Assets.xcassets */; };
+		19DDB3F225C9DC220063C057 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19DDB3F125C9DC220063C057 /* level1.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		19DDB3E525C9DB470063C057 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		19DDB3E725C9DB4A0063C057 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19DDB3E925C9DB4A0063C057 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19DDB3F125C9DC220063C057 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				19DDB3E025C9DB470063C057 /* GameScene.swift */,
 				19DDB3E225C9DB470063C057 /* GameViewController.swift */,
 				19DDB3E425C9DB470063C057 /* Main.storyboard */,
+				19DDB3F125C9DC220063C057 /* level1.txt */,
 				19DDB3E725C9DB4A0063C057 /* Assets.xcassets */,
 				19DDB3E925C9DB4A0063C057 /* Info.plist */,
 			);
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19DDB3E625C9DB470063C057 /* Main.storyboard in Resources */,
+				19DDB3F225C9DC220063C057 /* level1.txt in Resources */,
 				19DDB3DD25C9DB470063C057 /* GameScene.sks in Resources */,
 				19DDB3E825C9DB4A0063C057 /* Assets.xcassets in Resources */,
 			);
