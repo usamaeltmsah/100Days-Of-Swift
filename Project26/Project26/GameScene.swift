@@ -15,7 +15,7 @@ enum CollisionTypes: UInt32 {
     case vortes = 8
     case finish = 16
 }
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var player: SKSpriteNode!
     var lastTouchPosition: CGPoint?
     var motionManager: CMMotionManager!
@@ -37,6 +37,8 @@ class GameScene: SKScene {
         addChild(background)
         
         physicsWorld.gravity = .zero
+        // Make ourselves the contact delegate for the physics world
+        physicsWorld.contactDelegate = self
         
         loadLevel()
         createPlayer()
