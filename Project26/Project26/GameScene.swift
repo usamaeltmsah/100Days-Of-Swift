@@ -93,7 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     node.physicsBody?.isDynamic = false
                     
                     node.physicsBody?.categoryBitMask = CollisionTypes.vortes.rawValue
-                    node.physicsBody?.collisionBitMask = CollisionTypes.player.rawValue
+                    node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
+                    node.physicsBody?.collisionBitMask = 0
                     
                     addChild(node)
                 } else if letter == "s" {
@@ -188,6 +189,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerCollide(with: nodeB)
         } else if nodeB == player {
             playerCollide(with: nodeA)
+        }
+    }
+    
+    func playerCollide(with node: SKNode) {
+        // Things need to be done when a player collides with a vortex:
+        if node.name == "vortex" {
+            // 1. We need to stop the ball from being a dynamic physics body so that it stops moving once it's sucked in.
+            player.physicsBody?.isDynamic = false
+            isGameOver = true
+            score -= 1
+            
+            // We need to move the ball over the vortex, to simulate it being sucked in. It will also be scaled down at the same time.
+            let move = SKAction.move(to: node.position, duration: 0.25)
+            let scale = SKAction.scale(to: 0.0001, duration: 0.25)
+            
+            // Once the move and scale has completed, we need to remove the ball from the game.
+            let remove = SKAction.removeFromParent()
+            let sequence = SKAction.sequence([move, scale, remove])
+            
+            player.run(sequence) { [weak self] in
+                // After all the actions complete, we need to create the player ball again and re-enable control.
+                self?.createPlayer()
+                self?.isGameOver = false
+            }
+        } else if node.name == "star" {
+            node.removeFromParent()
+            score += 1
+        } else if node.name == "finish" {
+            // next level?
         }
     }
 }
