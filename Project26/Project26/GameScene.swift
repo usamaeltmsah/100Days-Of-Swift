@@ -20,6 +20,14 @@ class GameScene: SKScene {
     var lastTouchPosition: CGPoint?
     var motionManager: CMMotionManager!
     
+    var scoreLabel: SKLabelNode!
+
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background.jpg")
         background.position = CGPoint(x: 512, y: 384)
@@ -32,9 +40,19 @@ class GameScene: SKScene {
         
         loadLevel()
         createPlayer()
+        addScore()
         
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
+    }
+    
+    func addScore() {
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.text = "Score: 0"
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.position = CGPoint(x: 16, y: 16)
+        scoreLabel.zPosition = 2
+        addChild(scoreLabel)
     }
     
     func loadLevel() {
