@@ -141,16 +141,18 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if let currentTouch = lastTouchPosition {
-            // Calculate the difference between the current touch and the player's position, then use that to change the gravity value of the physics world.
-            let diff = CGPoint(x: currentTouch.x - player.position.x, y: currentTouch.y - player.position.y)
-            physicsWorld.gravity = CGVector(dx: diff.x / 100, dy: diff.y / 100)
-        }
-        
-        // Safely unwraps the optional accelerometer data, because there might not be any available.
-        if let accelerometerData = motionManager.accelerometerData {
-            // Change the gravity of our game world so that it reflects the accelerometer data.
-            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.y * -50, dy: accelerometerData.acceleration.x * -50)
-        }
+        #if targetEnvironment(simulator)
+            if let currentTouch = lastTouchPosition {
+                // Calculate the difference between the current touch and the player's position, then use that to change the gravity value of the physics world.
+                let diff = CGPoint(x: currentTouch.x - player.position.x, y: currentTouch.y - player.position.y)
+                physicsWorld.gravity = CGVector(dx: diff.x / 100, dy: diff.y / 100)
+            }
+        #else
+            // Safely unwraps the optional accelerometer data, because there might not be any available.
+            if let accelerometerData = motionManager.accelerometerData {
+                // Change the gravity of our game world so that it reflects the accelerometer data.
+                physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.y * -50, dy: accelerometerData.acceleration.x * -50)
+            }
+        #endif
     }
 }
