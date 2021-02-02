@@ -42,8 +42,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // Did we get authorized by the user?
         if status == .authorizedAlways {
+            // Is our device able to monitor iBeacons?
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                // Is ranging available? (Ranging is the ability to tell roughly how far something else is away from our device.)
                 if CLLocationManager.isRangingAvailable() {
                     startScanning()
                 }
@@ -52,7 +55,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func startScanning() {
+        // uuid: Is a long hexadecimal string that you can create by running the uuidgen in your Mac's terminal. It should identify you or your store chain uniquely.
         let uuid = UUID(uuidString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")!
+        // major number: is used to subdivide within the UUID. So, if you have 10,000 stores in your supermarket chain, you would use the same UUID for them all but give each one a different major number. That major number must be between 1 and 65535, which is enough to identify every McDonalds and Starbucks outlet combined!
+        
+        // minor number: can (if you wish) be used to subdivide within the major number. For example, if your flagship London store has 12 floors each of which has 10 departments, you would assign each of them a different minor number.
+        
+        /// The combination of all three identify the user's precise location:
+        
+            // UUID: You're in a Acme Hardware Supplies store.
+            // Major: You're in the Glasgow branch.
+            // Minor: You're in the shoe department on the third floor.
         let beaconRegion = CLBeaconRegion(proximityUUID: uuid, major: 123, minor: 456, identifier: "5A4BCFCE")
         
         locationManager?.startMonitoring(for: beaconRegion)
