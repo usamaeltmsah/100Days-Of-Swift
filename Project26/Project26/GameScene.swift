@@ -130,4 +130,8 @@ class GameScene: SKScene {
         let location = touch.location(in: self)
         lastTouchPosition = location
     }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        lastTouchPosition = nil
+    }
 }
