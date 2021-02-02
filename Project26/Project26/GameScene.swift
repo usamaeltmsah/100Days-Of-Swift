@@ -7,6 +7,13 @@
 
 import SpriteKit
 
+enum CollisionTypes: UInt32 {
+    case player = 1
+    case wall = 2
+    case star = 4
+    case vortes = 8
+    case finish = 16
+}
 class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
