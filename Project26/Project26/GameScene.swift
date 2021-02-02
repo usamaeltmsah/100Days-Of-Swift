@@ -21,6 +21,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var motionManager: CMMotionManager!
     
     var scoreLabel: SKLabelNode!
+    
+    var isGameOver = false
 
     var score = 0 {
         didSet {
@@ -161,6 +163,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        guard isGameOver == false else { return }
+
         #if targetEnvironment(simulator)
             if let currentTouch = lastTouchPosition {
                 // Calculate the difference between the current touch and the player's position, then use that to change the gravity value of the physics world.
