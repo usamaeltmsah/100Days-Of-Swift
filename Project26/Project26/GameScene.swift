@@ -134,4 +134,12 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         lastTouchPosition = nil
     }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if let currentTouch = lastTouchPosition {
+            // Calculate the difference between the current touch and the player's position, then use that to change the gravity value of the physics world.
+            let diff = CGPoint(x: currentTouch.x - player.position.x, y: currentTouch.y - player.position.y)
+            physicsWorld.gravity = CGVector(dx: diff.x / 100, dy: diff.y / 100)
+        }
+    }
 }
