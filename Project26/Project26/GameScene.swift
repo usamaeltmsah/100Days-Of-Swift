@@ -82,6 +82,8 @@ class GameScene: SKScene {
                     node.position = position
                     
                     addChild(node)
+                } else if letter == " " {
+                    // This is empty space do nothing
                 } else {
                     fatalError("Unkown level letter \(letter)")
                 }
