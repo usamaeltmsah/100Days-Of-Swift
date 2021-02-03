@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
         
         let image = renderer.image { ctx in
-            let rectangle = CGRect(x: 0, y: 0, width: 512, height: 512)
+            let rectangle = CGRect(x: 0, y: 0, width: 512, height: 512).insetBy(dx: 15, dy: 15)
             
             ctx.cgContext.setFillColor(UIColor.red.cgColor)
             ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
         
         let image = renderer.image { ctx in
-            let rectangle = CGRect(x: 0, y: 0, width: 512, height: 512)
+            let rectangle = CGRect(x: 0, y: 0, width: 512, height: 512).insetBy(dx: 15, dy: 15)
             
             ctx.cgContext.setFillColor(UIColor.red.cgColor)
             ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
