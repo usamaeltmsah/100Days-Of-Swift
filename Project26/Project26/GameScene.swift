@@ -21,46 +21,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var motionManager: CMMotionManager!
     
     var scoreLabel: SKLabelNode!
-    
-    var isGameOver = false
-
     var score = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
         }
     }
     
+    var isGameOver = false
+    
+    var levelLabel: SKLabelNode!
+    var currentLevel = 1 {
+        didSet {
+            levelLabel.text = "Level: \(currentLevel)"
+        }
+    }
+    
     override func didMove(to view: SKView) {
+        addBackground()
+        
+        physicsWorld.gravity = .zero
+        // Make ourselves the contact delegate for the physics world
+        physicsWorld.contactDelegate = self
+        
+        loadLevel(levelNum: currentLevel)
+        createPlayer()
+        addScore()
+        addLevel()
+        
+        motionManager = CMMotionManager()
+        motionManager.startAccelerometerUpdates()
+    }
+    
+    func addBackground() {
         let background = SKSpriteNode(imageNamed: "background.jpg")
         background.position = CGPoint(x: 512, y: 384)
         background.blendMode = .replace
         background.zPosition = -1
         
         addChild(background)
-        
-        physicsWorld.gravity = .zero
-        // Make ourselves the contact delegate for the physics world
-        physicsWorld.contactDelegate = self
-        
-        loadLevel()
-        createPlayer()
-        addScore()
-        
-        motionManager = CMMotionManager()
-        motionManager.startAccelerometerUpdates()
     }
     
     func addScore() {
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.position = CGPoint(x: 16, y: 16)
         scoreLabel.zPosition = 2
         addChild(scoreLabel)
     }
     
-    func loadLevel() {
-        guard let levelURL = Bundle.main.url(forResource: "level1", withExtension: "txt") else {
+    func addLevel() {
+        levelLabel = SKLabelNode(fontNamed: "Chalkduster")
+        levelLabel.text = "Level: \(currentLevel)"
+        levelLabel.horizontalAlignmentMode = .center
+        levelLabel.position = CGPoint(x: 512, y: 725)
+        levelLabel.fontSize = 50
+        levelLabel.zPosition = 1
+        addChild(levelLabel)
+    }
+    
+    func loadLevel(levelNum: Int) {
+        guard let levelURL = Bundle.main.url(forResource: "level\(levelNum)", withExtension: "txt") else {
             fatalError("Couldn't find level1.txt in the app bundle.")
         }
         guard let levelString = try? String(contentsOf: levelURL) else {
@@ -230,6 +251,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score += 1
         } else if node.name == "finish" {
             // next level?
+            player.physicsBody?.isDynamic = false
+            removeAllChildren()
+            showLevelUp()
+            addBackground()
+            currentLevel += 1
+            loadLevel(levelNum: currentLevel)
+            addScore()
+            addLevel()
+            createPlayer()
+        }
+    }
+    
+    func showLevelUp() {
+        let levelUpLabel = SKLabelNode(fontNamed: "Chalkduster")
+        levelUpLabel.text = "Level Up 🔝🔥"
+        levelUpLabel.horizontalAlignmentMode = .center
+        levelUpLabel.position = CGPoint(x: 512, y: 342)
+        levelUpLabel.fontSize = 100
+        levelUpLabel.zPosition = 1
+        addChild(levelUpLabel)
+        
+        levelUpLabel.run(SKAction.fadeOut(withDuration: 3)) {
+            levelUpLabel.removeFromParent()
         }
     }
 }
