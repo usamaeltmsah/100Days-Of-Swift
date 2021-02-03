@@ -14,6 +14,7 @@ enum CollisionTypes: UInt32 {
     case star = 4
     case vortes = 8
     case finish = 16
+    case teleport = 32
 }
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var player: SKSpriteNode!
@@ -95,13 +96,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let position = CGPoint(x: (64 * column) + 32, y: (64 * row) + 32)
                 
                 if letter == "x" {
-                    loadWall(position: position)
+                    loadWall(at: position)
                 } else if letter == "v" {
-                    loadVortex(position: position)
+                    loadVortex(at: position)
                 } else if letter == "s" {
-                    loadStar(position: position)
+                    loadStar(at: position)
                 } else if letter == "f" {
-                    loadFinishPoint(position: position)
+                    loadFinishPoint(at: position)
+                } else if letter == "t" {
+                    loadTeleport(at: position)
                 } else if letter == " " {
                     // This is empty space do nothing
                 } else {
@@ -111,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func loadWall(position: CGPoint) {
+    func loadWall(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "block")
         node.position = position
         
@@ -122,7 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
-    func loadVortex(position: CGPoint) {
+    func loadVortex(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "vortex")
         node.name = "vortex"
         node.position = position
@@ -137,7 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
-    func loadStar(position: CGPoint) {
+    func loadStar(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "star")
         node.name = "star"
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
@@ -151,7 +154,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
-    func loadFinishPoint(position: CGPoint) {
+    func loadTeleport(at position: CGPoint) {
+        let node = SKSpriteNode(imageNamed: "teleport")
+        node.name = "teleport"
+        node.size = CGSize(width: node.size.width / 4, height: node.size.height / 4)
+        node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 4)
+        node.physicsBody?.isDynamic = false
+        
+        node.physicsBody?.categoryBitMask = CollisionTypes.teleport.rawValue
+        node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
+        node.physicsBody?.collisionBitMask = 0
+        node.position = position
+        
+        addChild(node)
+    }
+    
+    func loadFinishPoint(at position: CGPoint) {
         let node = SKSpriteNode(imageNamed: "finish")
         node.name = "finish"
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
