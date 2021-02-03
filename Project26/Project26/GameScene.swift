@@ -57,6 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         isMoved = false
         
+        // MARK: Accelerometer data is only available after we have called startAccelerometerUpdates() on our motion manager.
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
     }
@@ -143,8 +144,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
         node.physicsBody?.isDynamic = false
         
+        // MARK: categoryBitMask: determines what type of thing this physics body is.
         node.physicsBody?.categoryBitMask = CollisionTypes.vortes.rawValue
         node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
+        
+        // MARK: collisionBitMask: determines which other objects it bounces off.
         node.physicsBody?.collisionBitMask = 0
         
         addChild(node)
@@ -200,6 +204,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 1
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width / 2)
         player.physicsBody?.allowsRotation = false
+        // MARK: linearDamping property of a physics body lets us control how much friction applies to it.
         player.physicsBody?.linearDamping = 0.5
         
         player.physicsBody?.categoryBitMask = CollisionTypes.player.rawValue
