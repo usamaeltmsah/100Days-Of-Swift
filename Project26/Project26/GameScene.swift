@@ -37,6 +37,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var teleports = [SKNode]()
+    
+    var isMoved: Bool!
+    
+    let startPoint = CGPoint(x: 96, y: 672)
+    
     override func didMove(to view: SKView) {
         addBackground()
         
@@ -45,9 +51,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         loadLevel(levelNum: currentLevel)
-        createPlayer()
+        createPlayer(at: startPoint)
         addScore()
         addLevel()
+        
+        isMoved = false
         
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
@@ -88,6 +96,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let levelString = try? String(contentsOf: levelURL) else {
             fatalError("Couldn't load level1.txt from the app bundle.")
         }
+        
+        teleports.removeAll()
         
         let lines = levelString.split(separator: "\n")
         
@@ -167,6 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.position = position
         
         addChild(node)
+        teleports.append(node)
     }
     
     func loadFinishPoint(at position: CGPoint) {
@@ -183,9 +194,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(node)
     }
     
-    func createPlayer() {
+    func createPlayer(at position: CGPoint) {
         player = SKSpriteNode(imageNamed: "player")
-        player.position = CGPoint(x: 96, y: 672)
+        player.position = position
         player.zPosition = 1
         player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width / 2)
         player.physicsBody?.allowsRotation = false
@@ -208,6 +219,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         lastTouchPosition = location
+        isMoved = true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -261,8 +273,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             player.run(sequence) { [weak self] in
                 // After all the actions complete, we need to create the player ball again and re-enable control.
-                self?.createPlayer()
+                self?.createPlayer(at: self!.startPoint)
                 self?.isGameOver = false
+            }
+        } else if node.name == "teleport" && isMoved {
+            player.physicsBody?.isDynamic = false
+            
+            let move = SKAction.move(to: node.position, duration: 0.25)
+            let scale = SKAction.scale(to: 0.0001, duration: 0.25)
+            
+            let remove = SKAction.removeFromParent()
+            let sequence = SKAction.sequence([move, scale, remove])
+            
+            player.run(sequence) { [weak self] in
+                // After all the actions complete, we need to create the player ball again and re-enable control.
+                if let index = self?.teleports.firstIndex(of: node) {
+                    self?.exitTeleport(for: index)
+                }
             }
         } else if node.name == "star" {
             node.removeFromParent()
@@ -277,7 +304,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             loadLevel(levelNum: currentLevel)
             addScore()
             addLevel()
-            createPlayer()
+            createPlayer(at: startPoint)
+        }
+    }
+    
+    func exitTeleport(for index: Int) {
+        if teleports.count > 1 {
+            if teleports[index] == teleports.first {
+                createPlayer(at: teleports[1].position)
+            } else {
+                createPlayer(at: teleports[index - 1].position)
+            }
+            isMoved = false
         }
     }
     
