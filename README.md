@@ -101,3 +101,6 @@
 
 ## [Project 25 - Selfie Share - MultiPeer Networking](Project25)
 <img alt="Project 25 - Demo" src="Project25/Project25-demo.gif" width="500" height="400" />
+
+## [Project 26 - Marble Maze Game](Project26)
+<img alt="Project 26 - Demo" src="Project26/Project26-demo.gif" width="400" height="400" />
