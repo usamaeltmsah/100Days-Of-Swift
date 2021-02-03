@@ -219,7 +219,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         lastTouchPosition = location
-        isMoved = true
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -242,6 +241,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.y * -50, dy: accelerometerData.acceleration.x * -50)
             }
         #endif
+        isMoved = true
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
