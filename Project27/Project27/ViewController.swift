@@ -38,6 +38,8 @@ class ViewController: UIViewController {
             drawImgesAndText()
         case 6:
             drawEmoji()
+        case 7:
+            spellTWIN()
         default:
             break
         }
@@ -188,5 +190,47 @@ class ViewController: UIViewController {
         }
         imageView.image = image
     }
+    
+    func spellTWIN() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let image = renderer.image { ctx in
+            ctx.cgContext.translateBy(x: 256, y: 256)
+            
+            // T
+            ctx.cgContext.move(to: CGPoint(x: -256, y: -128))
+            ctx.cgContext.addLine(to: CGPoint(x: -100, y: -128))
+            
+            ctx.cgContext.move(to: CGPoint(x: -178, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: -178, y: -128))
+            
+            // W
+            ctx.cgContext.move(to: CGPoint(x: -150, y: -100))
+            ctx.cgContext.addLine(to: CGPoint(x: -100, y: 50))
+            ctx.cgContext.rotate(by: .pi / -3)
+            ctx.cgContext.addLine(to: CGPoint(x: 50, y: -100))
+            ctx.cgContext.rotate(by: .pi / 3)
+            ctx.cgContext.addLine(to: CGPoint(x: -50, y: 50))
+            ctx.cgContext.rotate(by: .pi / -3)
+            ctx.cgContext.addLine(to: CGPoint(x: 100, y: -20))
+            // I
+            ctx.cgContext.move(to: CGPoint(x: 0, y: 82))
+            ctx.cgContext.addLine(to: CGPoint(x: 128, y: 10))
+            
+            // N
+            ctx.cgContext.move(to: CGPoint(x: 30, y: 128))
+            ctx.cgContext.addLine(to: CGPoint(x: 166, y: 50))
+            ctx.cgContext.rotate(by: .pi / 6)
+            ctx.cgContext.addLine(to: CGPoint(x: 166, y: 128))
+            ctx.cgContext.rotate(by: .pi / -6)
+            ctx.cgContext.addLine(to: CGPoint(x: 230, y: 110))
+            
+            // Set line width and stroke
+            ctx.cgContext.setLineWidth(5)
+            ctx.cgContext.strokePath()
+        }
+        imageView.image = image
+    }
+    
 }
 
