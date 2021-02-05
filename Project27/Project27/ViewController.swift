@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBAction func redrawTapped(_ sender: Any) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -36,6 +36,8 @@ class ViewController: UIViewController {
             drawLines()
         case 5:
             drawImgesAndText()
+        case 6:
+            drawEmoji()
         default:
             break
         }
@@ -161,5 +163,30 @@ class ViewController: UIViewController {
         imageView.image = image
     }
     
+    func drawEmoji() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let image = renderer.image { ctx in
+            ctx.cgContext.translateBy(x: 256, y: 256)
+            var rectangle = CGRect(x: -128, y: -128, width: 256, height: 256)
+            ctx.cgContext.setShadow(offset: CGSize(width: 50, height: 50), blur: 20)
+            
+            ctx.cgContext.setFillColor(UIColor.yellow.cgColor)
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+            
+            ctx.cgContext.beginPath()
+            ctx.cgContext.setFillColor(UIColor.black.cgColor)
+            for i in [-1, 1] {
+                rectangle = CGRect(x: i * 40, y: -40, width: 10, height: 10)
+                ctx.cgContext.addEllipse(in: rectangle)
+            }
+            
+            ctx.cgContext.move(to: CGPoint(x: -50, y: 30))
+            ctx.cgContext.addLine(to: CGPoint(x: 60, y: 30))
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+        imageView.image = image
+    }
 }
 
