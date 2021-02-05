@@ -63,9 +63,10 @@ class DetailViewController: UIViewController {
             paragaphStyle.alignment = .center
             
             let attrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 70),
+                .font: UIFont.systemFont(ofSize: 100),
                 .paragraphStyle: paragaphStyle,
                 .strokeColor: UIColor.white.cgColor,
+                .backgroundColor: UIColor.black.cgColor,
                 .strokeWidth: 5
             ]
             let attributedString = NSAttributedString(string: text, attributes: attrs)

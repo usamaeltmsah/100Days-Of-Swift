@@ -10,21 +10,36 @@ import UIKit
 var selectedPictureNumber: Int!
 var totalPictures: Int!
 
-class ViewController: UITableViewController {
+class ViewController: UICollectionViewController {
     
     var pictures = [String]()
+    var counts = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Storm Viewer"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share App", style: .plain, target: self, action: #selector(shareTapped))
-        
+                
         navigationController?.navigationBar.prefersLargeTitles = true
 
         // Do any additional setup after loading the view.
         
+        performSelector(inBackground: #selector(loadNsslImages), with: nil)
+        
+        collectionView.performSelector(onMainThread: #selector(UICollectionView.reloadData), with: nil, waitUntilDone: false)
+        
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            let defaults = UserDefaults.standard
+            
+            if let savedCounts = defaults.object(forKey: "counts") as? Data {
+                if let decodedCounts = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedCounts) as? [Int] {
+                    counts = decodedCounts
+                }
+            }
+        }
+    }
+    
+    @objc func loadNsslImages() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
@@ -39,55 +54,64 @@ class ViewController: UITableViewController {
         totalPictures = pictures.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if counts.count < pictures.count {
+            counts = [Int](repeating: 0, count: pictures.count)
+        }
+        
         return pictures.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Picture", for: indexPath) as? imgCell else {
+            fatalError("Unable to dequeue a imgCell")
+        }
         
-        cell.textLabel?.text = pictures[indexPath.row]
         
-        cell.textLabel?.setSizeFont(40.0)
+        let imgName = pictures[indexPath.item]
+        cell.imageName.text = imgName
+        cell.imageView.image = UIImage(named: imgName)
+        cell.imageName.setSizeFont(24.0)
+        
+        cell.imageView.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
+        cell.imageView.layer.borderWidth = 2
+        cell.imageView.layer.cornerRadius = 3
+        cell.layer.cornerRadius = 7
+        
+        cell.visitsCount.layer.masksToBounds = true
+        cell.visitsCount.layer.cornerRadius = cell.visitsCount.frame.height / 2
+        cell.visitsCount.layer.borderWidth = 3
+        cell.visitsCount.layer.borderColor = UIColor.white.cgColor
+        cell.visits = counts[indexPath.item]
+        cell.visitsCount.text = "\(cell.visits)"
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? imgCell
+        counts[indexPath.item] += 1
+        cell!.visits = counts[indexPath.item]
+        save()
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
-        if #available(iOS 13.0, *) {
-            if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
-                
-                // 2: success! Set its selectedImage property
-                vc.selectedImage = pictures[indexPath.row]
-                
-                // 3: now push it onto the navigation controller!
-                navigationController?.pushViewController(vc, animated: true)
-                
-                selectedPictureNumber = indexPath.row + 1
-                
-            }
-        } else {
-            // Fallback on earlier versions
-            if let vc2 = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
-                
-                // 2: success! Set its selectedImage property
-                vc2.selectedImage = pictures[indexPath.row]
-                
-                // 3: now push it onto the navigation controller!
-                navigationController?.pushViewController(vc2, animated: true)
-                
-                selectedPictureNumber = indexPath.row + 1
-            }
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            
+            // 2: success! Set its selectedImage property
+            vc.selectedImage = pictures[indexPath.row]
+            
+            // 3: now push it onto the navigation controller!
+            navigationController?.pushViewController(vc, animated: true)
+            
+            selectedPictureNumber = indexPath.row + 1
+
         }
     }
     
-    @objc func shareTapped() {
-        let vc = UIActivityViewController(activityItems: ["Check my app!", "https://appstore.usamaeltmsah.storm_viewer.com"], applicationActivities: [])
-        
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
+    func save() {
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: counts, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "counts")
+        }
     }
 }
 
