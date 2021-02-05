@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
 //        title = selectedImage
         title = "Picture \(selectedPictureNumber!) of \(totalPictures!)"
         navigationItem.largeTitleDisplayMode = .never
@@ -35,6 +36,42 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
+    }
+    
+    @objc func shareTapped() {
+        guard let _ = imageView.image?.jpegData(compressionQuality: 0.8) else {
+            print("No image found")
+            return
+        }
+        let vc = UIActivityViewController(activityItems: [selectedImage!, combineImageAndText(img: imageView.image!)], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
+    
+    func combineImageAndText(img: UIImage, text: String = "From Storm Viewer") -> Data {
+        let size = img.size
+        print(size)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        let image = renderer.image { ctx in
+            img.draw(at: CGPoint(x: 0, y: 0))
+            
+            let paragaphStyle = NSMutableParagraphStyle()
+            paragaphStyle.alignment = .center
+            
+            let attrs: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 100),
+                .paragraphStyle: paragaphStyle,
+                .strokeColor: UIColor.white.cgColor,
+                .backgroundColor: UIColor.black.cgColor,
+                .strokeWidth: 5
+            ]
+            let attributedString = NSAttributedString(string: text, attributes: attrs)
+            
+            attributedString.draw(with: CGRect(x: 32, y: 32, width: size.width - 50, height: size.height - 50), options: .usesLineFragmentOrigin, context: nil)
+        }
+        return image.jpegData(compressionQuality: 0.8)!
     }
     
     /*
