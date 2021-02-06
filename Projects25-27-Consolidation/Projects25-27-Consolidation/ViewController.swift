@@ -23,6 +23,20 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         picker.delegate = self
         present(picker, animated: true)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return memes.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Meme", for: indexPath)
+        
+        if let imageView = cell.viewWithTag(1000) as? UIImageView {
+            imageView.image = memes[indexPath.item]
+        }
+        
+        return cell
+    }
 
 
 }
