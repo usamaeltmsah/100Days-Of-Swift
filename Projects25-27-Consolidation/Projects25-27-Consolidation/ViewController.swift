@@ -60,6 +60,40 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         ac.addAction(submitAction)
         present(ac, animated: true)
     }
+    
+    func sendData(image: UIImage, topText: String, bottomText: String) {
+        let meme = addTextToImg(img: image, topText: topText, bottomText: bottomText)
+        memes.insert(meme, at: 0)
+        collectionView.reloadData()
+    }
+    
+    func addTextToImg(img: UIImage, topText: String, bottomText: String) -> UIImage {
+        let size = img.size
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        let image = renderer.image { ctx in
+            img.draw(at: CGPoint(x: 0, y: 0))
+            
+            let paragaphStyle = NSMutableParagraphStyle()
+            paragaphStyle.alignment = .center
+            
+            let attrs: [NSAttributedString.Key: Any] = [
+                .font: UIFont(name: "Courier-BoldOblique", size: 100) ?? UIFont.systemFont(ofSize: 100),
+                .paragraphStyle: paragaphStyle,
+                .strokeColor: UIColor.white.cgColor,
+                .backgroundColor: UIColor(white: 0, alpha: 0.5),
+                .strokeWidth: 5
+            ]
+            
+            let texts = [topText, bottomText]
+            for i in 0 ... 1 {
+                let attributedString = NSAttributedString(string: texts[i], attributes: attrs)
+                
+                attributedString.draw(with: CGRect(x: 32, y: CGFloat(32 + i * Int(size.height - 250)), width: size.width - 50, height: size.height - 50), options: .usesLineFragmentOrigin, context: nil)
+            }
+        }
+        return image
+    }
 
 
 }
