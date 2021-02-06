@@ -144,8 +144,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.physicsBody = SKPhysicsBody(circleOfRadius: node.size.width / 2)
         node.physicsBody?.isDynamic = false
         
+        // MARK: “category” defines what something is, “collision” defines what it should be bounce off, and “contact” defines what collisions you want to be informed on.
+        
         // MARK: categoryBitMask: determines what type of thing this physics body is.
         node.physicsBody?.categoryBitMask = CollisionTypes.vortes.rawValue
+        
+        // MARK: contactTestBitMask: is a number defining which collisions we want to be notified about.
         node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
         
         // MARK: collisionBitMask: determines which other objects it bounces off.
