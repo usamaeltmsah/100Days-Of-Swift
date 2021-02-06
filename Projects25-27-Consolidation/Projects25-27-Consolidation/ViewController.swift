@@ -44,6 +44,22 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         AddTextToMeme(image)
     }
+    
+    func AddTextToMeme(_ image: UIImage) {
+        let ac = UIAlertController(title: "Enter meme's text", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addTextField()
+        ac.textFields?[0].placeholder = "Top text"
+        ac.textFields?[1].placeholder = "Bottom text"
+        let submitAction = UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
+            let topTxt = ac?.textFields?[0].text ?? ""
+            let bottomTxt = ac?.textFields?[1].text ?? ""
+            self?.sendData(image: image, topText: topTxt, bottomText: bottomTxt)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
 
 
 }
