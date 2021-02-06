@@ -104,3 +104,6 @@
 
 ## [Project 26 - Marble Maze Game](Project26)
 <img alt="Project 26 - Demo" src="Project26/Project26-demo.gif" width="400" height="400" />
+
+## [Project 27 - Core Graphics](Project27)
+<img alt="Project 27 - Demo" src="Project27/Project27-demo.gif" width="400" height="400" />
