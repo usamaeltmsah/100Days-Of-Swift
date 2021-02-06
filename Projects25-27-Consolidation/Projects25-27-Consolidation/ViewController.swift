@@ -7,11 +7,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UICollectionViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
+    var memes = [UIImage]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        title = "Meme Generator"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
+    }
+    
+    @objc func importPicture() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
     }
 
 
