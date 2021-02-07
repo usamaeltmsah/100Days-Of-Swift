@@ -17,6 +17,8 @@ let rendered = renderer.image { ctx in
     ctx.cgContext.fill(CGRect(x: 200, y: 200, width: 600, height: 600))
 
     // Add your code here
+    UIColor.red.setFill()
+    ctx.cgContext.fill(CGRect(x: 400, y: 400, width: 200, height: 200))
 }
 
 showOutput(rendered)
