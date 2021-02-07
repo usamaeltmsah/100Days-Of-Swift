@@ -17,10 +17,13 @@ let rendered = renderer.image { ctx in
     ctx.cgContext.fill(rect)
     UIColor.white.setStroke()
 
-    ctx.cgContext.setLineWidth(10)
+    ctx.cgContext.setLineWidth(100)
 
     ctx.cgContext.move(to: CGPoint(x: 0, y: 0))
-    ctx.cgContext.addLine(to: CGPoint(x: 200, y: 200))
+    ctx.cgContext.addLine(to: CGPoint(x: 1000, y: 1000))
+    
+    ctx.cgContext.move(to: CGPoint(x: 1000, y: 0))
+    ctx.cgContext.addLine(to: CGPoint(x: 0, y: 1000))
 
     ctx.cgContext.strokePath()
 }
