@@ -9,6 +9,7 @@ import CoreMotion
 import SpriteKit
 
 enum CollisionTypes: UInt32 {
+    // MARK: Bitmasks should start at 1 then double each time.
     case player = 1
     case wall = 2
     case star = 4
@@ -57,6 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         isMoved = false
         
+        // MARK: All motion detection is done with an Apple framework called Core Motion, and most of the work is done by a class called CMMotionManager. Using it here won't require any special user permissions, so all we need to do is create an instance of the class and ask it to start collecting information.
         // MARK: Accelerometer data is only available after we have called startAccelerometerUpdates() on our motion manager.
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
@@ -102,6 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let lines = levelString.split(separator: "\n")
         
+        //  enumerated() method: loops over an array, extracting each item and its position in the array.
+        // for SpriteKit Y:0 is the bottom of the screen whereas for UIKit Y:0 is the top. When it comes to loading level rows, this means we need to read them in reverse so that the last row is created at the bottom of the screen and so on upwards.
         for (row, line) in lines.reversed().enumerated() {
             for (column, letter) in line.enumerated() {
                 let position = CGPoint(x: (64 * column) + 32, y: (64 * row) + 32)
@@ -150,10 +154,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.physicsBody?.categoryBitMask = CollisionTypes.vortes.rawValue
         
         // MARK: contactTestBitMask: is a number defining which collisions we want to be notified about.
+        //  sets the contactTestBitMask property to the value of the player's category, which means we want to be notified when these two touch.
         node.physicsBody?.contactTestBitMask = CollisionTypes.player.rawValue
         
         // MARK: collisionBitMask: determines which other objects it bounces off.
         node.physicsBody?.collisionBitMask = 0
+        
+        // MARK: Category: every node you want to reference in your collision bitmasks or your contact test bitmasks must have a category attached. If you give a node a collision bitmask but not a contact test bitmask, it means they will bounce off each other but you won't be notified. If you do the opposite (contact test but not collision) it means they won't bounce off each other but you will be told when they overlap.
+        
+        // MARK: By default, physics bodies have a collision bitmask that means "everything", so everything bounces off everything else. By default, they also have a contact test bitmask that means "nothing", so you'll never get told about collisions.
         
         addChild(node)
     }
@@ -244,9 +253,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 physicsWorld.gravity = CGVector(dx: diff.x / 100, dy: diff.y / 100)
             }
         #else
+            // The code to read from the accelerometer and apply its tilt data to the world gravity:
+        
             // Safely unwraps the optional accelerometer data, because there might not be any available.
             if let accelerometerData = motionManager.accelerometerData {
                 // Change the gravity of our game world so that it reflects the accelerometer data.
+                // Passing accelerometer Y to CGVector's X and accelerometer X to CGVector's Y. Remember, your device is rotated to landscape right now, which means you also need to flip your coordinates around.
                 physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.y * -50, dy: accelerometerData.acceleration.x * -50)
             }
         #endif
@@ -254,6 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        // There are three types of collision we care about: when the player hits a vortex they should be penalized, when the player hits a star they should score a point, and when the player hits the finish flag the next level should be loaded.
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
         
