@@ -17,15 +17,18 @@ let rendered = renderer.image { ctx in
     ctx.cgContext.drawPath(using: .fillStroke)
 
     // draw a zig zag line
+    
+    var currentX = 100
+    
     ctx.cgContext.move(to: CGPoint(x: 50, y: 300))
-    ctx.cgContext.addLine(to: CGPoint(x: 100, y: 350))
-    ctx.cgContext.addLine(to: CGPoint(x: 150, y: 300))
-    ctx.cgContext.addLine(to: CGPoint(x: 200, y: 350))
-    ctx.cgContext.addLine(to: CGPoint(x: 250, y: 300))
-    ctx.cgContext.addLine(to: CGPoint(x: 300, y: 350))
-    ctx.cgContext.addLine(to: CGPoint(x: 350, y: 300))
-    ctx.cgContext.addLine(to: CGPoint(x: 400, y: 350))
-    ctx.cgContext.addLine(to: CGPoint(x: 450, y: 300))
+    for i in 0 ... 17 {
+        if i.isMultiple(of: 2) {
+            ctx.cgContext.addLine(to: CGPoint(x: currentX, y: 350))
+        } else {
+            ctx.cgContext.addLine(to: CGPoint(x: currentX, y: 300))
+        }
+        currentX += 50
+    }
     ctx.cgContext.setLineWidth(20)
     ctx.cgContext.strokePath()
 
