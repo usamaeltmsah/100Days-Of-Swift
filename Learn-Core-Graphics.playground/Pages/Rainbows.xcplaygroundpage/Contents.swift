@@ -18,9 +18,9 @@ let rendered = renderer.image { ctx in
 
     for color in colors {
         // "These three values got corrupted!" – Boss
-        xPos += 100
-        yPos += 0
-        size -= 0
+        xPos += 50
+        yPos += 50
+        size -= 100
 
         let rect = CGRect(x: xPos, y: yPos, width: size, height: size)
         color.setStroke()
