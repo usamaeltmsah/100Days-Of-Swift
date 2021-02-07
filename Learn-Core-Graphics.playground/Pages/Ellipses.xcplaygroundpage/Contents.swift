@@ -14,6 +14,18 @@ let rendered = renderer.image { ctx in
     ctx.cgContext.fillEllipse(in: circle1)
 
     // Add your code here
+    
+    UIColor.yellow.setFill()
+    let circle2 = CGRect(x: 500, y: 0, width: 500, height: 500)
+    ctx.cgContext.fillEllipse(in: circle2)
+    
+    UIColor.blue.setFill()
+    let circle3 = CGRect(x: 0, y: 500, width: 500, height: 500)
+    ctx.cgContext.fillEllipse(in: circle3)
+    
+    UIColor.green.setFill()
+    let circle4 = CGRect(x: 500, y: 500, width: 500, height: 500)
+    ctx.cgContext.fillEllipse(in: circle4)
 }
 
 showOutput(rendered)
