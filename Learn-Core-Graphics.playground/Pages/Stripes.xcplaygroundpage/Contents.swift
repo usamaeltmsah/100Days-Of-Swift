@@ -13,6 +13,14 @@ let rendered = renderer.image { ctx in
     ctx.cgContext.fill(CGRect(x: 0, y: 0, width: 200, height: 1000))
 
     // Add your code here
+    UIColor.orange.setFill()
+    ctx.cgContext.fill(CGRect(x: 200, y: 0, width: 200, height: 1000))
+    UIColor.yellow.setFill()
+    ctx.cgContext.fill(CGRect(x: 400, y: 0, width: 200, height: 1000))
+    UIColor.green.setFill()
+    ctx.cgContext.fill(CGRect(x: 600, y: 0, width: 200, height: 1000))
+    UIColor.blue.setFill()
+    ctx.cgContext.fill(CGRect(x: 800, y: 0, width: 200, height: 1000))
 }
 
 showOutput(rendered)
