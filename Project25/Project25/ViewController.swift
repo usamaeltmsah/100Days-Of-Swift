@@ -13,9 +13,12 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
 
     var images = [UIImage]()
     
+    // MCPeerID: identifies each user uniquely in a session.
     var peerID = MCPeerID(displayName: UIDevice.current.name)
+    // MCSession: The manager class that handles all multipeer connectivity.
     var mcSession: MCSession?
     
+    // MCAdvertiserAssistant | MCNearbyServiceAdvertiser: Used when creating a session, telling others that we exist and handling invitations.
     var mcAdvertiserAssistant: MCNearbyServiceAdvertiser?
     
     override func viewDidLoad() {
@@ -25,6 +28,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
         
+        // Our peer ID is used to create the session, along with the encryption option of .required to ensure that any data transferred is kept safe.
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession?.delegate = self
     }
@@ -48,6 +52,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     
     func joinSession(action: UIAlertAction) {
         guard let mcSession = mcSession else { return }
+        // MCBrowserViewController: Used when looking for sessions, showing users who is nearby and letting them join.
         let mcBrowser = MCBrowserViewController(serviceType: "hws-project25", session: mcSession)
         mcBrowser.delegate = self
         present(mcBrowser, animated: true)
@@ -81,13 +86,19 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         images.insert(image, at: 0)
         collectionView.reloadData()
         
+        // 1. Check if we have an active session we can use.
         guard let mcSession = mcSession else { return }
         
+        // 2. Check if there are any peers to send to.
         if mcSession.connectedPeers.count > 0 {
+            // 3. Convert the new image to a Data object.
             if let imageData = image.pngData() {
                 do {
+                    // 4. Send it to all peers, ensuring it gets delivered.
+                    // The code to ensure data gets sent intact to all peers, as opposed to having some parts lost in the ether, is just to use transmission mode .reliable – nothing more.
                     try mcSession.send(imageData, toPeers: mcSession.connectedPeers, with: .reliable)
                 } catch {
+                    // 5. Show an error message if there's a problem.
                     let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default))
                     present(ac, animated: true)
@@ -170,6 +181,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
+        // When this method is called, you'll be told what peer changed state, and what their new state is. There are only three possible session states: not connected, connecting, and connected.
         case .connected:
             showStatusAlert(peerName: peerID.displayName, isConnected: true)
             print("Connected: \(peerID.displayName)")
@@ -184,6 +196,7 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        // Once the data arrives at each peer, the method session(_:didReceive:fromPeer:) will get called with that data, at which point we can create a UIImage from it and add it to our images array. There is one catch: when you receive data it might not be on the main thread, and you never manipulate user interfaces anywhere but the main thread
         DispatchQueue.main.async { [weak self] in
             if let image = UIImage(data: data) {
                 self?.images.insert(image, at: 0)
