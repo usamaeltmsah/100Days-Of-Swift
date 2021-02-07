@@ -107,3 +107,6 @@
 
 ## [Project 27 - Core Graphics](Project27)
 <img alt="Project 27 - Demo" src="Project27/Project27-demo.gif" width="400" height="400" />
+
+## [Projects 25-27 Consolidation - Notes App](Projects25-27-Consolidation)
+<img alt="Projects 25-27 Consolidation - Demo" src="Projects25-27-Consolidation/Projects 25-27 Consolidation-demo.gif" width="200" height="400" />
