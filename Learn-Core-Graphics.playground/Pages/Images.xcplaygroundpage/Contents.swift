@@ -12,15 +12,15 @@ let mascot = UIImage(named: "HackingWithSwiftMascot.jpg")
 
 let rendered = renderer.image { ctx in
     // "I can't get this right!" – Designer
-    // UIColor.darkGray.setFill()
-    // ctx.cgContext.fill(rect)
+     UIColor.darkGray.setFill()
+     ctx.cgContext.fill(rect)
 
-    // UIColor.black.setFill()
-    // let borderRect = CGRect(x: 0, y: 0, width: 640, height: 640)
-    // ctx.cgContext.fill(borderRect)
+     UIColor.black.setFill()
+     let borderRect = CGRect(x: 180, y: 180, width: 640, height: 640)
+     ctx.cgContext.fill(borderRect)
 
-    // let imageRect = CGRect(x: 100, y: 100, width: 100, height: 100)
-    // mascot?.draw(in: imageRect)
+     let imageRect = CGRect(x: 200, y: 200, width: 600, height: 600)
+     mascot?.draw(in: imageRect)
 }
 
 showOutput(rendered)
