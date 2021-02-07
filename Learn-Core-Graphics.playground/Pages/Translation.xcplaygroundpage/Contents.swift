@@ -11,13 +11,13 @@ let rect = CGRect(x: 0, y: 0, width: 1000, height: 1000)
 let renderer = UIGraphicsImageRenderer(bounds: rect)
 
 let rendered = renderer.image { ctx in
-    let ellipseRectangle = CGRect(x: 0, y: 300, width: 200, height: 200)
+    let ellipseRectangle = CGRect(x: 0, y: 300, width: 400, height: 400)
     ctx.cgContext.setLineWidth(8)
     UIColor.red.setStroke()
 
-    for _ in 1...3 {
+    for _ in 1...7 {
         ctx.cgContext.strokeEllipse(in: ellipseRectangle)
-        ctx.cgContext.translateBy(x: 50, y: 0)
+        ctx.cgContext.translateBy(x: 100, y: 0)
     }
 }
 
