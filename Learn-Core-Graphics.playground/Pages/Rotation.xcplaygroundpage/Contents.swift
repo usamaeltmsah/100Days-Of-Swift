@@ -16,11 +16,11 @@ let boxRectangle = CGRect(x: 0, y: 0, width: 300, height: 300)
 
 let rendered = renderer.image { ctx in
     ctx.cgContext.setLineWidth(8)
-    ctx.cgContext.translateBy(x: 0, y: 0)
+    ctx.cgContext.translateBy(x: 500, y: 500)
 
-    for _ in 1...6 {
+    for _ in 1...8 {
         ctx.cgContext.addRect(boxRectangle)
-        ctx.cgContext.rotate(by: .pi / 3)
+        ctx.cgContext.rotate(by: .pi / 4)
     }
 
     UIColor.red.setStroke()
