@@ -11,7 +11,7 @@ let renderer = UIGraphicsImageRenderer(bounds: rect)
 let rendered = renderer.image { ctx in
     UIColor.black.setFill()
 
-    let size = 20
+    let size = 1000 / 5
 
     for row in 0 ..< 5 {
         for col in 0 ..< 5 {
