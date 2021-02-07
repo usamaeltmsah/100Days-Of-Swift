@@ -20,6 +20,16 @@ let rendered = renderer.image { ctx in
     firstString.draw(in: firstPosition)
 
     // Add your code here
+    
+    let secondPosition = rect.offsetBy(dx: 0, dy: 400)
+    let secondText = "But the second mouse gets the cheese."
+    let secondAttrs: [NSAttributedString.Key: Any] = [
+        .font: UIFont.systemFont(ofSize: 72),
+        .foregroundColor: UIColor.red
+    ]
+
+    let secondString = NSAttributedString(string: secondText, attributes: secondAttrs)
+    secondString.draw(in: secondPosition)
 }
 
 showOutput(rendered)
