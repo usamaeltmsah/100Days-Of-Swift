@@ -56,7 +56,16 @@ class ViewController: UIViewController {
                     } else {
                         // 4. otherwise we show a failure message.
                         let ac = UIAlertController(title: "Authentication failed!", message: "You couldn't be verified; please try again.", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        
+                        ac.addTextField()
+                        ac.textFields?[0].isSecureTextEntry = true
+                        ac.textFields?[0].keyboardType = .numberPad
+                        let submitAction = UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
+                            guard let password = ac?.textFields?[0].text else { return }
+                            self?.check(password: password)
+                        }
+                        ac.addAction(submitAction)
+                        
                         self?.present(ac, animated: true)
                     }
                 }
@@ -65,6 +74,12 @@ class ViewController: UIViewController {
             let ac = UIAlertController(title: "Biometry unavailable", message: "Your device isn't configured for biometric authentication.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
+        }
+    }
+    
+    func check(password: String?) {
+        if password == "123456" {
+            unlockSecretMessage()
         }
     }
     
