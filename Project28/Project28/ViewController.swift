@@ -11,10 +11,18 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var secret: UITextView!
+    var doneButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Nothing to see here"
+        
+        doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSecretMessage))
+        
+        navigationItem.rightBarButtonItem = doneButton
+        
+        doneButton.isEnabled = false
         
         let notificationCenter = NotificationCenter.default
         //  watch for the keyboard disappearing
@@ -84,12 +92,15 @@ class ViewController: UIViewController {
         
         // Loading strings from the keychain using KeychainWrapper is as simple as using its string(forKey:) method.
         secret.text = KeychainWrapper.standard.string(forKey: "SecretMessage") ?? ""
+        
+        doneButton.isEnabled = true
     }
     
     @objc func saveSecretMessage() {
         // saveSecretMessage(): needs to write the text view's text to the keychain, then make it hidden.
         guard secret.isHidden == false else { return }
         
+        doneButton.isEnabled = false
         // KeychainWrapper class is needed because working with the keychain is complicated. So instead of using it directly, we'll be using this wrapper class that makes the keychain work like UserDefaults.
         KeychainWrapper.standard.set(secret.text, forKey: "SecretMessage")
         // resignFirstResponder(): Used to tell a view that has input focus that it should give up that focus. Or, in Plain English, to tell our text view that we're finished editing it, so the keyboard can be hidden. This is important because having a keyboard present might arouse suspicion – as if our rather obvious navigation bar title hadn't done enough already…
