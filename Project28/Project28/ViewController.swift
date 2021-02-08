@@ -40,12 +40,14 @@ class ViewController: UIViewController {
                     } else {
                         let ac = UIAlertController(title: "Authentication failed!", message: "You couldn't be verified; please try again.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(ac, animated: true)
                     }
                 }
             }
         } else {
             let ac = UIAlertController(title: "Biometry unavailable", message: "Your device isn't configured for biometric authentication.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
     }
     
