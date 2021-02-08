@@ -5,16 +5,20 @@
 //  Created by Usama Fouad on 30/12/2020.
 //
 
+import LocalAuthentication
 import UIKit
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var people = [Person]()
     
+    var unlockButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        unlockButton = UIBarButtonItem(title: "Lock", style: .plain, target: self, action: #selector(authenticate))
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -115,6 +119,27 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
+    }
+    
+    @objc func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself!"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {[weak self] success,authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.unlockApp()
+                    } else {
+                        self?.enterPassword()
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device isn't configured for biometric authentication.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 
