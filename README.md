@@ -110,3 +110,6 @@
 
 ## [Projects 25-27 Consolidation - Meme Generator](Projects25-27-Consolidation)
 <img alt="Projects 25-27 Consolidation - Demo" src="Projects25-27-Consolidation/Projects 25-27 Consolidation-demo.gif" width="200" height="400" />
+
+## [Project 28 - Secret Swift](Project28)
+<img alt="Project 28 - Demo" src="Project28/Project28-demo.gif" width="200" height="400" />
