@@ -25,7 +25,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         navigationItem.rightBarButtonItem = unlockButton
         
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(savePeople), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
