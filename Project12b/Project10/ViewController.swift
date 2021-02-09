@@ -149,5 +149,18 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         addImageButton.isEnabled = true
         unlockButton.isEnabled = false
     }
+    
+    @objc func savePeople() {
+        guard !people.isEmpty else { return }
+        
+        save()
+        
+        people = []
+        collectionView.reloadData()
+        
+        addImageButton.isEnabled = false
+        unlockButton.isEnabled = true
+        title = "People is hidden!"
+    }
 }
 
