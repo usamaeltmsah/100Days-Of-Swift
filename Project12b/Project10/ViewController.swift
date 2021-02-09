@@ -26,8 +26,6 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
-        
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -141,6 +139,15 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         } else {
             print("Failed to save people")
         }
+    }
+    
+    func unlockApp() {
+        title = "People"
+        
+        loadPeople()
+        collectionView.reloadData()
+        addImageButton.isEnabled = true
+        unlockButton.isEnabled = false
     }
 }
 
