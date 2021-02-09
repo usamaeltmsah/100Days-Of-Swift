@@ -141,6 +141,27 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         }
     }
     
+    @objc func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "IUnlock to access the app's data!"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {[weak self] success,authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.unlockApp()
+                    } else {
+                        self?.enterPassword()
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device isn't configured for biometric authentication.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
     func unlockApp() {
         title = "People"
         
