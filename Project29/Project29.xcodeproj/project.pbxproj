@@ -13,6 +13,7 @@
 		195FEDD325D2E06E0055751B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FEDD225D2E06E0055751B /* GameViewController.swift */; };
 		195FEDD625D2E06E0055751B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 195FEDD425D2E06E0055751B /* Main.storyboard */; };
 		195FEDD825D2E0740055751B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 195FEDD725D2E0740055751B /* Assets.xcassets */; };
+		195FEDE225D310420055751B /* BuildingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195FEDE125D310420055751B /* BuildingNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		195FEDD525D2E06E0055751B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		195FEDD725D2E0740055751B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		195FEDD925D2E0740055751B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		195FEDE125D310420055751B /* BuildingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				195FEDCA25D2E06E0055751B /* AppDelegate.swift */,
 				195FEDCC25D2E06E0055751B /* GameScene.sks */,
 				195FEDD025D2E06E0055751B /* GameScene.swift */,
+				195FEDE125D310420055751B /* BuildingNode.swift */,
 				195FEDD225D2E06E0055751B /* GameViewController.swift */,
 				195FEDD425D2E06E0055751B /* Main.storyboard */,
 				195FEDD725D2E0740055751B /* Assets.xcassets */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				195FEDD125D2E06E0055751B /* GameScene.swift in Sources */,
+				195FEDE225D310420055751B /* BuildingNode.swift in Sources */,
 				195FEDD325D2E06E0055751B /* GameViewController.swift in Sources */,
 				195FEDCB25D2E06E0055751B /* AppDelegate.swift in Sources */,
 			);
