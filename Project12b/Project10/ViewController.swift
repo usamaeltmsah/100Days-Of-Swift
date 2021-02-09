@@ -162,5 +162,23 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         unlockButton.isEnabled = true
         title = "People is hidden!"
     }
+    
+    func loadPeople() {
+        let defaults = UserDefaults.standard
+        
+        if let savedPeople = defaults.object(forKey: "people") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                people = try jsonDecoder.decode([Person].self, from: savedPeople)
+            } catch {
+                print("Failed to load people.")
+            }
+        }
+    }
+    
+    func enterPassword() {
+        
+    }
 }
 
