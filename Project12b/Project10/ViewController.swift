@@ -5,28 +5,29 @@
 //  Created by Usama Fouad on 30/12/2020.
 //
 
+import LocalAuthentication
 import UIKit
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var people = [Person]()
+    var unlockButton: UIBarButtonItem!
+    var addImageButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        addImageButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        unlockButton = UIBarButtonItem(title: "Unlock", style: .plain, target: self, action: #selector(authenticate))
+        addImageButton.isEnabled = false
+        unlockButton.isEnabled = true
+        navigationItem.leftBarButtonItem = addImageButton
+        navigationItem.rightBarButtonItem = unlockButton
         
-        let defaults = UserDefaults.standard
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(saveData), name: UIApplication.willResignActiveNotification, object: nil)
         
-        if let savedPeople = defaults.object(forKey: "people") as? Data {
-            let jsonDecoder = JSONDecoder()
-            
-            do {
-                people = try jsonDecoder.decode([Person].self, from: savedPeople)
-            } catch {
-                print("Failed to load people.")
-            }
-        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
