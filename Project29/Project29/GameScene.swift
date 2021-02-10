@@ -14,6 +14,11 @@ enum CollisionTypes: UInt32 {
 }
 
 class GameScene: SKScene {
+    var player1: SKSpriteNode!
+    var player2: SKSpriteNode!
+    var banana: SKSpriteNode!
+
+    var currentPlayer = 1
     var buildings = [BuildingNode]()
     
     // Because if two objects own each other then we have a strong reference cycle – neither object can be destroyed. The solution is to make one of them have a weak reference to the other: either the game controller owns the game scene strongly, or the game scene owns the game controller strongly, but not both.
@@ -50,5 +55,34 @@ class GameScene: SKScene {
     
     func launch(angle: Int, velocity: Int) {
         
+    }
+    
+    func createPlayers() {
+        // 1. Create a player sprite and name it "player1".
+        player1 = SKSpriteNode(imageNamed: "player")
+        player1.name = "player1"
+        // 2. Create a physics body for the player that collides with bananas, and set it to not be dynamic.
+        player1.physicsBody = SKPhysicsBody(circleOfRadius: player1.size.width / 2)
+        player1.physicsBody?.categoryBitMask = CollisionTypes.player.rawValue
+        player1.physicsBody?.collisionBitMask = CollisionTypes.banana.rawValue
+        player1.physicsBody?.contactTestBitMask = CollisionTypes.banana.rawValue
+        player1.physicsBody?.isDynamic = false
+        // 3. Position the player at the top of the second building in the array. (This is why we needed to keep an array of the buildings.)
+        let player1Building = buildings[1]
+        player1.position = CGPoint(x: player1Building.position.x, y: player1.position.y + ((player1Building.size.height + player1.size.height) / 2))
+        // 4. Add the player to the scene.
+        addChild(player1)
+        // 5. Repeat all the above for player 2, except they should be on the second to last building.
+        player2 = SKSpriteNode(imageNamed: "player")
+            player2.name = "player2"
+            player2.physicsBody = SKPhysicsBody(circleOfRadius: player2.size.width / 2)
+            player2.physicsBody?.categoryBitMask = CollisionTypes.player.rawValue
+            player2.physicsBody?.collisionBitMask = CollisionTypes.banana.rawValue
+            player2.physicsBody?.contactTestBitMask = CollisionTypes.banana.rawValue
+            player2.physicsBody?.isDynamic = false
+
+            let player2Building = buildings[buildings.count - 2]
+            player2.position = CGPoint(x: player2Building.position.x, y: player2Building.position.y + ((player2Building.size.height + player2.size.height) / 2))
+            addChild(player2)
     }
 }
