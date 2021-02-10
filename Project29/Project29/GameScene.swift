@@ -53,6 +53,8 @@ class GameScene: SKScene {
         }
     }
     
+    // Texture atlases allows SpriteKit to draw lots of images without having to load and unload textures – it effectively just crops the big image as needed. Xcode automatically generates these atlases for us, even rotating sprites to make them fit more efficiently. And the best bit: just like using Assets.xcassets, you don't need to change your code to make them work; just load sprites the same way you've always done.
+    
     func launch(angle: Int, velocity: Int) {
         
     }
