@@ -16,6 +16,9 @@ class GameViewController: UIViewController {
     @IBOutlet var velocityLabel: UILabel!
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
+    
+    // Because if two objects own each other then we have a strong reference cycle – neither object can be destroyed. The solution is to make one of them have a weak reference to the other: either the game controller owns the game scene strongly, or the game scene owns the game controller strongly, but not both.
+    // Solution is straightforward: add a strong reference to the game scene inside the view controller, and add a weak reference to the view controller from the game scene.
     var currentGame: GameScene?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,11 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
                 
+                // The game controller already owns the game scene, but it's a pain to get to. Adding that property means we have direct access to the game scene whenever we need it.
+                
+                // Set the property to the initial game scene so that we can start using it.
                 currentGame = scene as? GameScene
+                // Make sure that the reverse is true so that the scene knows about the view controller too.
                 currentGame?.viewController = self
             }
             
@@ -64,7 +71,7 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func velocityChanged(_ sender: Any) {
-        angleLabel.text = "Velocity: \(Int(velocitySlider.value))"
+        velocityLabel.text = "Velocity: \(Int(velocitySlider.value))"
     }
     
     @IBAction func launch(_ sender: Any) {
