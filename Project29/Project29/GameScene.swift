@@ -31,6 +31,7 @@ class GameScene: SKScene {
         backgroundColor = UIColor(hue: 0.669, saturation: 0.99, brightness: 0.67, alpha: 1)
         
         createBuildings()
+        createPlayers()
     }
     
     func createBuildings() {
@@ -71,7 +72,7 @@ class GameScene: SKScene {
         player1.physicsBody?.isDynamic = false
         // 3. Position the player at the top of the second building in the array. (This is why we needed to keep an array of the buildings.)
         let player1Building = buildings[1]
-        player1.position = CGPoint(x: player1Building.position.x, y: player1.position.y + ((player1Building.size.height + player1.size.height) / 2))
+        player1.position = CGPoint(x: player1Building.position.x, y: player1Building.position.y + ((player1Building.size.height + player1.size.height) / 2))
         // 4. Add the player to the scene.
         addChild(player1)
         // 5. Repeat all the above for player 2, except they should be on the second to last building.
