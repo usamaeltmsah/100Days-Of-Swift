@@ -170,4 +170,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             destroy(player: player2)
         }
     }
+    
+    func destroy(player: SKSpriteNode) {
+        if let explosion = SKEmitterNode(fileNamed: "hitPlayer") {
+            explosion.position = player.position
+            addChild(explosion)
+        }
+        
+        player.removeFromParent()
+        banana.removeFromParent()
+    }
 }
