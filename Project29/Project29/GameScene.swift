@@ -88,4 +88,8 @@ class GameScene: SKScene {
             player2.position = CGPoint(x: player2Building.position.x, y: player2Building.position.y + ((player2Building.size.height + player2.size.height) / 2))
             addChild(player2)
     }
+    
+    func deg2Rad(degrees: Int) -> Double {
+        return Double(degrees) * Double.pi / 180
+    }
 }
