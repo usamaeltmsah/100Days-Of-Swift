@@ -15,6 +15,8 @@ enum CollisionTypes: UInt32 {
 
 class GameScene: SKScene {
     var buildings = [BuildingNode]()
+    weak var viewController: GameViewController?
+
     
     override func didMove(to view: SKView) {
         // Give the scene a dark blue color to represent the night sky
@@ -41,5 +43,9 @@ class GameScene: SKScene {
             
             buildings.append(building)
         }
+    }
+    
+    func launch(angle: Int, velocity: Int) {
+        
     }
 }
