@@ -210,4 +210,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         viewController?.activatePlayer(number: currentPlayer)
     }
+    
+    func bananaHit(building: SKNode, atPoint contactPoint: CGPoint) {
+        guard let building = building as? BuildingNode else { return }
+        let buildingLocation = convert(contactPoint, to: building)
+        building.hit(at: buildingLocation)
+        
+        if let explosion = SKEmitterNode(fileNamed: "hitBuilding") {
+            explosion.position = contactPoint
+            addChild(explosion)
+        }
+        
+        // Use banana.name = "", to fix a small but annoying bug: if a banana just so happens to hit two buildings at the same time, then it will explode twice and thus call changePlayer() twice – effectively giving the player another throw. By clearing the banana's name here, the second collision won't happen because our didBegin() method won't see the banana as being a banana any more – its name is gone.
+        banana.name = ""
+        banana.removeFromParent()
+        banana = nil
+        
+        changePlayer()
+    }
 }
