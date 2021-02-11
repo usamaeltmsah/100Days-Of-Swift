@@ -144,6 +144,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        // we need to consider: banana hit building, building hit banana (remember the philosophy?), banana hit player1, player1 hit banana, banana hit player2 and player2 hit banana.
+        // This is a lot to check, so we're going to eliminate half of them by eliminating whether "banana hit building" or "building hit banana".
+        
         let firstBody: SKPhysicsBody
         let secondBody: SKPhysicsBody
         
@@ -158,6 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let firstNode = firstBody.node else { return }
         guard let secondNode = secondBody.node else { return }
         
+        //  If we get banana (collision type 1) and building (collision type 2) we'll put banana in body 1 and building in body 2, but if we get building (2) and banana (1) then we'll still put banana in body 1 and building in body 2.
         if firstNode.name == "banana" && secondNode.name == "building" {
             bananaHit(building: secondNode, atPoint: contact.contactPoint)
         }
@@ -179,5 +183,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.removeFromParent()
         banana.removeFromParent()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // To transition from one scene to another,
+            // 1.you first create the scene.
+            let newGame = GameScene(size: self.size)
+            newGame.viewController = self.viewController
+            self.viewController?.currentGame = newGame
+            
+            self.changePlayer()
+            newGame.currentPlayer = self.currentPlayer
+            
+            // 2. Create a transition using the list available from SKTransition.
+            let transition = SKTransition.doorway(withDuration: 1.5)
+            // Finally use the presentScene() method of our scene's view, passing in the new scene and the transition you created.
+            self.view?.presentScene(newGame, transition: transition)
+        }
     }
 }
