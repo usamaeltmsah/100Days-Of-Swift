@@ -81,4 +81,32 @@ class BuildingNode: SKSpriteNode {
         // 4. Pull out the result as a UIImage and return it for use elsewhere.
         return img
     }
+    
+    func hit(at point: CGPoint) {
+        // Figure out where the building was hit. Remember: SpriteKit's positions things from the center and Core Graphics from the bottom left!
+        let convertedPoint = CGPoint(x: point.x + size.width / 2, y: abs(point.y - (size.height / 2)))
+        
+        // Create a new Core Graphics context the size of our current sprite.
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let img = renderer.image { ctx in
+            // Draw our current building image into the context. This will be the full building to begin with, but it will change when hit.
+            currentImage.draw(at: .zero)
+            
+            // Create an ellipse at the collision point. The exact co-ordinates will be 32 points up and to the left of the collision, then 64x64 in size - an ellipse centered on the impact point.
+            ctx.cgContext.addEllipse(in: CGRect(x: convertedPoint.x - 32, y: convertedPoint.y - 32, width: 64, height: 64))
+            
+            // Set the blend mode .clear then draw the ellipse, literally cutting an ellipse out of our image.
+            
+                // .clear, means "delete whatever is there already." When combined with the fact that we already have a property called currentImage you might be able to see how our destructible terrain technique will work!
+                // When we want to destroy part of the building, we draw that image into a new context, draw an ellipse using .clear to blast a hole, then save that back to our currentImage property and update our sprite's texture.
+            ctx.cgContext.setBlendMode(.clear)
+            ctx.cgContext.drawPath(using: .fill)
+        }
+        // Convert the contents of the Core Graphics context back to a UIImage, which is saved in the currentImage property for next time we’re hit, and used to update our building texture.
+        texture = SKTexture(image: img)
+        currentImage = img
+        
+        // Call configurePhysics() again so that SpriteKit will recalculate the per-pixel physics for our damaged building.
+        configurePhysics()
+    }
 }
