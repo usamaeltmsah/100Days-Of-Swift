@@ -16,6 +16,19 @@ class GameViewController: UIViewController {
     @IBOutlet var velocityLabel: UILabel!
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
+    @IBOutlet var player1ScoreLabel: UILabel!
+    @IBOutlet var player2ScoreLabel: UILabel!
+    
+    var player1Score = 0 {
+        didSet {
+            player1ScoreLabel.text = "Player1: \(player1Score)"
+        }
+    }
+    var player2Score = 0 {
+        didSet {
+            player2ScoreLabel.text = "Player2: \(player2Score)"
+        }
+    }
     
     // Because if two objects own each other then we have a strong reference cycle – neither object can be destroyed. The solution is to make one of them have a weak reference to the other: either the game controller owns the game scene strongly, or the game scene owns the game controller strongly, but not both.
     // Solution is straightforward: add a strong reference to the game scene inside the view controller, and add a weak reference to the view controller from the game scene.

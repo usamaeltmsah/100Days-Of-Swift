@@ -46,16 +46,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nu-pf-xmZ">
-                                <rect key="frame" x="20" y="22" width="441" height="30"/>
+                                <rect key="frame" x="20" y="22" width="431" height="30"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="45" minValue="0.0" maxValue="90" translatesAutoresizingMaskIntoConstraints="NO" id="STD-h1-ZG5">
-                                        <rect key="frame" x="-2" y="0.0" width="403.5" height="31"/>
+                                        <rect key="frame" x="-2" y="0.0" width="393.5" height="31"/>
                                         <connections>
                                             <action selector="angleChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="Th0-t5-zuU"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkA-Xx-kCT">
-                                        <rect key="frame" x="399.5" y="0.0" width="41.5" height="30"/>
+                                        <rect key="frame" x="389.5" y="0.0" width="41.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -63,16 +63,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APm-S7-dJO">
-                                <rect key="frame" x="481" y="22" width="438" height="30"/>
+                                <rect key="frame" x="491" y="22" width="428" height="30"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="125" minValue="0.0" maxValue="250" translatesAutoresizingMaskIntoConstraints="NO" id="Yo4-Tm-bkk">
-                                        <rect key="frame" x="-2" y="0.0" width="400.5" height="31"/>
+                                        <rect key="frame" x="-2" y="0.0" width="390.5" height="31"/>
                                         <connections>
                                             <action selector="velocityChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="zkr-NC-bXn"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Loh-ko-Tcr">
-                                        <rect key="frame" x="396.5" y="0.0" width="41.5" height="30"/>
+                                        <rect key="frame" x="386.5" y="0.0" width="41.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
@@ -98,13 +98,15 @@
                             <constraint firstItem="f4k-q7-NZK" firstAttribute="top" secondItem="5nu-pf-xmZ" secondAttribute="bottom" constant="13" id="t3j-LI-6y5"/>
                             <constraint firstItem="m1f-3w-JJe" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="tif-Jp-bz8"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="olX-Kz-PbA" secondAttribute="trailing" constant="14" id="xjt-dr-mWs"/>
-                            <constraint firstItem="APm-S7-dJO" firstAttribute="leading" secondItem="5nu-pf-xmZ" secondAttribute="trailing" constant="20" id="ydn-1h-D3S"/>
+                            <constraint firstItem="APm-S7-dJO" firstAttribute="leading" secondItem="5nu-pf-xmZ" secondAttribute="trailing" constant="40" id="ydn-1h-D3S"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="angleLabel" destination="zkA-Xx-kCT" id="6th-7r-Apf"/>
                         <outlet property="angleSlider" destination="STD-h1-ZG5" id="Blk-H7-79H"/>
                         <outlet property="launchButton" destination="olX-Kz-PbA" id="MDj-xh-suW"/>
+                        <outlet property="player1ScoreLabel" destination="f4k-q7-NZK" id="3c0-Ol-qKn"/>
+                        <outlet property="player2ScoreLabel" destination="1qw-Md-DpL" id="AII-V0-Ura"/>
                         <outlet property="playerNumber" destination="m1f-3w-JJe" id="9XZ-9B-dJ2"/>
                         <outlet property="velocityLabel" destination="Loh-ko-Tcr" id="Ap6-pw-yaZ"/>
                         <outlet property="velocitySlider" destination="Yo4-Tm-bkk" id="82P-Rs-are"/>

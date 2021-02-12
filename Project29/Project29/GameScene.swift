@@ -168,10 +168,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if firstNode.name == "banana" && secondNode.name == "player1" {
             destroy(player: player1)
+            viewController?.player2Score += 1
         }
         
         if firstNode.name == "banana" && secondNode.name == "player2" {
             destroy(player: player2)
+            viewController?.player1Score += 1
         }
     }
     
