@@ -252,7 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             newGame.currentPlayer = self.currentPlayer
             
             // 2. Create a transition using the list available from SKTransition.
-            let transition = SKTransition.doorway(withDuration: 0.5)
+            let transition = SKTransition.doorway(withDuration: 1.5)
             // Finally use the presentScene() method of our scene's view, passing in the new scene and the transition you created.
             self.view?.presentScene(newGame, transition: transition)
         }
