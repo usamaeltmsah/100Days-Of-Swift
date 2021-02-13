@@ -17,12 +17,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player1: SKSpriteNode!
     var player2: SKSpriteNode!
     var banana: SKSpriteNode!
+    var windLabel: SKLabelNode!
+    
+    var windData = "" {
+        didSet {
+            if windStrenth < 0 {
+                windLabel.text = "Left wind with strength \(windStrenth) Km/h"
+            } else if windStrenth > 0 {
+                windLabel.text = "Right wind with strength \(windStrenth) Km/h"
+            } else {
+                windLabel.text = "No wind :'D"
+            }
+        }
+    }
 
     var currentPlayer = 1
     var buildings = [BuildingNode]()
     
     var isGameOver = false
     
+    var windStrenth: Double = 0.0
     // Because if two objects own each other then we have a strong reference cycle – neither object can be destroyed. The solution is to make one of them have a weak reference to the other: either the game controller owns the game scene strongly, or the game scene owns the game controller strongly, but not both.
     // Solution is straightforward: add a strong reference to the game scene inside the view controller, and add a weak reference to the view controller from the game scene.
     weak var viewController: GameViewController?
@@ -35,6 +49,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createBuildings()
         createPlayers()
         physicsWorld.contactDelegate = self
+        
+        addWindLabel()
     }
     
     func createBuildings() {
@@ -56,6 +72,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             buildings.append(building)
         }
+        
+        windStrenth = Double.random(in: -10 ... 10)
+        physicsWorld.gravity = CGVector(dx: windStrenth, dy: -10)
+    }
+    
+    func addWindLabel() {
+        var text: String
+        if windStrenth < 0 {
+            text = "Left wind with strength \(round(windStrenth*100) / -100) Km/h"
+        } else if windStrenth > 0 {
+            text = "Right wind with strength \(round(windStrenth*100) / 100) Km/h"
+        } else {
+            text = "No wind :'D"
+        }
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 40)!, .backgroundColor: UIColor.init(red: 10, green: 100, blue: 50, alpha: 0.7), .strokeWidth: 5, .strokeColor: UIColor.blue], range: NSRange(location: 0, length: text.count))
+        windLabel = SKLabelNode(attributedText: attributedString)
+        windLabel.zPosition = .infinity
+        windLabel.position = CGPoint(x: 512, y: 50)
+        addChild(windLabel)
     }
     
     // Texture atlases allows SpriteKit to draw lots of images without having to load and unload textures – it effectively just crops the big image as needed. Xcode automatically generates these atlases for us, even rotating sprites to make them fit more efficiently. And the best bit: just like using Assets.xcassets, you don't need to change your code to make them work; just load sprites the same way you've always done.
@@ -271,7 +308,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let attributedString = NSMutableAttributedString(string: text)
         
         attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 70)!, .strokeWidth: 5, .strokeColor: UIColor.red], range: NSRange(location: 0, length: 8))
-        attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 50)!, .strokeWidth: 3, .strokeColor: UIColor.black], range: NSRange(location: 8, length: text.count - 8))
+        attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 50)!, .strokeWidth: 3, .strokeColor: UIColor.white], range: NSRange(location: 8, length: text.count - 8))
         let winnerLabel = SKLabelNode(attributedText: attributedString)
         winnerLabel.zPosition = .infinity
         winnerLabel.position = CGPoint(x: 512, y: 365)
