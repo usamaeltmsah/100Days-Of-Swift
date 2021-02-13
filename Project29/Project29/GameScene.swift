@@ -21,6 +21,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var currentPlayer = 1
     var buildings = [BuildingNode]()
     
+    var isGameOver = false
+    
     // Because if two objects own each other then we have a strong reference cycle – neither object can be destroyed. The solution is to make one of them have a weak reference to the other: either the game controller owns the game scene strongly, or the game scene owns the game controller strongly, but not both.
     // Solution is straightforward: add a strong reference to the game scene inside the view controller, and add a weak reference to the view controller from the game scene.
     weak var viewController: GameViewController?
@@ -36,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createBuildings() {
+        guard !isGameOver else { return }
         // Start at -15 rather than the left edge so that the buildings look like they keep on going past the screen's edge.
         var currentX: CGFloat = -15
         
@@ -58,6 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Texture atlases allows SpriteKit to draw lots of images without having to load and unload textures – it effectively just crops the big image as needed. Xcode automatically generates these atlases for us, even rotating sprites to make them fit more efficiently. And the best bit: just like using Assets.xcassets, you don't need to change your code to make them work; just load sprites the same way you've always done.
     
     func launch(angle: Int, velocity: Int) {
+        guard !isGameOver else { return }
         // 1. Figure out how hard to throw the banana. We accept a velocity parameter.
         let speed = Double(velocity) / 10.0
         // 2. Convert the input angle to radians. Most people don't think in radians, so the input will come in as degrees that we will convert to radians.
@@ -111,6 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createPlayers() {
+        guard !isGameOver else { return }
         // 1. Create a player sprite and name it "player1".
         player1 = SKSpriteNode(imageNamed: "player")
         player1.name = "player1"
@@ -144,6 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        guard !isGameOver else { return }
         // we need to consider: banana hit building, building hit banana (remember the philosophy?), banana hit player1, player1 hit banana, banana hit player2 and player2 hit banana.
         // This is a lot to check, so we're going to eliminate half of them by eliminating whether "banana hit building" or "building hit banana".
         
@@ -168,12 +174,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if firstNode.name == "banana" && secondNode.name == "player1" {
             destroy(player: player1)
-            viewController?.player2Score += 1
         }
         
         if firstNode.name == "banana" && secondNode.name == "player2" {
             destroy(player: player2)
-            viewController?.player1Score += 1
         }
     }
     
@@ -186,7 +190,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.removeFromParent()
         banana.removeFromParent()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        if player.name == "player1" {
+            viewController?.player2Score += 1
+        } else {
+            viewController?.player1Score += 1
+        }
+        
+        if viewController!.player1Score >= 3 {
+            endGame(winner: 1)
+            return
+        } else if viewController!.player2Score >= 3 {
+            endGame(winner: 2)
+            return
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             // To transition from one scene to another,
             // 1.you first create the scene.
             let newGame = GameScene(size: self.size)
@@ -197,13 +215,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             newGame.currentPlayer = self.currentPlayer
             
             // 2. Create a transition using the list available from SKTransition.
-            let transition = SKTransition.doorway(withDuration: 1.5)
+            let transition = SKTransition.doorway(withDuration: 0.5)
             // Finally use the presentScene() method of our scene's view, passing in the new scene and the transition you created.
             self.view?.presentScene(newGame, transition: transition)
         }
     }
     
     func changePlayer() {
+        guard !isGameOver else { return }
         if currentPlayer == 1 {
             currentPlayer = 2
         } else {
@@ -239,5 +258,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             banana = nil
             changePlayer()
         }
+    }
+    
+    func endGame(winner: Int) {
+        isGameOver = true
+        
+        displayWinner(winner: winner)
+    }
+    
+    func displayWinner(winner: Int) {
+        let text = "Player \(winner) is the WINNER"
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 70)!, .strokeWidth: 5, .strokeColor: UIColor.red], range: NSRange(location: 0, length: 8))
+        attributedString.addAttributes([.foregroundColor: UIColor.white, .font: UIFont(name: "Chalkduster", size: 50)!, .strokeWidth: 3, .strokeColor: UIColor.black], range: NSRange(location: 8, length: text.count - 8))
+        let winnerLabel = SKLabelNode(attributedText: attributedString)
+        winnerLabel.zPosition = .infinity
+        winnerLabel.position = CGPoint(x: 512, y: 365)
+        addChild(winnerLabel)
     }
 }

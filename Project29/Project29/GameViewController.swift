@@ -21,12 +21,12 @@ class GameViewController: UIViewController {
     
     var player1Score = 0 {
         didSet {
-            player1ScoreLabel.text = "Player1: \(player1Score)"
+            player1ScoreLabel.text = "Player 1: \(player1Score)"
         }
     }
     var player2Score = 0 {
         didSet {
-            player2ScoreLabel.text = "Player2: \(player2Score)"
+            player2ScoreLabel.text = "Player 2: \(player2Score)"
         }
     }
     
