@@ -113,3 +113,6 @@
 
 ## [Project 28 - Secret Swift](Project28)
 <img alt="Project 28 - Demo" src="Project28/Project28-demo.gif" width="200" height="400" />
+
+## [Project 29 - Exploding Monkeys Game](Project29)
+<img alt="Project 29 - Demo" src="Project29/Project29-demo.gif" width="400" height="400" />
