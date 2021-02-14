@@ -82,24 +82,25 @@ class ImageViewController: UIViewController {
         // How likely is it that users will go back and forward to the same image again and again? Not likely at all, so we can skip the image cache by creating our images using the UIImage(contentsOfFile:) initializer instead. This isn't as friendly as UIImage(named:) because you need to specify the exact path to an image rather than just its filename in your app bundle. The solution is to use Bundle.main.path(forResource:ofType:), which is similar to the Bundle.main.url(forResource:) method we’ve used previously, except it returns a simple string rather than a URL:
 //		let original = UIImage(named: image)!
         
-        let path = Bundle.main.path(forResource: image, ofType: nil)!
-        let original = UIImage(contentsOfFile: path)!
-        
-        // What's causing the image view controller to never be destroyed? If you read through SelectionViewController.swift and ImageViewController.swift you might spot these two things:
-        
-            // 1. The selection view controller has a viewControllers array that claims to be a cache of the detail view controllers. This cache is never actually used, and even if it were used it really isn't needed.
-            // 2. The image view controller has a property var owner: SelectionViewController! – that makes it a strong reference to the view controller that created it.
-        
-		let renderer = UIGraphicsImageRenderer(size: original.size)
+        if let path = Bundle.main.path(forResource: image, ofType: nil) {
+            if let original = UIImage(contentsOfFile: path) {
+                // What's causing the image view controller to never be destroyed? If you read through SelectionViewController.swift and ImageViewController.swift you might spot these two things:
+                
+                    // 1. The selection view controller has a viewControllers array that claims to be a cache of the detail view controllers. This cache is never actually used, and even if it were used it really isn't needed.
+                    // 2. The image view controller has a property var owner: SelectionViewController! – that makes it a strong reference to the view controller that created it.
+                
+                let renderer = UIGraphicsImageRenderer(size: original.size)
 
-		let rounded = renderer.image { ctx in
-			ctx.cgContext.addEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
-			ctx.cgContext.closePath()
+                let rounded = renderer.image { ctx in
+                    ctx.cgContext.addEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
+                    ctx.cgContext.closePath()
 
-			original.draw(at: CGPoint.zero)
-		}
+                    original.draw(at: CGPoint.zero)
+                }
 
-		imageView.image = rounded
+                imageView.image = rounded
+            }
+        }
     }
 
 	override func viewDidAppear(_ animated: Bool) {
