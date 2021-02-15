@@ -100,24 +100,22 @@ class SelectionViewController: UITableViewController {
     func loadSmallImages() {
         for imgName in items {
             var image = UIImage()
-            if let path = Bundle.main.path(forResource: imgName, ofType: nil) {
-                if let original = UIImage(contentsOfFile: path) {
-                    // MARK: PERFORMANCE ISSUE
+            let original = UIImage(uncached: imgName)
+            // MARK: PERFORMANCE ISSUE
 
-                    // MARK: The problem is that the images being loaded are 750x750 pixels at 1x resolution, so 1500x1500 at 2x and 2250x2250 at 3x. If you look at viewDidLoad() you’ll see that the row height is 90 points, so we’re loading huge pictures into a tiny space. That means loading a 1500x1500 image or larger, creating a second render buffer that size, rendering the image into it, and so on.
-                    
-                    let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
-                    let renderer = UIGraphicsImageRenderer(size: renderRect.size)
-                    let rounded = renderer.image { ctx in
-                        ctx.cgContext.addEllipse(in: renderRect)
-                        // clip(): you can create a path and draw it using two separate Core Graphics commands, but instead of running the draw command you can take the existing path and use it for clipping instead. This has the effect of only drawing things that lie inside the path, so when the UIImage is drawn only the parts that lie inside the elliptical clipping path are visible, thus rounding the corners.
-                        ctx.cgContext.clip()
-                        original.draw(in: renderRect)
-                    }
-                    image = rounded
-                }
-                smallImages.append(image)
+            // MARK: The problem is that the images being loaded are 750x750 pixels at 1x resolution, so 1500x1500 at 2x and 2250x2250 at 3x. If you look at viewDidLoad() you’ll see that the row height is 90 points, so we’re loading huge pictures into a tiny space. That means loading a 1500x1500 image or larger, creating a second render buffer that size, rendering the image into it, and so on.
+            
+            let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
+            let renderer = UIGraphicsImageRenderer(size: renderRect.size)
+            let rounded = renderer.image { ctx in
+                ctx.cgContext.addEllipse(in: renderRect)
+                // clip(): you can create a path and draw it using two separate Core Graphics commands, but instead of running the draw command you can take the existing path and use it for clipping instead. This has the effect of only drawing things that lie inside the path, so when the UIImage is drawn only the parts that lie inside the elliptical clipping path are visible, thus rounding the corners.
+                ctx.cgContext.clip()
+                original?.draw(in: renderRect)
             }
+            image = rounded
+            
+            smallImages.append(image)
         }
     }
     
@@ -143,4 +141,15 @@ class SelectionViewController: UITableViewController {
 //		viewControllers.append(vc)
 		navigationController?.pushViewController(vc, animated: true)
 	}
+}
+
+
+extension UIImage {
+    convenience init?(uncached name: String) {
+        if let path = Bundle.main.path(forResource: name, ofType: nil) {
+            self.init(contentsOfFile: path)
+        } else {
+            return nil
+        }
+    }
 }
