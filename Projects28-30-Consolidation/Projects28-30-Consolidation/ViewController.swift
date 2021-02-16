@@ -52,13 +52,10 @@ class ViewController: UICollectionViewController {
         let cell = collectionView.cellForItem(at: indexPath) as? CardCell
         
         allCards[indexPath.item].flip()
-        
         if allCards[indexPath.item].isFaceUp {
-            cell?.cardContext.isHidden = false
-            cell?.backgroundColor = .orange
+            cell?.showCard()
         } else {
-//            cell?.cardContext.isHidden = true
-//            cell?.backgroundColor = .green
+            cell?.hideCard()
         }
     }
 

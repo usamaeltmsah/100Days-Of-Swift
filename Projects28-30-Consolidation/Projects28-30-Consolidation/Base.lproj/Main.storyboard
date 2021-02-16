@@ -31,22 +31,34 @@
                                     <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-JV-SqW">
-                                            <rect key="frame" x="60" y="75" width="0.0" height="0.0"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ZD-e8-iVA">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="150"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-JV-SqW">
+                                                    <rect key="frame" x="60" y="75" width="0.0" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                            <constraints>
+                                                <constraint firstItem="VSD-JV-SqW" firstAttribute="centerX" secondItem="7ZD-e8-iVA" secondAttribute="centerX" id="nwD-yw-HOy"/>
+                                                <constraint firstItem="VSD-JV-SqW" firstAttribute="centerY" secondItem="7ZD-e8-iVA" secondAttribute="centerY" id="zgL-ve-6gA"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="VSD-JV-SqW" firstAttribute="centerX" secondItem="50O-Hq-JpO" secondAttribute="centerX" id="1xw-bX-g4j"/>
-                                        <constraint firstItem="VSD-JV-SqW" firstAttribute="centerY" secondItem="50O-Hq-JpO" secondAttribute="centerY" id="IY4-S8-0mO"/>
+                                        <constraint firstItem="7ZD-e8-iVA" firstAttribute="centerX" secondItem="50O-Hq-JpO" secondAttribute="centerX" id="9v9-xj-YCS"/>
+                                        <constraint firstItem="7ZD-e8-iVA" firstAttribute="centerY" secondItem="50O-Hq-JpO" secondAttribute="centerY" id="O33-yb-Roq"/>
+                                        <constraint firstItem="7ZD-e8-iVA" firstAttribute="leading" secondItem="50O-Hq-JpO" secondAttribute="leading" id="QXY-7c-aY6"/>
+                                        <constraint firstItem="7ZD-e8-iVA" firstAttribute="top" secondItem="50O-Hq-JpO" secondAttribute="top" id="oGG-WX-0aL"/>
                                     </constraints>
                                 </collectionViewCellContentView>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <size key="customSize" width="120" height="150"/>
                                 <connections>
                                     <outlet property="cardContext" destination="VSD-JV-SqW" id="mK1-5p-AlD"/>
+                                    <outlet property="cardView" destination="7ZD-e8-iVA" id="DdH-ay-Clz"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
