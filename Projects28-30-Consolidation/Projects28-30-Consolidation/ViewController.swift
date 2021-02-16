@@ -11,6 +11,11 @@ class ViewController: UICollectionViewController {
     var cardsPairs = [CardsPair]()
     var allCards = [Card]()
     
+    var faceUpCardsIdx = [Int]()
+    
+    var lastCell: CardCell!
+    var lastCard: Card!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,6 +27,7 @@ class ViewController: UICollectionViewController {
         cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
         
         for pair in cardsPairs {
+            pair.card.match(with: pair.matching)
             allCards.append(pair.card)
             allCards.append(pair.matching)
         }
@@ -51,11 +57,34 @@ class ViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? CardCell
         
-        allCards[indexPath.item].flip()
-        if allCards[indexPath.item].isFaceUp {
+        let card = allCards[indexPath.item]
+        if !card.isFaceUp && faceUpCardsIdx.count < 2 {
             cell?.showCard()
-        } else {
-            cell?.hideCard()
+            allCards[indexPath.item].flip()
+            faceUpCardsIdx.append(indexPath.item)
+            
+            if faceUpCardsIdx.count >= 2 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    if card.isMatchWith(card: self.lastCard) {
+                        cell?.isHidden = true
+                        self.lastCell.isHidden = true
+                    } else {
+                        cell?.hideCard()
+                        self.lastCell?.hideCard()
+                        self.flipCards()
+                    }
+                    self.faceUpCardsIdx.removeAll()
+                }
+            } else {
+                lastCell = cell
+                lastCard = card
+            }
+        }
+    }
+    
+    func flipCards() {
+        for cardIdx in self.faceUpCardsIdx {
+            allCards[cardIdx].flip()
         }
     }
 
