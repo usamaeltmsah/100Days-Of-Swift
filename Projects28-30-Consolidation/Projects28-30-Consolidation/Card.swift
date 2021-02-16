@@ -10,7 +10,14 @@ import Foundation
 struct Card {
     let context: String
     
+    var isFaceUp = false
+    var isMatched = false
+    
     init(context: String) {
         self.context = context
+    }
+    
+    mutating func flip() {
+        isFaceUp.toggle()
     }
 }

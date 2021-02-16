@@ -16,8 +16,10 @@ class ViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         cardsPairs.append(CardsPair(card: Card(context: "France"), matching: Card(context: "Paris")))
         cardsPairs.append(CardsPair(card: Card(context: "😂")))
-        cardsPairs.append(CardsPair(card: Card(context: "👨‍👨‍👦")))
+        cardsPairs.append(CardsPair(card: Card(context: "😎")))
+        cardsPairs.append(CardsPair(card: Card(context: "🙆")))
         cardsPairs.append(CardsPair(card: Card(context: "Egypt"), matching: Card(context: "Cairo")))
+        cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
         
         for pair in cardsPairs {
             allCards.append(pair.card)
@@ -37,12 +39,27 @@ class ViewController: UICollectionViewController {
         }
         let card = allCards[indexPath.item]
         cell.cardContext.text = card.context
+        cell.cardContext.isHidden = true
         
         if card.context.count < 2 {
             cell.cardContext.font = UIFont.systemFont(ofSize: 100)
         }
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? CardCell
+        
+        allCards[indexPath.item].flip()
+        
+        if allCards[indexPath.item].isFaceUp {
+            cell?.cardContext.isHidden = false
+            cell?.backgroundColor = .orange
+        } else {
+//            cell?.cardContext.isHidden = true
+//            cell?.backgroundColor = .green
+        }
     }
 
 
