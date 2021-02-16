@@ -17,7 +17,7 @@ struct CardsPair {
     }
     
     init(card: Card) {
-        self.card = card
-        self.matching = card
+        self.card = Card(context: card.context)
+        self.matching = Card(context: card.context)
     }
 }

@@ -7,17 +7,33 @@
 
 import Foundation
 
-struct Card {
-    let context: String
+class Card {
+    var context: String
     
     var isFaceUp = false
     var isMatched = false
+    var matching: String!
+    
+    init(context: String, matching: String) {
+        self.context = context
+        self.matching = matching
+    }
     
     init(context: String) {
         self.context = context
+        self.matching = context
     }
     
-    mutating func flip() {
+    func match(with card: Card) {
+        self.matching = card.context
+        card.matching = self.context
+    }
+    
+    func flip() {
         isFaceUp.toggle()
+    }
+    
+    func isMatchWith(card: Card) -> Bool {
+        return matching == card.context
     }
 }
