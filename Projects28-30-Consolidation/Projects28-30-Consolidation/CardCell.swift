@@ -13,6 +13,8 @@ class CardCell: UICollectionViewCell {
     var hiddenView: UIView!
     
     override func awakeFromNib() {
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.white.cgColor
         hiddenView = UIView(frame: cardView.frame)
         hiddenView.backgroundColor = .systemGreen
         self.addSubview(hiddenView)

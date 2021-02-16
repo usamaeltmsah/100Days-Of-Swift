@@ -15,6 +15,8 @@ class ViewController: UICollectionViewController {
     
     var lastCell: CardCell!
     var lastCard: Card!
+    var numMatched: Int!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +28,26 @@ class ViewController: UICollectionViewController {
         cardsPairs.append(CardsPair(card: Card(context: "Egypt"), matching: Card(context: "Cairo")))
         cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
         
+        loadGame(nil)
+    }
+    
+    @objc func loadGame(_ action : UIAlertAction!) {
+        allCards.removeAll()
+        faceUpCardsIdx.removeAll()
+        numMatched = 0
+        
         for pair in cardsPairs {
             pair.card.match(with: pair.matching)
             allCards.append(pair.card)
             allCards.append(pair.matching)
         }
         
+        for card in allCards {
+            card.isFaceUp = false
+        }
+        
         allCards.shuffle()
+        collectionView.reloadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -49,7 +64,12 @@ class ViewController: UICollectionViewController {
         
         if card.context.count < 2 {
             cell.cardContext.font = UIFont.systemFont(ofSize: 100)
+        } else {
+            cell.cardContext.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         }
+        
+        cell.cardView.isHidden = false
+        cell.hideCard()
         
         return cell
     }
@@ -66,8 +86,14 @@ class ViewController: UICollectionViewController {
             if faceUpCardsIdx.count >= 2 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     if card.isMatchWith(card: self.lastCard) {
-                        cell?.isHidden = true
-                        self.lastCell.isHidden = true
+                        cell?.cardView.isHidden = true
+                        self.lastCell.cardView.isHidden = true
+                        
+                        self.numMatched += 1
+                        
+                        if self.numMatched == self.cardsPairs.count {
+                            self.showYouWin()
+                        }
                     } else {
                         cell?.hideCard()
                         self.lastCell?.hideCard()
@@ -86,6 +112,15 @@ class ViewController: UICollectionViewController {
         for cardIdx in self.faceUpCardsIdx {
             allCards[cardIdx].flip()
         }
+    }
+    
+    func showYouWin() {
+        let ac = UIAlertController(title: "You Win!", message: nil, preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: loadGame))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        
+        present(ac, animated: true)
     }
 
 
