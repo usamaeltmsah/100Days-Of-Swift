@@ -5,6 +5,7 @@
 //  Created by Usama Fouad on 15/02/2021.
 //
 
+import LocalAuthentication
 import UIKit
 
 class ViewController: UICollectionViewController {
@@ -150,6 +151,29 @@ class ViewController: UICollectionViewController {
     }
     
     @objc func viewCardsManager() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself!"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {[weak self] success,authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self?.openView()
+                    } else {
+                        self?.enterPassword()
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device isn't configured for biometric authentication.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+        
+    }
+
+    func openView() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "CardsManager") as? CardsManagerViewController {
             vc.delegate = self
             scoreLabel.isHidden = true
@@ -158,7 +182,6 @@ class ViewController: UICollectionViewController {
             }
         }
     }
-
 
 }
 
