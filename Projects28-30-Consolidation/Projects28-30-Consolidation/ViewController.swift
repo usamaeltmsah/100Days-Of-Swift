@@ -20,10 +20,10 @@ class ViewController: UICollectionViewController {
     
     let NUM_OF_PAIRS = 6
     
-    var scoreLabel: UILabel!
+    var scoreLabel: UIBarButtonItem!
     var score = 0 {
         didSet {
-            scoreLabel.text = "Score: \(score)"
+            scoreLabel.title = "Score: \(score)"
         }
     }
     
@@ -34,14 +34,9 @@ class ViewController: UICollectionViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(viewCardsManager))
         
-        if let navigationBar = self.navigationController?.navigationBar {
-            let scoreFrame = CGRect(x: 10, y: 0, width: navigationBar.frame.width/2, height: navigationBar.frame.height)
-
-            scoreLabel = UILabel(frame: scoreFrame)
-            scoreLabel.text = "Score: 0"
-
-            navigationBar.addSubview(scoreLabel)
-        }
+        scoreLabel = UIBarButtonItem(title: "Score: 0", style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = scoreLabel
+        scoreLabel.tintColor = .darkText
         
         loadCardsPairs()
         
@@ -180,7 +175,6 @@ class ViewController: UICollectionViewController {
     func openView() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "CardsManager") as? CardsManagerViewController {
             vc.delegate = self
-            scoreLabel.isHidden = true
             if let navigator = navigationController {
                 navigator.pushViewController(vc, animated: true)
             }
