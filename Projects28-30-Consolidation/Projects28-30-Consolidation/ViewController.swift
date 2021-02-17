@@ -31,6 +31,15 @@ class ViewController: UICollectionViewController {
         
         title = "Memory Game 🤔"
         
+        if let navigationBar = self.navigationController?.navigationBar {
+            let scoreFrame = CGRect(x: 10, y: 0, width: navigationBar.frame.width/2, height: navigationBar.frame.height)
+
+            scoreLabel = UILabel(frame: scoreFrame)
+            scoreLabel.text = "Score: 0"
+
+            navigationBar.addSubview(scoreLabel)
+        }
+        
         cardsPairs.append(CardsPair(card: Card(context: "France"), matching: Card(context: "Paris")))
         cardsPairs.append(CardsPair(card: Card(context: "😂")))
         cardsPairs.append(CardsPair(card: Card(context: "😎")))
@@ -48,6 +57,7 @@ class ViewController: UICollectionViewController {
     @objc func loadGame(_ action : UIAlertAction!) {
         allCards.removeAll()
         faceUpCardsIdx.removeAll()
+        score = 0
         
         pairsForGame = cardsPairs.prefix(NUM_OF_PAIRS)
         
@@ -63,15 +73,6 @@ class ViewController: UICollectionViewController {
         
         allCards.shuffle()
         collectionView.reloadData()
-        
-        if let navigationBar = self.navigationController?.navigationBar {
-            let scoreFrame = CGRect(x: 10, y: 0, width: navigationBar.frame.width/2, height: navigationBar.frame.height)
-
-            scoreLabel = UILabel(frame: scoreFrame)
-            scoreLabel.text = "Score: 0"
-
-            navigationBar.addSubview(scoreLabel)
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
