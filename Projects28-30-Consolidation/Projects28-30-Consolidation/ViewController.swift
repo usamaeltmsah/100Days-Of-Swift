@@ -35,8 +35,10 @@ class ViewController: UICollectionViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(viewCardsManager))
         
         scoreLabel = UIBarButtonItem(title: "Score: 0", style: .plain, target: self, action: nil)
-        navigationItem.leftBarButtonItem = scoreLabel
         scoreLabel.tintColor = .darkText
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(loadGame))
+        
+        navigationItem.leftBarButtonItems = [scoreLabel, refreshButton]
         
         loadCardsPairs()
         
