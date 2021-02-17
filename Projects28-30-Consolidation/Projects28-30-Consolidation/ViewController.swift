@@ -9,12 +9,15 @@ import UIKit
 
 class ViewController: UICollectionViewController {
     var cardsPairs = [CardsPair]()
+    var pairsForGame = ArraySlice<CardsPair>()
     var allCards = [Card]()
     
     var faceUpCardsIdx = [Int]()
     
     var lastCell: CardCell!
     var lastCard: Card!
+    
+    let NUM_OF_PAIRS = 6
     
     var scoreLabel: UILabel!
     var score = 0 {
@@ -34,6 +37,10 @@ class ViewController: UICollectionViewController {
         cardsPairs.append(CardsPair(card: Card(context: "🙆")))
         cardsPairs.append(CardsPair(card: Card(context: "Egypt"), matching: Card(context: "Cairo")))
         cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
+        cardsPairs.append(CardsPair(card: Card(context: "🤡")))
+        cardsPairs.append(CardsPair(card: Card(context: "👻")))
+        
+        cardsPairs.shuffle()
         
         loadGame(nil)
     }
@@ -42,7 +49,9 @@ class ViewController: UICollectionViewController {
         allCards.removeAll()
         faceUpCardsIdx.removeAll()
         
-        for pair in cardsPairs {
+        pairsForGame = cardsPairs.prefix(NUM_OF_PAIRS)
+        
+        for pair in pairsForGame {
             pair.card.match(with: pair.matching)
             allCards.append(pair.card)
             allCards.append(pair.matching)
@@ -106,7 +115,7 @@ class ViewController: UICollectionViewController {
                         
                         self.score += 1
                         
-                        if self.score == self.cardsPairs.count {
+                        if self.score == self.pairsForGame.count {
                             self.showYouWin()
                         }
                     } else {
@@ -132,7 +141,7 @@ class ViewController: UICollectionViewController {
     func showYouWin() {
         let ac = UIAlertController(title: "You Win!", message: nil, preferredStyle: .alert)
         
-        ac.addAction(UIAlertAction(title: "Play Again!", style: .default, handler: loadGame))
+        ac.addAction(UIAlertAction(title: "New Game!", style: .default, handler: loadGame))
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         
         present(ac, animated: true)
