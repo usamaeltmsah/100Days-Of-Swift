@@ -31,6 +31,8 @@ class ViewController: UICollectionViewController {
         
         title = "Memory Game 🤔"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(viewCardsManager))
+        
         if let navigationBar = self.navigationController?.navigationBar {
             let scoreFrame = CGRect(x: 10, y: 0, width: navigationBar.frame.width/2, height: navigationBar.frame.height)
 
@@ -146,6 +148,16 @@ class ViewController: UICollectionViewController {
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         
         present(ac, animated: true)
+    }
+    
+    @objc func viewCardsManager() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "CardsManager") as? CardsManagerViewController {
+            vc.delegate = self
+            scoreLabel.isHidden = true
+            if let navigator = navigationController {
+                navigator.pushViewController(vc, animated: true)
+            }
+        }
     }
 
 
