@@ -43,14 +43,18 @@ class ViewController: UICollectionViewController {
             navigationBar.addSubview(scoreLabel)
         }
         
-        cardsPairs.append(CardsPair(card: Card(context: "France"), matching: Card(context: "Paris")))
-        cardsPairs.append(CardsPair(card: Card(context: "😂")))
-        cardsPairs.append(CardsPair(card: Card(context: "😎")))
-        cardsPairs.append(CardsPair(card: Card(context: "🙆")))
-        cardsPairs.append(CardsPair(card: Card(context: "Egypt"), matching: Card(context: "Cairo")))
-        cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
-        cardsPairs.append(CardsPair(card: Card(context: "🤡")))
-        cardsPairs.append(CardsPair(card: Card(context: "👻")))
+        loadCardsPairs()
+        
+        if cardsPairs.count < NUM_OF_PAIRS {
+            cardsPairs.append(CardsPair(card: Card(context: "France"), matching: Card(context: "Paris")))
+            cardsPairs.append(CardsPair(card: Card(context: "😂")))
+            cardsPairs.append(CardsPair(card: Card(context: "😎")))
+            cardsPairs.append(CardsPair(card: Card(context: "🙆")))
+            cardsPairs.append(CardsPair(card: Card(context: "Egypt"), matching: Card(context: "Cairo")))
+            cardsPairs.append(CardsPair(card: Card(context: "Hello"), matching: Card(context: "مرحباً")))
+            cardsPairs.append(CardsPair(card: Card(context: "🤡")))
+            cardsPairs.append(CardsPair(card: Card(context: "👻")))
+        }
         
         loadGame(nil)
     }
@@ -208,6 +212,31 @@ class ViewController: UICollectionViewController {
             }))
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))
             present(ac, animated: true)
+        }
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(cardsPairs) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "cardsPairs")
+        } else {
+            print("Failed to save cards pairs")
+        }
+    }
+    
+    func loadCardsPairs() {
+        let defaults = UserDefaults.standard
+        
+        if let savedCardsPairs = defaults.object(forKey: "cardsPairs") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                cardsPairs = try jsonDecoder.decode([CardsPair].self, from: savedCardsPairs)
+            } catch {
+                print("Failed to load cards pairs.")
+            }
         }
     }
 

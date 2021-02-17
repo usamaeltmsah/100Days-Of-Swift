@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct CardsPair {
+struct CardsPair : Codable {
     let card: Card
     let matching: Card
     

@@ -49,6 +49,7 @@ class CardsManagerViewController: UITableViewController {
                 matching = card
             }
             self?.delegate?.cardsPairs.append(CardsPair(card: Card(context: card, matching: matching)))
+            self?.delegate?.save()
             self?.tableView.reloadData()
         }
         

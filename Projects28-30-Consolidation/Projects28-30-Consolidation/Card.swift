@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Card {
+class Card : NSObject, Codable {
     var context: String
     
     var isFaceUp = false
