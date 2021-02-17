@@ -51,8 +51,6 @@ class ViewController: UICollectionViewController {
         cardsPairs.append(CardsPair(card: Card(context: "🤡")))
         cardsPairs.append(CardsPair(card: Card(context: "👻")))
         
-        cardsPairs.shuffle()
-        
         loadGame(nil)
     }
     
@@ -61,6 +59,7 @@ class ViewController: UICollectionViewController {
         faceUpCardsIdx.removeAll()
         score = 0
         
+        cardsPairs.shuffle()
         pairsForGame = cardsPairs.prefix(NUM_OF_PAIRS)
         
         for pair in pairsForGame {
