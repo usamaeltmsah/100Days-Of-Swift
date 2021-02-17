@@ -182,6 +182,34 @@ class ViewController: UICollectionViewController {
             }
         }
     }
+    
+    func enterPassword() {
+        let ac = UIAlertController(title: "Authentication failed!", message: "You couldn't be verified; please try again.", preferredStyle: .alert)
+        
+        ac.addTextField()
+        ac.textFields?[0].isSecureTextEntry = true
+        ac.textFields?[0].keyboardType = .numberPad
+        let submitAction = UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
+            guard let password = ac?.textFields?[0].text else { return }
+            self?.check(password: password)
+        }
+        ac.addAction(submitAction)
+        
+        present(ac, animated: true)
+    }
+    
+    func check(password: String?) {
+        if password == "123456" {
+            openView()
+        } else {
+            let ac = UIAlertController(title: "Wrong password", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Try again", style: .default, handler: {[weak self] _ in
+                self?.enterPassword()
+            }))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+            present(ac, animated: true)
+        }
+    }
 
 }
 
