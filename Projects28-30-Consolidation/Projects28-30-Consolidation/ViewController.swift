@@ -15,12 +15,19 @@ class ViewController: UICollectionViewController {
     
     var lastCell: CardCell!
     var lastCard: Card!
-    var numMatched: Int!
     
+    var scoreLabel: UILabel!
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        title = "Memory Game 🤔"
+        
         cardsPairs.append(CardsPair(card: Card(context: "France"), matching: Card(context: "Paris")))
         cardsPairs.append(CardsPair(card: Card(context: "😂")))
         cardsPairs.append(CardsPair(card: Card(context: "😎")))
@@ -34,7 +41,6 @@ class ViewController: UICollectionViewController {
     @objc func loadGame(_ action : UIAlertAction!) {
         allCards.removeAll()
         faceUpCardsIdx.removeAll()
-        numMatched = 0
         
         for pair in cardsPairs {
             pair.card.match(with: pair.matching)
@@ -48,6 +54,15 @@ class ViewController: UICollectionViewController {
         
         allCards.shuffle()
         collectionView.reloadData()
+        
+        if let navigationBar = self.navigationController?.navigationBar {
+            let scoreFrame = CGRect(x: 10, y: 0, width: navigationBar.frame.width/2, height: navigationBar.frame.height)
+
+            scoreLabel = UILabel(frame: scoreFrame)
+            scoreLabel.text = "Score: 0"
+
+            navigationBar.addSubview(scoreLabel)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,9 +104,9 @@ class ViewController: UICollectionViewController {
                         cell?.cardView.isHidden = true
                         self.lastCell.cardView.isHidden = true
                         
-                        self.numMatched += 1
+                        self.score += 1
                         
-                        if self.numMatched == self.cardsPairs.count {
+                        if self.score == self.cardsPairs.count {
                             self.showYouWin()
                         }
                     } else {
