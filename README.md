@@ -35,7 +35,7 @@
 <img alt="Project 7 - Demo" src="Project07/Project7-demo.gif" width="200" height="400" />
 
 ## [Project 8 - Swifty Words](Project08)
-<img alt="Project 8 - Demo" src="Project08/Project8-demo.gif" width="400" height="350" />
+<img alt="Project 8 - Demo" src="Project08/Project8-demo.gif" width="500" height="350" />
 
 ## [Projects 7-9 Consolidation](Projects%207-9%20Consolidation)
 <img alt="Projects 7-9 Consolidation - Demo" src="Projects%207-9%20Consolidation/Projects 7-9 Consolidation-demo.gif" width="200" height="400" />
@@ -44,7 +44,7 @@
 <img alt="Project 10 - Demo" src="Project10/Project10-demo.gif" width="200" height="400" />
 
 ## [Project 11 - Pachinko Game](Project11)
-<img alt="Project 11 - Demo" src="Project11/Project11-demo.gif" width="400" height="350" />
+<img alt="Project 11 - Demo" src="Project11/Project11-demo.gif" width="500" height="350" />
 
 ## [Project 12 a - UserDefaults(NSCoding)](Project12a)
 
@@ -61,7 +61,7 @@
 <img alt="Project 14 - Demo" src="Project14/project14-demo.gif" width="400" height="200" />
 
 ## [Project 15 - Animation](Project15)
-<img alt="Project 15 - Demo" src="Project15/project15-demo.gif" width="400" height="400" />
+<img alt="Project 15 - Demo" src="Project15/project15-demo.gif" width="500" height="400" />
 
 ## [Projects 13-15 Consolidation](Projects13-15-Consolidation)
 <img alt="Projects 13-15 Consolidation - Demo" src="Projects13-15-Consolidation/Projects 13-15 Consolidation-demo.gif" width="200" height="400" />
@@ -70,18 +70,18 @@
 <img alt="Project 16 - Demo" src="Project16/Project16-demo.gif" width="200" height="400" />
 
 ## [Project 17 - Space Race](Project17)
-<img alt="Project 17 - Demo" src="Project17/Project17-demo.gif" width="400" height="400" />
+<img alt="Project 17 - Demo" src="Project17/Project17-demo.gif" width="500" height="400" />
 
 ## [Project 18 - Debugging](Project18)
 
 ## [Projects 16-18 Consolidation - Shooting Gallery Game](Projects16-18-Consolidation)
-<img alt="Projects 16-18 Consolidation - Demo" src="Projects16-18-Consolidation/Projects 16-18 Consolidation-demo.gif" width="400" height="400" />
+<img alt="Projects 16-18 Consolidation - Demo" src="Projects16-18-Consolidation/Projects 16-18 Consolidation-demo.gif" width="500" height="400" />
 
 ## [Project 19 - JavaScript Injection](Project19)
 <img alt="Project 19 - Demo" src="Project19/Project19-demo.gif" width="200" height="400" />
 
 ## [Project 20 - Fireworks Night Game](Project20)
-<img alt="Project 20 - Demo" src="Project20/Project20-demo.gif" width="400" height="400" />
+<img alt="Project 20 - Demo" src="Project20/Project20-demo.gif" width="500" height="400" />
 
 ## [Project 21 - Local Notification](Project21)
 <img alt="Project 21 - Demo" src="Project21/Project21-demo.gif" width="200" height="400" />
@@ -93,20 +93,20 @@
 <img alt="Project 22 - Demo" src="Project22/Project22-demo.gif" width="200" height="400" />
 
 ## [Project 23 - Swifty Ninja](Project23)
-<img alt="Project 23 - Demo" src="Project23/Project23-demo.gif" width="400" height="400" />
+<img alt="Project 23 - Demo" src="Project23/Project23-demo.gif" width="500" height="400" />
 
 ## [Project 24 - Swift Strings](Project24.playground)
 
 ## [Projects 22-24 Consolidation - Extensions Practice](Projects22-24-Consolidation.playground)
 
 ## [Project 25 - Selfie Share - MultiPeer Networking](Project25)
-<img alt="Project 25 - Demo" src="Project25/Project25-demo.gif" width="500" height="400" />
+<img alt="Project 25 - Demo" src="Project25/Project25-demo.gif" width="500" height="300" />
 
 ## [Project 26 - Marble Maze Game](Project26)
-<img alt="Project 26 - Demo" src="Project26/Project26-demo.gif" width="400" height="400" />
+<img alt="Project 26 - Demo" src="Project26/Project26-demo.gif" width="500" height="400" />
 
 ## [Project 27 - Core Graphics](Project27)
-<img alt="Project 27 - Demo" src="Project27/Project27-demo.gif" width="400" height="400" />
+<img alt="Project 27 - Demo" src="Project27/Project27-demo.gif" width="500" height="400" />
 
 ## [Projects 25-27 Consolidation - Meme Generator](Projects25-27-Consolidation)
 <img alt="Projects 25-27 Consolidation - Demo" src="Projects25-27-Consolidation/Projects 25-27 Consolidation-demo.gif" width="200" height="400" />
@@ -115,7 +115,7 @@
 <img alt="Project 28 - Demo" src="Project28/Project28-demo.gif" width="200" height="400" />
 
 ## [Project 29 - Exploding Monkeys Game](Project29)
-<img alt="Project 29 - Demo" src="Project29/Project29-demo.gif" width="400" height="400" />
+<img alt="Project 29 - Demo" src="Project29/Project29-demo.gif" width="500" height="400" />
 
 ## [Project 30 - Instrumentse](project30)
 <img alt="Project 30 - Demo" src="project30/Project30-demo.gif" width="600" height="400" />
